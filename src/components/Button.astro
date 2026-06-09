@@ -1,15 +1,16 @@
 ---
 interface Props {
   href: string;
-  variant?: 'solid' | 'outline';
+  variant?: 'solid' | 'outline' | 'gold';
   class?: string;
 }
 
 const { href, variant = 'solid', class: className = '' } = Astro.props;
 
 const variants = {
-  solid: 'bg-brand text-surface hover:bg-accent',
+  solid:   'bg-brand text-surface hover:bg-royal',
   outline: 'border-2 border-brand text-brand hover:bg-brand hover:text-surface',
+  gold:    'bg-accent text-brand hover:brightness-90',
 };
 ---
 

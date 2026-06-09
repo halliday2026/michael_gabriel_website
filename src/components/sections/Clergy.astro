@@ -1,0 +1,56 @@
+---
+import Section from '../Section.astro';
+import { site, content } from '../../data/site';
+
+const { clergy } = content.en;
+---
+
+<Section id="clergy" tone="default">
+  <h2
+    class="font-display text-3xl font-bold text-brand sm:text-4xl"
+    data-i18n="clergy.heading"
+  >
+    {clergy.heading}
+  </h2>
+
+  <!-- Priest card -->
+  <div class="mt-8 max-w-lg rounded-(--radius) border border-muted bg-muted p-6 shadow-sm">
+    <p class="text-xs font-semibold uppercase tracking-widest text-accent" data-i18n="clergy.subhead">
+      {clergy.subhead}
+    </p>
+    <p class="mt-2 font-display text-xl font-bold text-brand" data-i18n="clergy.name">
+      {clergy.name}
+    </p>
+
+    <dl class="mt-4 space-y-2 text-sm text-ink/80">
+      <div class="flex gap-2">
+        <dt class="font-semibold text-brand shrink-0">Phone</dt>
+        <dd>
+          <a
+            href={`tel:${site.contact.phone.replace(/[^+\d]/g, '')}`}
+            class="hover:text-accent"
+            data-i18n="clergy.phone"
+          >
+            {clergy.phone}
+          </a>
+        </dd>
+      </div>
+      <div class="flex gap-2">
+        <dt class="font-semibold text-brand shrink-0">Email</dt>
+        <dd>
+          <a
+            href={`mailto:${site.contact.email}`}
+            class="hover:text-accent"
+            data-i18n="clergy.email"
+          >
+            {clergy.email}
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </div>
+
+  <p class="mt-6 max-w-prose text-ink/70" data-i18n="clergy.note">
+    {clergy.note}
+  </p>
+</Section>

@@ -1,0 +1,33 @@
+---
+import Button from '../Button.astro';
+import { content } from '../../data/site';
+
+const { donate } = content.en;
+---
+
+<!-- Dark navy section — full bleed -->
+<section id="donate" class="bg-brand py-16 sm:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2
+        class="font-display text-3xl font-bold text-accent sm:text-4xl"
+        data-i18n="donate.heading"
+      >
+        {donate.heading}
+      </h2>
+
+      <p
+        class="mt-6 text-lg leading-relaxed text-surface/80"
+        data-i18n="donate.body"
+      >
+        {donate.body}
+      </p>
+
+      <div class="mt-8">
+        <Button href="#" variant="gold" class="text-base px-8 py-4">
+          <span data-i18n="donate.cta">{donate.cta}</span>
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,18 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap");
 @import "tailwindcss";
 
 @theme {
   /* ===== EDIT PER CLIENT — this block is the whole "look" ===== */
-  --color-brand: #1b2a4a;      /* primary / navy */
-  --color-accent: #2a9d8f;     /* secondary / teal */
-  --color-highlight: #e76f51;  /* accent / coral */
-  --color-ink: #2b2b2b;        /* body text */
-  --color-surface: #ffffff;    /* page background */
-  --color-muted: #f4f6f9;      /* section tint */
+  --color-brand:     #14213D;   /* dark navy — orb in logo; ground color */
+  --color-accent:    #C49A2A;   /* warm ochre-gold — halos & wings in logo */
+  --color-highlight: #C05C38;   /* terracotta-brick — Gabriel's robe */
+  --color-royal:     #3D6B7A;   /* Byzantine slate-blue — Michael's robe */
+  --color-ink:       #1C1C1C;   /* near-black body text */
+  --color-surface:   #FAF8F4;   /* warm cream — page background */
+  --color-muted:     #F0ECE3;   /* deeper cream — section tint */
 
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Inter", system-ui, sans-serif;
+  --font-sans:    "Lora", Georgia, serif;
+  --font-display: "Playfair Display", Georgia, serif;
 
-  --radius: 0.75rem;
+  --radius: 0.5rem;
 }
 
 /*

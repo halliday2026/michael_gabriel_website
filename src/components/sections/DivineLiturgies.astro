@@ -1,0 +1,99 @@
+---
+import Section from '../Section.astro';
+import { content } from '../../data/site';
+
+const { liturgies } = content.en;
+---
+
+<!-- Dark navy section — override Section tone with a wrapper -->
+<section id="services" class="bg-brand py-16 sm:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+
+    <h2
+      class="font-display text-3xl font-bold text-accent sm:text-4xl"
+      data-i18n="liturgies.heading"
+    >
+      {liturgies.heading}
+    </h2>
+
+    <!-- Services table -->
+    <div class="mt-8 overflow-x-auto rounded-(--radius) ring-1 ring-surface/10">
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="border-b border-surface/10 bg-surface/5">
+            <th class="px-4 py-3 font-semibold text-accent" data-i18n="liturgies.colService">
+              {liturgies.colService}
+            </th>
+            <th class="px-4 py-3 font-semibold text-accent" data-i18n="liturgies.colSchedule">
+              {liturgies.colSchedule}
+            </th>
+            <th class="px-4 py-3 font-semibold text-accent" data-i18n="liturgies.colLanguage">
+              {liturgies.colLanguage}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sunday Divine Liturgy — highlighted row -->
+          <tr class="border-b border-surface/10 bg-accent/10">
+            <td class="px-4 py-4 font-semibold text-surface" data-i18n="liturgies.sunday.name">
+              {liturgies.sunday.name}
+            </td>
+            <td class="px-4 py-4 text-surface/90" data-i18n="liturgies.sunday.schedule">
+              {liturgies.sunday.schedule}
+            </td>
+            <td class="px-4 py-4 text-surface/90" data-i18n="liturgies.sunday.language">
+              {liturgies.sunday.language}
+            </td>
+          </tr>
+
+          <!-- Vespers -->
+          <tr class="border-b border-surface/10 hover:bg-surface/5">
+            <td class="px-4 py-4 text-surface/80" data-i18n="liturgies.vespers.name">
+              {liturgies.vespers.name}
+            </td>
+            <td class="px-4 py-4 italic text-surface/40">
+              {liturgies.vespers.schedule}
+            </td>
+            <td class="px-4 py-4 italic text-surface/40">
+              {liturgies.vespers.language}
+            </td>
+          </tr>
+
+          <!-- Confession -->
+          <tr class="border-b border-surface/10 hover:bg-surface/5">
+            <td class="px-4 py-4 text-surface/80" data-i18n="liturgies.confession.name">
+              {liturgies.confession.name}
+            </td>
+            <td class="px-4 py-4 italic text-surface/40">
+              {liturgies.confession.schedule}
+            </td>
+            <td class="px-4 py-4 italic text-surface/40">
+              {liturgies.confession.language}
+            </td>
+          </tr>
+
+          <!-- Feast Days -->
+          <tr class="hover:bg-surface/5">
+            <td class="px-4 py-4 text-surface/80" data-i18n="liturgies.feastDays.name">
+              {liturgies.feastDays.name}
+            </td>
+            <td class="px-4 py-4 italic text-surface/40">
+              {liturgies.feastDays.schedule}
+            </td>
+            <td class="px-4 py-4 italic text-surface/40">
+              {liturgies.feastDays.language}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Note about private services -->
+    <p
+      class="mt-6 text-sm text-surface/60"
+      data-i18n="liturgies.note"
+    >
+      {liturgies.note}
+    </p>
+  </div>
+</section>

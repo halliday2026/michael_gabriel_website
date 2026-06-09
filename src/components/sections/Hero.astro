@@ -1,35 +1,77 @@
 ---
 import Section from '../Section.astro';
 import Button from '../Button.astro';
-import { site } from '../../data/site';
+import { content, site } from '../../data/site';
 
-const { hero } = site;
+const { hero } = content.en;
+const base = import.meta.env.BASE_URL;
 ---
 
-<Section tone="default" class="pt-12 sm:pt-16">
+<Section tone="default" class="pt-10 sm:pt-14">
   <div class="grid items-center gap-10 lg:grid-cols-2">
     <div>
-      <h1 class="font-display text-4xl font-bold tracking-tight text-brand sm:text-5xl">
+      <!-- Patron feast line -->
+      <p
+        class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent"
+        data-i18n="hero.patronFeast"
+      >
+        {hero.patronFeast}
+      </p>
+
+      <!-- Church name -->
+      <h1
+        class="font-display text-3xl font-bold leading-tight text-brand sm:text-4xl lg:text-5xl"
+        data-i18n="hero.headline"
+      >
         {hero.headline}
       </h1>
-      <p class="mt-4 max-w-prose text-lg text-ink/80">
-        {hero.subhead}
+
+      <!-- Welcome tagline -->
+      <p
+        class="mt-4 max-w-prose text-lg text-ink/75"
+        data-i18n="hero.welcome"
+      >
+        {hero.welcome}
       </p>
-      <div class="mt-8">
-        <Button href={hero.ctaHref}>{hero.ctaLabel}</Button>
+
+      <!-- Liturgy time badge -->
+      <div class="mt-6 inline-flex items-center gap-2 rounded-(--radius) bg-brand px-4 py-2 text-sm font-semibold text-accent">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span data-i18n="hero.liturgyBadge">{hero.liturgyBadge}</span>
+      </div>
+
+      <!-- CTAs -->
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href="#visit" variant="solid">
+          <span data-i18n="hero.cta1">{hero.cta1}</span>
+        </Button>
+        <Button href="#donate" variant="gold">
+          <span data-i18n="hero.cta2">{hero.cta2}</span>
+        </Button>
+        <Button href="#contact" variant="outline">
+          <span data-i18n="hero.cta3">{hero.cta3}</span>
+        </Button>
       </div>
     </div>
 
-    <div class="overflow-hidden rounded-(--radius) bg-muted">
-      <slot name="image">
+    <!-- Community photo with church seal badge -->
+    <div class="relative pb-24">
+      <div class="overflow-hidden rounded-(--radius) shadow-xl aspect-4/3">
         <img
-          src="/favicon.svg"
-          alt={hero.imageAlt}
-          width="640"
-          height="480"
-          class="aspect-4/3 h-full w-full object-contain p-12"
+          src={`${base}hero-community.jpg`}
+          alt="Parish community — friends sharing a sunny outdoor meal together"
+          class="h-full w-full object-cover object-top"
         />
-      </slot>
+      </div>
+      <!-- Church seal badge — centered below photo -->
+      <img
+        src={`${base}roc_logo.png`}
+        alt={hero.imageAlt}
+        class="absolute bottom-0 left-1/2 -translate-x-1/2 h-48 w-48 rounded-full shadow-xl ring-4 ring-accent/60 bg-surface"
+        data-i18n-attr="alt:hero.imageAlt"
+      />
     </div>
   </div>
 </Section>

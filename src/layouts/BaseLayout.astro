@@ -4,6 +4,7 @@ import Seo from '../components/Seo.astro';
 import Analytics from '../components/Analytics.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { content } from '../data/site';
 
 interface Props {
   title: string;
@@ -36,5 +37,61 @@ const { title, description, image } = Astro.props;
       <slot />
     </main>
     <Footer />
+
+    <!-- i18n: content embedded as JSON; script swaps [data-i18n] text on locale toggle -->
+    <script type="application/json" id="i18n-data" set:html={JSON.stringify(content)}></script>
+    <script is:inline>
+      (function () {
+        var el = document.getElementById('i18n-data');
+        if (!el) return;
+        var i18nContent = JSON.parse(el.textContent || '{}');
+
+        function resolve(obj, path) {
+          return path.split('.').reduce(function (o, k) { return o != null ? o[k] : undefined; }, obj);
+        }
+
+        function applyLocale(lang) {
+          var t = i18nContent[lang];
+          if (!t) return;
+
+          document.querySelectorAll('[data-i18n]').forEach(function (node) {
+            var h = /** @type {HTMLElement} */ (node);
+            var val = resolve(t, h.dataset['i18n']);
+            if (val !== undefined) h.textContent = val;
+          });
+
+          document.querySelectorAll('[data-i18n-placeholder]').forEach(function (node) {
+            var inp = /** @type {HTMLInputElement} */ (node);
+            var val = resolve(t, inp.dataset['i18nPlaceholder']);
+            if (val !== undefined) inp.placeholder = val;
+          });
+
+          document.querySelectorAll('[data-lang]').forEach(function (node) {
+            var btn = /** @type {HTMLElement} */ (node);
+            var active = btn.dataset['lang'] === lang;
+            btn.classList.toggle('bg-accent',      active);
+            btn.classList.toggle('border-accent',   active);
+            btn.classList.toggle('text-brand',      active);
+            btn.classList.toggle('shadow-sm',       active);
+            btn.classList.toggle('bg-transparent',  !active);
+            btn.classList.toggle('border-ink/20',   !active);
+            btn.classList.toggle('text-ink/50',     !active);
+          });
+
+          document.documentElement.lang = lang;
+          try { localStorage.setItem('locale', lang); } catch (_) {}
+        }
+
+        var saved;
+        try { saved = localStorage.getItem('locale'); } catch (_) {}
+        if (saved && i18nContent[saved]) applyLocale(saved);
+
+        document.querySelectorAll('[data-lang]').forEach(function (node) {
+          node.addEventListener('click', function () {
+            applyLocale(/** @type {HTMLElement} */ (node).dataset['lang']);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -1,0 +1,31 @@
+---
+import Section from '../Section.astro';
+import { content } from '../../data/site';
+
+const { welcome } = content.en;
+---
+
+<Section id="welcome" tone="muted">
+  <div class="max-w-3xl">
+    <h2
+      class="font-display text-3xl font-bold text-brand sm:text-4xl"
+      data-i18n="welcome.heading"
+    >
+      {welcome.heading}
+    </h2>
+
+    <div class="mt-6 space-y-4 text-lg leading-relaxed text-ink/80">
+      <p data-i18n="welcome.body1">{welcome.body1}</p>
+      <p data-i18n="welcome.body2">{welcome.body2}</p>
+      <p data-i18n="welcome.body3">{welcome.body3}</p>
+    </div>
+
+    <!-- Calendar note -->
+    <p
+      class="mt-8 inline-block rounded-(--radius) border border-accent/30 bg-accent/10 px-4 py-2 text-sm italic text-ink/70"
+      data-i18n="welcome.calendarNote"
+    >
+      {welcome.calendarNote}
+    </p>
+  </div>
+</Section>

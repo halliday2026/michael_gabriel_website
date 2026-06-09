@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 // through (?? only catches null/undefined), breaking the base path. || treats ''
 // as falsy and falls back correctly.
 const SITE = process.env.SITE_URL || 'https://USERNAME.github.io';
-const BASE = process.env.BASE_PATH || '/REPO-NAME/';
+const BASE = process.env.BASE_PATH || '/michael_gabriel_website/';
 
 export default defineConfig({
   site: SITE,

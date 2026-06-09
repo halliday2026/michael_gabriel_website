@@ -1,20 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
-import Mission from '../components/sections/Mission.astro';
-import ProgramsImpact from '../components/sections/ProgramsImpact.astro';
-import Testimonials from '../components/sections/Testimonials.astro';
-import GetInvolved from '../components/sections/GetInvolved.astro';
+import Welcome from '../components/sections/Welcome.astro';
+import DivineLiturgies from '../components/sections/DivineLiturgies.astro';
+import Clergy from '../components/sections/Clergy.astro';
+import Community from '../components/sections/Community.astro';
+import VisitUs from '../components/sections/VisitUs.astro';
+import Donate from '../components/sections/Donate.astro';
 import Contact from '../components/sections/Contact.astro';
-import { site } from '../data/site';
+import { site, content } from '../data/site';
 ---
 
-<BaseLayout title="Home" description={site.description}>
-  <!-- Delete any sections this client doesn't need (and the matching import above). -->
+<BaseLayout title={content.en.hero.headline} description={site.description}>
   <Hero />
-  <Mission />
-  <ProgramsImpact />
-  <Testimonials />
-  <GetInvolved />
+  <Welcome />
+  <DivineLiturgies />
+  <Clergy />
+  <Community />
+  <VisitUs />
+  <Donate />
   <Contact />
 </BaseLayout>

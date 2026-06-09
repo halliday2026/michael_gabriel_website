@@ -1,18 +1,21 @@
 ---
-import { site, SHOW_HALLIDAY_CREDIT } from '../data/site';
+import { site, content, SHOW_HALLIDAY_CREDIT } from '../data/site';
 
 const year = new Date().getFullYear();
+const { footer } = content.en;
 ---
 
-<footer class="border-t border-muted bg-muted">
+<footer class="border-t border-muted bg-brand text-surface/80">
   <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
     <div class="grid gap-8 sm:grid-cols-2">
       <div>
-        <p class="font-display text-lg font-bold text-brand">{site.name}</p>
-        <p class="mt-2 max-w-prose text-sm text-ink/80">{site.tagline}</p>
+        <p class="font-display text-lg font-bold text-surface">{site.name}</p>
+        <p class="mt-2 max-w-prose text-sm text-surface/70" data-i18n="footer.tagline">
+          {footer.tagline}
+        </p>
       </div>
 
-      <address class="text-sm not-italic text-ink/80 sm:text-right">
+      <address class="text-sm not-italic text-surface/70 sm:text-right">
         <p>
           <a class="hover:text-accent" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
         </p>
@@ -23,8 +26,10 @@ const year = new Date().getFullYear();
       </address>
     </div>
 
-    <div class="mt-8 flex flex-col gap-2 border-t border-ink/10 pt-6 text-sm text-ink/60 sm:flex-row sm:items-center sm:justify-between">
-      <p>&copy; {year} {site.name}. All rights reserved.</p>
+    <div class="mt-8 flex flex-col gap-2 border-t border-surface/10 pt-6 text-sm text-surface/40 sm:flex-row sm:items-center sm:justify-between">
+      <p>
+        &copy; {year} {site.name}. <span data-i18n="footer.rights">{footer.rights}</span>
+      </p>
       {SHOW_HALLIDAY_CREDIT && (
         <p>
           Site by <a class="font-medium hover:text-accent" href="https://hallidayinc.com" rel="noopener">Halliday</a>

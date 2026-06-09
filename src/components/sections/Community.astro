@@ -1,0 +1,48 @@
+---
+import Section from '../Section.astro';
+import { content } from '../../data/site';
+
+const { community } = content.en;
+
+const photoIcons = ['🎶', '🍞', '🎵', '🌿'];
+const photoCaptions = [community.photo0, community.photo1, community.photo2, community.photo3];
+---
+
+<Section id="community" tone="muted">
+  <h2
+    class="font-display text-3xl font-bold text-brand sm:text-4xl"
+    data-i18n="community.heading"
+  >
+    {community.heading}
+  </h2>
+
+  <p
+    class="mt-6 max-w-3xl text-lg leading-relaxed text-ink/80"
+    data-i18n="community.body"
+  >
+    {community.body}
+  </p>
+
+  <!-- Photo placeholder grid (2×2) -->
+  <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {([0, 1, 2, 3] as const).map((i) => (
+      <div class="group flex flex-col overflow-hidden rounded-(--radius) bg-brand/10 ring-1 ring-brand/10">
+        <!-- Placeholder image area -->
+        <div class="flex aspect-4/3 items-center justify-center bg-gradient-to-br from-brand/15 to-royal/20 text-5xl">
+          {photoIcons[i]}
+        </div>
+        <!-- Caption -->
+        <p
+          class="px-3 py-2 text-center text-xs font-medium leading-snug text-ink/70"
+          data-i18n={`community.photo${i}`}
+        >
+          {photoCaptions[i]}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <p class="mt-6 text-sm italic text-ink/50">
+    Photos coming soon — placeholder images shown.
+  </p>
+</Section>

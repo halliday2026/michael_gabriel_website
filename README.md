@@ -1,38 +1,4 @@
-<!-- STARTER NOTES — delete this section before any client handoff -->
-## Starter notes (Halliday internal)
-
-This repo is a **template repository**. New client sites are created with
-GitHub's **"Use this template"** button — never by cloning and rewriting
-history. Once a new repo exists from the template, follow the per-client
-workflow below.
-
-### The hard rules
-
-These rules are load-bearing — breaking them has caused real incidents in the
-past. Anyone working in a repo descended from this template should know them:
-
-1. **`||`, never `??`, for environment-variable fallbacks.** CI can pass env
-   vars as an empty string `''`. `??` only falls back on `null`/`undefined`,
-   so `''` slips through and breaks the build (this has burned us before).
-   `||` correctly treats `''` as falsy.
-2. **`noindex` defaults to ON.** Every page emits
-   `<meta name="robots" content="noindex, nofollow">` unless the `NOINDEX`
-   env var is explicitly set to `false`. This protects staging from being
-   indexed. Only flip it during the production launch (see the checklist
-   below) — never "to test something" on staging.
-3. **No `&&` chaining in scripts or docs on this stack.** Development happens
-   on Windows/PowerShell, where `&&` is not a universal separator. Keep
-   `package.json` scripts to single commands and prefer cross-platform Node
-   scripts (like `scripts/check-placeholders.mjs`) over shell scripts.
-4. **The "look" lives in one file, the copy lives in one file.** Resist the
-   urge to hardcode colors or copy anywhere else — it defeats the purpose of
-   the template. See the per-client workflow below.
-
-<!-- END STARTER NOTES -->
-
----
-
-# Halliday Astro + Tailwind Starter
+# Holy Archangels Michael and Gabriel Romanian Orthodox Church
 
 A production-ready static-site starter built with **Astro** + **TypeScript**
 and **Tailwind CSS v4** (CSS-first `@theme` configuration via
