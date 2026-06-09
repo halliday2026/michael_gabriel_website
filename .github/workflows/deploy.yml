@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deploy at a time, but let in-flight runs finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: withastro/action@v6
+        # withastro/action installs dependencies, runs `astro build`, and
+        # uploads the build output as a Pages artifact in one step.
+        # Pass build-time configuration through `env:` below — see the
+        # comment block at the bottom of this file for the full picture.
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          BASE_PATH: ${{ vars.BASE_PATH }}
+          NOINDEX: ${{ vars.NOINDEX }}
+          PUBLIC_FORMSPREE_ENDPOINT: ${{ vars.PUBLIC_FORMSPREE_ENDPOINT }}
+          PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
+          PUBLIC_CLARITY_ID: ${{ vars.PUBLIC_CLARITY_ID }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
+# -----------------------------------------------------------------------------
+# Configuring SITE_URL / BASE_PATH / NOINDEX for production
+#
+# This workflow reads its build-time values from this repository's Actions
+# "Variables" (Settings → Secrets and variables → Actions → Variables tab):
+#
+#   SITE_URL                   e.g. https://USERNAME.github.io or a custom domain
+#   BASE_PATH                  e.g. /REPO-NAME/  (or "/" for a custom domain)
+#   NOINDEX                    "false" to allow indexing in production; omit
+#                              (or set "true") to keep staging hidden from search
+#   PUBLIC_FORMSPREE_ENDPOINT  the live Formspree form endpoint
+#   PUBLIC_GA4_ID / PUBLIC_CLARITY_ID   optional analytics IDs
+#
+# Repo Variables are appropriate here because none of these values are
+# secrets — they end up in the public, built HTML/JS regardless. If you leave
+# any of them unset, astro.config.mjs and src/data/site.ts fall back to the
+# staging defaults baked into this template (see the `||` fallbacks there).
+# -----------------------------------------------------------------------------

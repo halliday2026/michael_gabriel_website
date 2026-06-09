@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Mission from '../components/sections/Mission.astro';
+import ProgramsImpact from '../components/sections/ProgramsImpact.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import GetInvolved from '../components/sections/GetInvolved.astro';
+import Contact from '../components/sections/Contact.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title="Home" description={site.description}>
+  <!-- Delete any sections this client doesn't need (and the matching import above). -->
+  <Hero />
+  <Mission />
+  <ProgramsImpact />
+  <Testimonials />
+  <GetInvolved />
+  <Contact />
+</BaseLayout>

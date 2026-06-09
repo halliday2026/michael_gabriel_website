@@ -1,0 +1,22 @@
+{
+  "name": "halliday-astro-tailwind-starter",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "node scripts/check-placeholders.mjs",
+    "check:strict": "node scripts/check-placeholders.mjs --strict"
+  },
+  "dependencies": {
+    "astro": "^5.18.2",
+    "tailwindcss": "4.3.0",
+    "@tailwindcss/vite": "4.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "@astrojs/check": "^0.9.9"
+  }
+}

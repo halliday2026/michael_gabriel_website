@@ -1,0 +1,11 @@
+---
+import Section from '../Section.astro';
+import { site } from '../../data/site';
+
+const { mission } = site;
+---
+
+<Section id="mission" tone="muted">
+  <h2 class="font-display text-3xl font-bold text-brand">{mission.heading}</h2>
+  <p class="mt-4 max-w-prose text-lg text-ink/80">{mission.body}</p>
+</Section>

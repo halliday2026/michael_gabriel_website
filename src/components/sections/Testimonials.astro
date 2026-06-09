@@ -1,0 +1,22 @@
+---
+import Section from '../Section.astro';
+import { site } from '../../data/site';
+
+const { testimonials } = site;
+---
+
+<Section id="testimonials" tone="muted">
+  <h2 class="font-display text-3xl font-bold text-brand">{testimonials.heading}</h2>
+
+  <ul class="mt-10 grid gap-6 sm:grid-cols-2">
+    {testimonials.items.map((item) => (
+      <li class="rounded-(--radius) bg-surface p-6 shadow-sm">
+        <blockquote>
+          <p class="text-lg text-ink/90">&ldquo;{item.quote}&rdquo;</p>
+        </blockquote>
+        <p class="mt-4 font-semibold text-brand">{item.attribution}</p>
+        <p class="text-sm text-ink/60">{item.org}</p>
+      </li>
+    ))}
+  </ul>
+</Section>

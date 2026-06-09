@@ -1,0 +1,68 @@
+---
+import Section from '../Section.astro';
+import { site } from '../../data/site';
+
+const { contactSection, formspreeEndpoint } = site;
+
+// --- Supabase swap -------------------------------------------------------
+// To send submissions to Supabase instead of Formspree:
+//   1. Remove the `action`/`method` attributes below and instead handle
+//      `submit` client-side (or via an Astro endpoint at src/pages/api/contact.ts).
+//   2. POST the form fields to `supabase.from('messages').insert({ ... })`
+//      using the Supabase JS client and your project's anon key.
+//   3. Show a success/error state in place of the redirect Formspree performs.
+// --------------------------------------------------------------------------
+---
+
+<Section id="contact" tone="muted">
+  <h2 class="font-display text-3xl font-bold text-brand">{contactSection.heading}</h2>
+  <p class="mt-4 max-w-prose text-lg text-ink/80">{contactSection.body}</p>
+
+  <form
+    method="POST"
+    action={formspreeEndpoint}
+    class="mt-8 grid max-w-xl gap-6"
+  >
+    <div>
+      <label for="name" class="block font-medium text-ink">Name</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        required
+        class="mt-2 block w-full rounded-(--radius) border border-ink/20 bg-surface px-4 py-2 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      />
+    </div>
+
+    <div>
+      <label for="email" class="block font-medium text-ink">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        class="mt-2 block w-full rounded-(--radius) border border-ink/20 bg-surface px-4 py-2 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      />
+    </div>
+
+    <div>
+      <label for="message" class="block font-medium text-ink">Message</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        required
+        class="mt-2 block w-full rounded-(--radius) border border-ink/20 bg-surface px-4 py-2 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="inline-flex w-fit items-center justify-center rounded-(--radius) bg-brand px-6 py-3 font-semibold text-surface transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    >
+      Send message
+    </button>
+  </form>
+</Section>

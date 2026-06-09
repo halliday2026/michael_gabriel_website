@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  /* ===== EDIT PER CLIENT — this block is the whole "look" ===== */
+  --color-brand: #1b2a4a;      /* primary / navy */
+  --color-accent: #2a9d8f;     /* secondary / teal */
+  --color-highlight: #e76f51;  /* accent / coral */
+  --color-ink: #2b2b2b;        /* body text */
+  --color-surface: #ffffff;    /* page background */
+  --color-muted: #f4f6f9;      /* section tint */
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter", system-ui, sans-serif;
+
+  --radius: 0.75rem;
+}
+
+/*
+  If any .astro scoped <style> block uses @apply, it must start with
+  @reference "tailwindcss"; or the build won't be able to resolve the
+  theme tokens referenced by the utility classes.
+*/
+
+@layer base {
+  *:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+  }
+}
