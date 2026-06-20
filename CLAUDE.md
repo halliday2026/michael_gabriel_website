@@ -1,4 +1,4 @@
-# CLAUDE.md — Holy Archangels Michael and Gabriel Romanian Orthodox Church
+# CLAUDE.md — Saint Michael and Gabriel Romanian Orthodox Church
 
 ## Hard rules (never violate)
 
@@ -63,7 +63,7 @@ Fonts: **Playfair Display** (display/headings) · **Lora** (body serif)
 |---|---|
 | `roc_logo.png` | Full circular church medallion — used as hero seal badge |
 | `header_logo.png` | Wide icon crop — used in nav |
-| `hero-community.jpg` | Pexels #7658827 — smiling adults outdoor picnic (Kampus Production) |
+| `church_front.jpg` | Front exterior photo of the church — used as hero image |
 | `favicon.svg` | Orthodox 3-bar cross, gold on navy |
 
 ## REPLACE_ME items still pending parish input

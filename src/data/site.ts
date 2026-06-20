@@ -11,7 +11,7 @@ export interface NavItem {
 }
 
 export const site = {
-  name: 'Holy Archangels Michael and Gabriel Romanian Orthodox Church',
+  name: 'Saint Michael and Gabriel Romanian Orthodox Church',
   tagline: 'Romanian Orthodox Parish — Palm Springs, California',
   description:
     'Romanian Orthodox parish serving the faithful across the Coachella Valley and Inland Empire. Divine Liturgy every Sunday, 10:00–11:50 a.m., in Romanian and English.',
@@ -60,7 +60,7 @@ export const content = {
     },
 
     hero: {
-      headline:     'Holy Archangels Michael and Gabriel Romanian Orthodox Church',
+      headline:     'Saint Michael and Gabriel Romanian Orthodox Church',
       patronFeast:  'Synaxis of the Holy Archangels — November 8',
       welcome:      'Welcome to your spiritual home in the Coachella Valley.',
       liturgyBadge: 'Divine Liturgy: Every Sunday, 10:00–11:50 a.m.',
@@ -73,7 +73,7 @@ export const content = {
     welcome: {
       heading:      'Welcome to Our Parish',
       body1:
-        'Holy Archangels Michael and Gabriel Romanian Orthodox Church warmly welcomes all who seek worship, fellowship, and a spiritual home. Whether you are Orthodox by birth, exploring the faith, or simply curious, our doors are open to you.',
+        'Saint Michael and Gabriel Romanian Orthodox Church warmly welcomes all who seek worship, fellowship, and a spiritual home. Whether you are Orthodox by birth, exploring the faith, or simply curious, our doors are open to you.',
       body2:
         'We serve the Romanian Orthodox faithful across the Coachella Valley and Inland Empire — Palm Springs, Palm Desert, Rancho Mirage, Cathedral City, Indio, La Quinta, Desert Hot Springs, Hemet, Rancho Cucamonga, Redlands, Banning, Beaumont, and surrounding communities.',
       body3:
