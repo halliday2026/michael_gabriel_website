@@ -1,8 +1,9 @@
 ---
 import Button from '../Button.astro';
-import { content } from '../../data/site';
+import { content, site } from '../../data/site';
 
 const { donate } = content.en;
+const zelleEmail = site.contact.emailGeneral;
 ---
 
 <!-- Dark navy section — full bleed -->
@@ -23,11 +24,46 @@ const { donate } = content.en;
         {donate.body}
       </p>
 
-      <div class="mt-8">
-        <Button href="#" variant="gold" class="text-base px-8 py-4">
-          <span data-i18n="donate.cta">{donate.cta}</span>
-        </Button>
+      <!-- Zelle payment block -->
+      <div class="mt-8 flex flex-col items-center gap-4">
+        <div class="flex items-center gap-3 rounded-(--radius) bg-surface/10 px-5 py-3">
+          <!-- Zelle purple "Z" icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="h-7 w-7 shrink-0" aria-hidden="true">
+            <rect width="40" height="40" rx="20" fill="#6D1ED4"/>
+            <path d="M11 12h18l-13 16h13" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span class="font-mono text-surface/90 select-all">{zelleEmail}</span>
+          <button
+            id="zelle-copy-btn"
+            type="button"
+            data-email={zelleEmail}
+            data-label={donate.zelleLabel}
+            data-copied={donate.zelleCopied}
+            class="ml-1 rounded px-3 py-1 text-sm font-semibold bg-accent text-brand hover:bg-accent/80 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            data-i18n="donate.zelleLabel"
+          >
+            {donate.zelleLabel}
+          </button>
+        </div>
+        <p class="text-sm text-surface/50" data-i18n="donate.zelleHint">
+          {donate.zelleHint}
+        </p>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const btn = document.getElementById('zelle-copy-btn') as HTMLButtonElement | null;
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const email = btn.dataset.email ?? '';
+      const copied = btn.dataset.copied ?? 'Copied!';
+      const original = btn.textContent ?? '';
+      navigator.clipboard.writeText(email).then(() => {
+        btn.textContent = copied;
+        setTimeout(() => { btn.textContent = original; }, 2000);
+      });
+    });
+  }
+</script>

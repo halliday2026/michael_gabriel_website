@@ -29,9 +29,11 @@ export const site = {
   ] satisfies NavItem[],
 
   contact: {
-    email: 'REPLACE_ME@example.org',
-    phone: 'REPLACE_ME',
-    address: '590 S Vella Rd, Palm Springs, CA 92264',
+    email:          'frfloriniftode@gmail.com',
+    emailGeneral:   'romanianchurchps@gmail.com',
+    emailPresident: 'pres.churchps@gmail.com',
+    phone:          '760-578-2052',
+    address:        '590 S Vella Rd, Palm Springs, CA 92264',
   },
 
   // CI can pass an empty string '', which `??` would let through — `||` is
@@ -96,9 +98,9 @@ export const content = {
     clergy: {
       heading: 'Our Clergy',
       subhead: 'Parish Priest',
-      name:    'Rev. Fr. REPLACE_ME',
-      phone:   'REPLACE_ME',
-      email:   'REPLACE_ME',
+      name:    'Rev. Fr. Florin Iftode',
+      phone:   '760-578-2052',
+      email:   'frfloriniftode@gmail.com',
       note:    'Orthodox faithful are always welcome to contact Father directly for spiritual guidance, sacramental needs, or parish inquiries.',
     },
 
@@ -123,7 +125,10 @@ export const content = {
       heading: 'Support Our Parish',
       body:
         'Your generous gift sustains our worship, cultural programs, and ministry to the faithful across the Coachella Valley and Inland Empire. Every contribution, large or small, makes a difference.',
-      cta: 'Donate to the Parish',
+      cta:         'Donate to the Parish',
+      zelleLabel:  'Pay via Zelle',
+      zelleCopied: 'Copied!',
+      zelleHint:   'Open your banking app, choose Zelle, and paste to send your gift.',
     },
 
     contact: {
@@ -190,9 +195,9 @@ export const content = {
     clergy: {
       heading: 'Nuestro Clero',
       subhead: 'Sacerdote Parroquial',
-      name:    'Rev. Fr. REPLACE_ME',
-      phone:   'REPLACE_ME',
-      email:   'REPLACE_ME',
+      name:    'Rev. Fr. Florin Iftode',
+      phone:   '760-578-2052',
+      email:   'frfloriniftode@gmail.com',
       note:    'Los fieles ortodoxos siempre son bienvenidos a contactar directamente al Padre para orientación espiritual, necesidades sacramentales o consultas parroquiales.',
     },
 
@@ -217,7 +222,10 @@ export const content = {
       heading: 'Apoye Nuestra Parroquia',
       body:
         'Su generoso donativo sostiene nuestro culto, programas culturales y ministerio a los fieles en todo el Valle de Coachella y el Inland Empire. Cada contribución, grande o pequeña, hace la diferencia.',
-      cta: 'Donar a la Parroquia',
+      cta:         'Donar a la Parroquia',
+      zelleLabel:  'Pagar con Zelle',
+      zelleCopied: '¡Copiado!',
+      zelleHint:   'Abra su aplicación bancaria, seleccione Zelle y pegue el correo para enviar su donativo.',
     },
 
     contact: {
@@ -286,9 +294,9 @@ export const content = {
     clergy: {
       heading: 'Clerul nostru',
       subhead: 'Preotul Parohiei',
-      name:    'Pr. REPLACE_ME',
-      phone:   'REPLACE_ME',
-      email:   'REPLACE_ME',
+      name:    'Pr. Florin Iftode',
+      phone:   '760-578-2052',
+      email:   'frfloriniftode@gmail.com',
       note:    'Credincioșii ortodocși sunt întotdeauna bineveniți să ia legătura direct cu Părintele pentru îndrumare duhovnicească, nevoi sacramentale sau întrebări parohiale.',
     },
 
@@ -313,7 +321,10 @@ export const content = {
       heading: 'Sprijiniți Parohia noastră',
       body:
         'Darul dvs. generos susține slujbele, programele culturale și misiunea parohiei în toată Valea Coachella și Inland Empire. Fiecare contribuție, mare sau mică, face diferența.',
-      cta: 'Donați Parohiei',
+      cta:         'Donați Parohiei',
+      zelleLabel:  'Plătiți prin Zelle',
+      zelleCopied: 'Copiat!',
+      zelleHint:   'Deschideți aplicația băncii dvs., alegeți Zelle și lipiți adresa pentru a trimite darul.',
     },
 
     contact: {

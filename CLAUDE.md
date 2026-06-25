@@ -68,7 +68,7 @@ Fonts: **Playfair Display** (display/headings) · **Lora** (body serif)
 
 ## REPLACE_ME items still pending parish input
 
-- Clergy name, phone, email
+- ~~Clergy name, phone, email~~ (Fr. Florin Iftode, 760-578-2052, frfloriniftode@gmail.com)
 - Formspree form ID (`PUBLIC_FORMSPREE_ENDPOINT`)
 - Calendar style (New / Old)
 - Vespers, Confession, Feast Days schedules
