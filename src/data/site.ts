@@ -42,8 +42,8 @@ export const site = {
     import.meta.env.PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/REPLACE_ME',
 };
 
-export const NOINDEX = (process.env.NOINDEX || 'true').toLowerCase() !== 'false';
-export const SHOW_HALLIDAY_CREDIT = false;
+export const NOINDEX = (import.meta.env.NOINDEX || 'true').toLowerCase() !== 'false';
+export const SHOW_HALLIDAY_CREDIT = true;
 
 // ---------------------------------------------------------------------------
 // Trilingual content
