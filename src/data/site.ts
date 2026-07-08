@@ -118,7 +118,6 @@ export const content = {
       heading:         'Visit Us',
       addressLabel:    'Address',
       mapPlaceholder:  'Map coming soon — address will appear here',
-      directions:      'For directions, please contact the parish priest.',
     },
 
     donate: {
@@ -215,7 +214,6 @@ export const content = {
       heading:         'Visítenos',
       addressLabel:    'Dirección',
       mapPlaceholder:  'Mapa próximamente — la dirección aparecerá aquí',
-      directions:      'Para indicaciones, comuníquese con el sacerdote parroquial.',
     },
 
     donate: {
@@ -314,7 +312,6 @@ export const content = {
       heading:         'Vizitați-ne',
       addressLabel:    'Adresă',
       mapPlaceholder:  'Hartă în curând — adresa va apărea aici',
-      directions:      'Pentru indicații rutiere, contactați preotul parohiei.',
     },
 
     donate: {
