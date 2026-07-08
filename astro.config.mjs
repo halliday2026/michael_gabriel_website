@@ -7,8 +7,8 @@ import tailwindcss from '@tailwindcss/vite';
 // IMPORTANT: use || (NOT ??). CI can pass an empty string '', which ?? would let
 // through (?? only catches null/undefined), breaking the base path. || treats ''
 // as falsy and falls back correctly.
-const SITE = process.env.SITE_URL || 'https://USERNAME.github.io';
-const BASE = process.env.BASE_PATH || '/michael_gabriel_website/';
+const SITE = process.env.SITE_URL || 'https://psorthodoxro.org';
+const BASE = process.env.BASE_PATH || '/';
 
 export default defineConfig({
   site: SITE,

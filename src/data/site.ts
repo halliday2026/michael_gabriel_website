@@ -15,7 +15,7 @@ export const site = {
   tagline: 'Romanian Orthodox Parish — Palm Springs, California',
   description:
     'Romanian Orthodox parish serving the faithful across the Coachella Valley and Inland Empire. Divine Liturgy every Sunday, 10:00–11:50 a.m., in Romanian and English.',
-  url: 'https://halliday2026.github.io/michael_gabriel_website/',
+  url: 'https://psorthodoxro.org',
 
   // nav keys map to content[lang].nav[key] — hrefs are anchor IDs, not translated
   nav: [
