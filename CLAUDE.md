@@ -9,7 +9,7 @@
 
 ## Project overview
 
-Single-page brochure site for a Romanian Orthodox parish in Palm Springs, CA. Static output deployed to GitHub Pages at `/michael_gabriel_website/`.
+Single-page brochure site for a Romanian Orthodox parish in Palm Springs, CA. Static output deployed to GitHub Pages; production domain is `psorthodoxro.org`.
 
 **Tech stack:** Astro 5 + TypeScript + Tailwind CSS v4 (CSS-first `@theme` via `@tailwindcss/vite`). No framework components — plain `.astro` files only.
 
@@ -22,6 +22,8 @@ Single-page brochure site for a Romanian Orthodox parish in Palm Springs, CA. St
 | Section order | `src/pages/index.astro` |
 | Trilingual content | `content` export in `site.ts` — `en`/`es`/`ro` keys |
 | i18n switching | Client-side vanilla JS in `src/layouts/BaseLayout.astro` |
+| SEO meta + JSON-LD | `src/components/Seo.astro` |
+| Analytics (GA4, Clarity, Plausible) | `src/components/Analytics.astro` |
 | Public assets | `public/` — use `${import.meta.env.BASE_URL}filename` in templates |
 
 ### i18n pattern
@@ -61,15 +63,48 @@ Fonts: **Playfair Display** (display/headings) · **Lora** (body serif)
 
 | File | Purpose |
 |---|---|
-| `roc_logo.png` | Full circular church medallion — used as hero seal badge |
+| `roc_logo.png` | Full circular church medallion — used as hero seal badge and JSON-LD `logo` |
 | `header_logo.png` | Wide icon crop — used in nav |
-| `church_front.jpg` | Front exterior photo of the church — used as hero image |
+| `church_front.jpg` | Front exterior photo — used as hero image and default `og:image` |
+| `community.jpg` | Community gathering photo — used in Community section header |
+| `carousel/` | Six photos (front, kids, night, picnic, service, side) — Community image carousel |
 | `favicon.svg` | Orthodox 3-bar cross, gold on navy |
+| `googlef2ae0ced62d19fdc.html` | Google Search Console ownership verification |
+
+## SEO & AEO
+
+### What's implemented
+
+- **Meta tags** — title, description, canonical URL, robots (env-driven), Open Graph, Twitter Card
+- **Default `og:image`** — `church_front.jpg` (renders unconditionally; no prop required)
+- **JSON-LD structured data** — `Church`/`LocalBusiness` schema in `Seo.astro`, sourcing all values from `site.ts`:
+  - Address, phone, email, opening hours (Sunday liturgy), clergy as `employee`
+  - `logo` → `roc_logo.png`, `image` → `church_front.jpg`
+- **XML sitemap** — `@astrojs/sitemap` generates `/sitemap-index.xml` at build time
+- **`robots.txt`** — references `https://psorthodoxro.org/sitemap-index.xml`
+
+### Structured data source fields
+
+All JSON-LD values come from `site` in `src/data/site.ts`. The `contact` object includes both a display `address` string and structured subfields (`streetAddress`, `addressLocality`, `addressRegion`, `postalCode`) used by the schema — keep these in sync if the address ever changes.
+
+## Analytics
+
+All analytics are suppressed when `NOINDEX=true` (staging). Plausible is hardcoded (no env var) since its script URL is domain-restricted by Plausible.
+
+| Provider | How configured |
+|---|---|
+| Plausible | Hardcoded in `Analytics.astro` — active whenever `NOINDEX=false` |
+| Google Analytics 4 | `PUBLIC_GA4_ID` Actions Variable — optional |
+| Microsoft Clarity | `PUBLIC_CLARITY_ID` Actions Variable — optional |
+
+## Contact form
+
+Submits via `fetch` to Formspree (AJAX mode — no page redirect). On success the form is hidden and a thank-you message shown in its place. On failure an inline error is displayed. Endpoint: `https://formspree.io/f/xbdvekna` (hardcoded fallback; can be overridden via `PUBLIC_FORMSPREE_ENDPOINT`).
 
 ## REPLACE_ME items still pending parish input
 
 - ~~Clergy name, phone, email~~ (Fr. Florin Iftode, 760-578-2052, frfloriniftode@gmail.com)
-- Formspree form ID (`PUBLIC_FORMSPREE_ENDPOINT`)
+- ~~Formspree form ID~~ (xbdvekna — wired up)
 - Calendar style (New / Old)
 - Vespers, Confession, Feast Days schedules
 - Donation URL
@@ -90,18 +125,25 @@ All have sensible fallbacks — none required for local dev.
 
 | Variable | Purpose | Default |
 |---|---|---|
-| `SITE_URL` | Canonical URL | `https://halliday2026.github.io/michael_gabriel_website/` |
-| `BASE_PATH` | GitHub Pages subpath | `/michael_gabriel_website/` |
-| `NOINDEX` | Robots noindex | `true` (flip to `false` at launch) |
-| `PUBLIC_FORMSPREE_ENDPOINT` | Contact form endpoint | placeholder |
-| `PUBLIC_GA4_ID` | Google Analytics | unset |
-| `PUBLIC_CLARITY_ID` | Microsoft Clarity | unset |
+| `SITE_URL` | Canonical URL | `https://psorthodoxro.org` |
+| `BASE_PATH` | URL base path | `/` |
+| `NOINDEX` | Robots noindex + analytics gate | `true` (flip to `false` at launch) |
+| `PUBLIC_FORMSPREE_ENDPOINT` | Contact form endpoint | `https://formspree.io/f/xbdvekna` |
+| `PUBLIC_GA4_ID` | Google Analytics (optional) | unset |
+| `PUBLIC_CLARITY_ID` | Microsoft Clarity (optional) | unset |
 
 ## Launch checklist
 
-- [ ] Fill all `REPLACE_ME` tokens (clergy, Formspree, schedules, donation URL)
+- [x] Clergy name, phone, email filled
+- [x] Formspree contact form wired up
+- [x] Custom domain DNS configured (psorthodoxro.org → GitHub Pages)
+- [x] `SITE_URL` and `BASE_PATH` updated in code and Actions Variables
+- [x] JSON-LD structured data implemented
+- [x] Sitemap generated and referenced in robots.txt
+- [x] Google Search Console verification file added
+- [x] Plausible analytics integrated
+- [ ] Fill remaining `REPLACE_ME` tokens (schedules, donation URL)
 - [ ] Native review of ES and RO translations
 - [ ] Set `NOINDEX=false` in repo Actions Variables
-- [ ] Set `SITE_URL` to custom domain and `BASE_PATH=/` if moving off subpath
-- [ ] Add `public/CNAME` with custom domain
+- [ ] Submit sitemap in Google Search Console after first deploy
 - [ ] `npm run check:strict` must exit clean before go-live

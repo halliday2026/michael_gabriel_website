@@ -1,5 +1,5 @@
 ---
-// Renders nothing unless an analytics ID is present AND NOINDEX is false —
+// Renders nothing unless NOINDEX is false —
 // staging deployments should never report to production analytics accounts.
 import { NOINDEX } from '../data/site';
 
@@ -32,4 +32,14 @@ const enabled = !NOINDEX && (Boolean(ga4Id) || Boolean(clarityId));
       y.parentNode.insertBefore(t, y);
     })(window, document, 'clarity', 'script', clarityId);
   </script>
+)}
+
+{!NOINDEX && (
+  <>
+    <script async src="https://plausible.io/js/pa-so_hEw6NtidX4YW025I38.js"></script>
+    <script>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init()
+    </script>
+  </>
 )}
