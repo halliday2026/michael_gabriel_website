@@ -39,7 +39,7 @@ export const site = {
   // CI can pass an empty string '', which `??` would let through — `||` is
   // required so the placeholder fallback is used whenever the env var is unset.
   formspreeEndpoint:
-    import.meta.env.PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/REPLACE_ME',
+    import.meta.env.PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xbdvekna',
 };
 
 export const NOINDEX = (import.meta.env.NOINDEX || 'true').toLowerCase() !== 'false';
