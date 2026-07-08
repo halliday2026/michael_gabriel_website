@@ -23,7 +23,13 @@ const { contact } = content.en;
     {contact.body}
   </p>
 
+  <div id="contact-thankyou" class="mt-8 hidden max-w-xl rounded-(--radius) bg-accent/10 px-6 py-8 text-center ring-1 ring-accent/30">
+    <p class="font-display text-2xl font-bold text-brand">Thank you!</p>
+    <p class="mt-2 text-ink/80">Your message has been received. Fr. Florin will be in touch with you soon.</p>
+  </div>
+
   <form
+    id="contact-form"
     method="POST"
     action={formspreeEndpoint}
     class="mt-8 grid max-w-xl gap-6"
@@ -69,12 +75,49 @@ const { contact } = content.en;
       ></textarea>
     </div>
 
-    <button
-      type="submit"
-      class="inline-flex w-fit items-center justify-center rounded-(--radius) bg-brand px-6 py-3 font-semibold text-surface transition-colors hover:bg-royal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      data-i18n="contact.submit"
-    >
-      {contact.submit}
-    </button>
+    <div class="flex flex-col gap-3">
+      <button
+        type="submit"
+        id="contact-submit"
+        class="inline-flex w-fit items-center justify-center rounded-(--radius) bg-brand px-6 py-3 font-semibold text-surface transition-colors hover:bg-royal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
+        data-i18n="contact.submit"
+      >
+        {contact.submit}
+      </button>
+      <p id="contact-error" class="hidden text-sm text-highlight">Something went wrong — please try again or email us directly.</p>
+    </div>
   </form>
 </Section>
+
+<script>
+  const form   = document.getElementById('contact-form') as HTMLFormElement;
+  const thanks = document.getElementById('contact-thankyou') as HTMLElement;
+  const btn    = document.getElementById('contact-submit') as HTMLButtonElement;
+  const error  = document.getElementById('contact-error') as HTMLElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    error.classList.add('hidden');
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
+      });
+
+      if (res.ok) {
+        form.classList.add('hidden');
+        thanks.classList.remove('hidden');
+      } else {
+        throw new Error('non-ok response');
+      }
+    } catch {
+      error.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  });
+</script>
