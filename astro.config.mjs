@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 // site + base are env-driven so the SAME repo deploys to a GitHub Pages project
 // subpath (staging) OR a custom domain (production).
@@ -13,5 +14,6 @@ const BASE = process.env.BASE_PATH || '/';
 export default defineConfig({
   site: SITE,
   base: BASE,
+  integrations: [sitemap()],
   vite: { plugins: [tailwindcss()] },
 });

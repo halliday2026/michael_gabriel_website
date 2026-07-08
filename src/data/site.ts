@@ -34,6 +34,10 @@ export const site = {
     emailPresident: 'pres.churchps@gmail.com',
     phone:          '760-578-2052',
     address:        '590 S Vella Rd, Palm Springs, CA 92264',
+    streetAddress:  '590 S Vella Rd',
+    addressLocality:'Palm Springs',
+    addressRegion:  'CA',
+    postalCode:     '92264',
   },
 
   // CI can pass an empty string '', which `??` would let through — `||` is

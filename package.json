@@ -11,12 +11,13 @@
     "check:strict": "node scripts/check-placeholders.mjs --strict"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/vite": "4.3.0",
     "astro": "^5.18.2",
-    "tailwindcss": "4.3.0",
-    "@tailwindcss/vite": "4.3.0"
+    "tailwindcss": "4.3.0"
   },
   "devDependencies": {
-    "typescript": "^6.0.3",
-    "@astrojs/check": "^0.9.9"
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^6.0.3"
   }
 }
