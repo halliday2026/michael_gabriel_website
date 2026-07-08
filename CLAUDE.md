@@ -93,7 +93,7 @@ All analytics are suppressed when `NOINDEX=true` (staging). Plausible is hardcod
 
 | Provider | How configured |
 |---|---|
-| Plausible | Hardcoded in `Analytics.astro` — active whenever `NOINDEX=false` |
+| Plausible | Hardcoded in `Analytics.astro` — always loads (domain-restricted by Plausible, safe on staging) |
 | Google Analytics 4 | `PUBLIC_GA4_ID` Actions Variable — optional |
 | Microsoft Clarity | `PUBLIC_CLARITY_ID` Actions Variable — optional |
 
