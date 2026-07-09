@@ -94,9 +94,9 @@ export const content = {
       colLanguage:'Language',
       note:       'For baptisms, weddings, and memorial services (parastase), please contact the parish priest directly.',
       sunday:     { name: 'Divine Liturgy',                       schedule: 'Sundays, 10:00–11:50 a.m.', language: 'Romanian & English' },
-      vespers:    { name: 'Vespers',                              schedule: 'REPLACE_ME',                language: 'REPLACE_ME'          },
-      confession: { name: 'Confession',                           schedule: 'REPLACE_ME',                language: 'REPLACE_ME'          },
-      feastDays:  { name: 'Feast Days & Special Services',        schedule: 'REPLACE_ME',                language: 'REPLACE_ME'          },
+      vespers:    { name: 'Vespers',                              schedule: 'To be announced',           language: 'Romanian & English'  },
+      confession: { name: 'Confession',                           schedule: 'Upon request',               language: 'Romanian & English'  },
+      feastDays:  { name: 'Feast Days & Special Services',        schedule: 'To be announced',           language: 'Romanian & English'  },
     },
 
     clergy: {
@@ -190,9 +190,9 @@ export const content = {
       colLanguage:'Idioma',
       note:       'Para bautizos, bodas y servicios conmemorativos (parastase), comuníquese directamente con el sacerdote parroquial.',
       sunday:     { name: 'Divina Liturgia',                        schedule: 'Domingos, 10:00–11:50 a.m.',  language: 'Rumano e inglés' },
-      vespers:    { name: 'Vísperas',                               schedule: 'REPLACE_ME',                  language: 'REPLACE_ME'      },
-      confession: { name: 'Confesión',                              schedule: 'REPLACE_ME',                  language: 'REPLACE_ME'      },
-      feastDays:  { name: 'Días de Fiesta y Servicios Especiales',  schedule: 'REPLACE_ME',                  language: 'REPLACE_ME'      },
+      vespers:    { name: 'Vísperas',                               schedule: 'Por anunciarse',              language: 'Rumano e inglés' },
+      confession: { name: 'Confesión',                              schedule: 'A petición',                  language: 'Rumano e inglés' },
+      feastDays:  { name: 'Días de Fiesta y Servicios Especiales',  schedule: 'Por anunciarse',              language: 'Rumano e inglés' },
     },
 
     clergy: {
@@ -288,9 +288,9 @@ export const content = {
       colLanguage:'Limbă',
       note:       'Pentru botezuri, cununii și parastase, vă rugăm să contactați direct preotul parohiei.',
       sunday:     { name: 'Sfânta Liturghie',                    schedule: 'Duminica, 10:00–11:50 a.m.', language: 'Română și engleză' },
-      vespers:    { name: 'Vecernia',                             schedule: 'REPLACE_ME',                 language: 'REPLACE_ME'        },
-      confession: { name: 'Spovedania',                           schedule: 'REPLACE_ME',                 language: 'REPLACE_ME'        },
-      feastDays:  { name: 'Sărbători și Slujbe Speciale',         schedule: 'REPLACE_ME',                 language: 'REPLACE_ME'        },
+      vespers:    { name: 'Vecernia',                             schedule: 'De anunțat',                 language: 'Română și engleză' },
+      confession: { name: 'Spovedania',                           schedule: 'La cerere',                  language: 'Română și engleză' },
+      feastDays:  { name: 'Sărbători și Slujbe Speciale',         schedule: 'De anunțat',                 language: 'Română și engleză' },
     },
 
     clergy: {
