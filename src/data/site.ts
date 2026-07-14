@@ -84,7 +84,7 @@ export const content = {
         'We serve the Romanian Orthodox faithful across the Coachella Valley and Inland Empire — Palm Springs, Palm Desert, Rancho Mirage, Cathedral City, Indio, La Quinta, Desert Hot Springs, Hemet, Rancho Cucamonga, Redlands, Banning, Beaumont, and surrounding communities.',
       body3:
         'For many of our faithful, this parish is more than a place of worship — it is a cultural home, where the Romanian language, traditions, and way of life are kept alive far from home.',
-      calendarNote: 'Calendar followed (New / Old): REPLACE_ME',
+      calendarNote: 'View Orthodox Calendar',
     },
 
     liturgies: {
@@ -180,7 +180,7 @@ export const content = {
         'Servimos a la comunidad ortodoxa rumana en todo el Valle de Coachella y el Inland Empire — Palm Springs, Palm Desert, Rancho Mirage, Cathedral City, Indio, La Quinta, Desert Hot Springs, Hemet, Rancho Cucamonga, Redlands, Banning, Beaumont y las comunidades circundantes.',
       body3:
         'Para muchos de nuestros fieles, esta parroquia es más que un lugar de culto — es un hogar cultural, donde el idioma rumano, las tradiciones y la forma de vida se mantienen vivos lejos del hogar.',
-      calendarNote: 'Calendario seguido (Nuevo / Antiguo): REPLACE_ME',
+      calendarNote: 'Ver Calendario Ortodoxo',
     },
 
     liturgies: {
@@ -278,7 +278,7 @@ export const content = {
         'Slujim comunitatea ortodoxă română din toată Valea Coachella și Inland Empire — Palm Springs, Palm Desert, Rancho Mirage, Cathedral City, Indio, La Quinta, Desert Hot Springs, Hemet, Rancho Cucamonga, Redlands, Banning, Beaumont și împrejurimile.',
       body3:
         'Pentru mulți dintre credincioșii noștri, această parohie este mai mult decât un lăcaș de rugăciune — este un cămin cultural, un loc în care limba română, tradițiile și valorile sunt păstrate vii departe de țară.',
-      calendarNote: 'Calendar folosit (Nou / Vechi): REPLACE_ME',
+      calendarNote: 'Vezi Calendarul Ortodox',
     },
 
     liturgies: {
