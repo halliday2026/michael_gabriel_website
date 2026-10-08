@@ -1,5 +1,6 @@
 ---
 import Section from '../Section.astro';
+import { site } from '../../data/site';
 import { t, type Locale } from '../../i18n';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 
 const { lang, id = 'welcome' } = Astro.props;
 const { welcome } = t(lang);
+const calendarUrl = site.orthodoxCalendarUrl[lang];
 ---
 
 <Section id={id} tone="muted">
@@ -23,9 +25,11 @@ const { welcome } = t(lang);
       <p>{welcome.body3}</p>
     </div>
 
-    <!-- Calendar link -->
+    <!-- Orthodox calendar link (per language; hidden when the URL is empty) -->
+    {calendarUrl && (
     <a
-      href="https://www.noutati-ortodoxe.ro/calendar-ortodox/"
+      href={calendarUrl}
+      hreflang={lang === 'ro' ? 'ro' : 'en'}
       target="_blank"
       rel="noopener noreferrer"
       class="mt-8 inline-flex items-center gap-2 rounded-(--radius) border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-medium text-ink/70 transition-colors hover:border-accent hover:bg-accent/20 hover:text-ink"
@@ -35,6 +39,7 @@ const { welcome } = t(lang);
       </svg>
       <span>{welcome.calendarNote}</span>
     </a>
+    )}
 
     {Astro.slots.has('default') && (
       <div class="mt-8 flex flex-wrap gap-x-8 gap-y-3"><slot /></div>

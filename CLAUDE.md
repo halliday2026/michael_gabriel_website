@@ -17,7 +17,7 @@ Multi-page brochure site for a Romanian Orthodox parish in Palm Springs, CA, pre
 
 | Concern | Location |
 |---|---|
-| Site config (contact details, Formspree endpoint) | `src/data/site.ts` |
+| Site config (contact details, Formspree endpoints, hero announcement + date range, Orthodox calendar link per language, Google Calendar ID) | `src/data/site.ts` |
 | All copy, one file per language | `src/i18n/en.ts` (defines the `Dict` type), `es.ts`, `ro.ts` |
 | Church name (one constant per language) | `church.name` in each `src/i18n/*.ts` |
 | Pages, localized slugs, breadcrumb parents, main menu | `src/i18n/routes.ts` |
@@ -70,6 +70,7 @@ Always prefix public asset paths with `import.meta.env.BASE_URL`:
 | `ink` | `#1C1C1C` | Body text |
 | `surface` | `#FAF8F4` | Page background (warm cream) |
 | `muted` | `#F0ECE3` | Section tint |
+| `zelle` | `#6D1ED4` | Zelle brand purple — Zelle icon only |
 
 Fonts: **Playfair Display** (display/headings) · **Lora** (body serif)
 
@@ -81,8 +82,8 @@ Home `/` · Our Parish · Worship (+ What to Expect) · Prayer · Community (+ P
 
 | File | Purpose |
 |---|---|
-| `roc_logo.png` | Full circular church medallion — used as hero seal badge and JSON-LD `logo` |
-| `header_logo.png` | Wide icon crop — used in nav |
+| `roc_logo.png` | Full circular church medallion — header logo, hero seal badge and JSON-LD `logo` |
+| `header_logo.png` | Old half-dome nav crop (cut flat through the icon) — no longer used; header uses `roc_logo.png` |
 | `church_front.jpg` | Front exterior photo — used as hero image and default `og:image` |
 | `community.jpg` | Community gathering photo — used in Community section header |
 | `favicon.svg` | Orthodox 3-bar cross, gold on navy |

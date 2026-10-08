@@ -10,6 +10,7 @@
   --color-ink:       #1C1C1C;   /* near-black body text */
   --color-surface:   #FAF8F4;   /* warm cream — page background */
   --color-muted:     #F0ECE3;   /* deeper cream — section tint */
+  --color-zelle:     #6D1ED4;   /* Zelle brand purple — Zelle icon only */
 
   --font-sans:    "Lora", Georgia, serif;
   --font-display: "Playfair Display", Georgia, serif;

@@ -29,10 +29,10 @@ const zelleEmail = site.contact.emailGeneral;
         <div class="flex items-center gap-3 rounded-(--radius) bg-surface/10 px-5 py-3">
           <!-- Zelle purple "Z" icon -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="h-7 w-7 shrink-0" aria-hidden="true">
-            <rect width="40" height="40" rx="20" fill="#6D1ED4"/>
-            <path d="M11 12h18l-13 16h13" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <rect width="40" height="40" rx="20" class="fill-zelle"/>
+            <path d="M11 12h18l-13 16h13" class="stroke-white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
           </svg>
-          <span class="font-mono text-surface/90 select-all">{zelleEmail}</span>
+          <a href={`mailto:${zelleEmail}`} class="font-mono text-surface/90 select-all hover:text-accent">{zelleEmail}</a>
           <button
             id="zelle-copy-btn"
             type="button"

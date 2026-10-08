@@ -1,6 +1,7 @@
 ---
 import Section from '../Section.astro';
 import HeroCards from '../HeroCards.astro';
+import { site } from '../../data/site';
 import { t, type Locale } from '../../i18n';
 
 interface Props {
@@ -11,16 +12,32 @@ const { lang } = Astro.props;
 const dict = t(lang);
 const { hero } = dict;
 const base = import.meta.env.BASE_URL;
+
+// Configurable announcement line (site.announcement). Evaluated at build time and
+// again in the browser, so a date range stays accurate between deploys.
+const { enabled, start, end } = site.announcement;
+const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+const inRange = (!start || today >= start) && (!end || today <= end);
 ---
 
 <Section tone="default" class="pt-10 sm:pt-14">
   <!-- DOM order = mobile order: text → cards → photo. Desktop: text | photo, cards full-width below. -->
   <div class="grid gap-10 lg:grid-cols-[3fr_2fr] lg:items-center lg:gap-x-12">
     <div class="lg:col-start-1 lg:row-start-1">
-      <!-- Patron feast line -->
-      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
-        {hero.patronFeast}
-      </p>
+      <!-- Announcement line (default: patronal feast) -->
+      {enabled && (
+        <p
+          id="hero-announcement"
+          class:list={[
+            'mb-3 text-sm font-semibold uppercase tracking-widest text-accent lg:whitespace-nowrap lg:tracking-wide xl:tracking-widest',
+            !inRange && 'hidden',
+          ]}
+          data-start={start || undefined}
+          data-end={end || undefined}
+        >
+          {hero.announcement}
+        </p>
+      )}
 
       <!-- Church name -->
       <h1 class="font-display text-3xl font-bold leading-tight text-brand sm:text-4xl lg:text-5xl">
@@ -58,3 +75,12 @@ const base = import.meta.env.BASE_URL;
     </div>
   </div>
 </Section>
+
+<script>
+  const line = document.getElementById('hero-announcement');
+  if (line && (line.dataset.start || line.dataset.end)) {
+    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+    const { start, end } = line.dataset;
+    line.classList.toggle('hidden', !((!start || today >= start) && (!end || today <= end)));
+  }
+</script>

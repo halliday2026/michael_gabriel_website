@@ -34,6 +34,26 @@ export const site = {
     import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ||
     'https://formspree.io/f/xbdvekna',
 
+  // Announcement line above the church name on the home page. Its text is
+  // `hero.announcement` in each dictionary (default: the patronal feast, Nov 8).
+  // Shown by default. To show it only during a date range, set start and/or end
+  // (YYYY-MM-DD, inclusive, Pacific time); leave both empty to always show it.
+  announcement: {
+    enabled: true,
+    start: '',
+    end: '',
+  },
+
+  // "View Orthodox Calendar" link in the Welcome section, per language.
+  // RO keeps the Romanian daily calendar; EN/ES point to an English-language one.
+  // TODO(decision): confirm the EN/ES calendar (OCA "Lives of the Saints" follows the
+  // same Revised Julian calendar as the Romanian Church) or set to '' to hide the button.
+  orthodoxCalendarUrl: {
+    en: 'https://www.oca.org/saints/lives',
+    es: 'https://www.oca.org/saints/lives',
+    ro: 'https://www.noutati-ortodoxe.ro/calendar-ortodox/',
+  } as Record<'en' | 'es' | 'ro', string>,
+
   // Google Calendar shown on News & Events. Empty → a visible placeholder is shown.
   // TODO(config): set to the parish's public Google Calendar ID
   // (Google Calendar → Settings → the calendar → "Integrate calendar" → Calendar ID),

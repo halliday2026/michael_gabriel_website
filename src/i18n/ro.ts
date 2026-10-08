@@ -338,8 +338,8 @@ export const ro: Dict = {
   },
 
   hero: {
-    patronFeast:  'Soborul Sfinților Arhangheli Mihail și Gavriil — 8 noiembrie',
-    welcome:      'Bine ați venit la casa voastră spirituală în Valea Coachella.',
+    announcement: 'Soborul Sfinților Arhangheli Mihail și Gavriil — 8 noiembrie',
+    welcome:      'Bine ați venit la casa dumneavoastră spirituală din Valea Coachella.',
   },
 
   home: {
@@ -363,12 +363,12 @@ export const ro: Dict = {
   welcome: {
     heading: 'Bine ați venit la Parohia noastră',
     body1:
-      `${NAME} îi primește cu căldură pe toți cei care caută rugăciune, comunitate și un cămin spiritual. Fie că ești ortodox prin botez, că explorezi credința sau ești pur și simplu curios, ușile noastre îți sunt deschise.`,
+      `${NAME} îi primește cu căldură pe toți cei care caută rugăciune, comunitate și un cămin spiritual. Fie că sunteți ortodox prin botez, că explorați credința sau sunteți pur și simplu curios, ușile noastre vă sunt deschise.`,
     body2:
       'Slujim comunitatea ortodoxă română din toată Valea Coachella și Inland Empire — Palm Springs, Palm Desert, Rancho Mirage, Cathedral City, Indio, La Quinta, Desert Hot Springs, Hemet, Rancho Cucamonga, Redlands, Banning, Beaumont și împrejurimile.',
     body3:
       'Pentru mulți dintre credincioșii noștri, această parohie este mai mult decât un lăcaș de rugăciune — este un cămin cultural, un loc în care limba română, tradițiile și valorile sunt păstrate vii departe de țară.',
-    calendarNote: 'Vezi Calendarul Ortodox',
+    calendarNote: 'Vedeți Calendarul Ortodox',
   },
 
   liturgies: {
@@ -377,7 +377,7 @@ export const ro: Dict = {
     colSchedule: 'Program',
     colLanguage: 'Limbă',
     note:        'Pentru botezuri, cununii și parastase, vă rugăm să contactați direct preotul parohiei.',
-    sunday:     { name: 'Sfânta Liturghie',             schedule: 'Duminica, 10:00–11:50 a.m.', language: 'Română și engleză' },
+    sunday:     { name: 'Sfânta Liturghie',             schedule: 'Duminica, 10:00–11:50', language: 'Română și engleză' },
     vespers:    { name: 'Vecernia',                     schedule: 'De anunțat',                 language: 'Română și engleză' },
     confession: { name: 'Spovedania',                   schedule: 'La cerere',                  language: 'Română și engleză' },
     feastDays:  { name: 'Sărbători și Slujbe Speciale', schedule: 'De anunțat',                 language: 'Română și engleză' },

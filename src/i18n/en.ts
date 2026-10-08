@@ -341,7 +341,7 @@ export const en = {
   },
 
   hero: {
-    patronFeast:  'Synaxis of the Holy Archangels — November 8',
+    announcement: 'Synaxis of the Holy Archangels — November 8',
     welcome:      'Welcome to your spiritual home in the Coachella Valley.',
   },
 

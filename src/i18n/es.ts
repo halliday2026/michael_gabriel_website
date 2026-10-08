@@ -186,7 +186,7 @@ export const es: Dict = {
 
   whatToExpect: {
     welcome: [
-      'Si nunca ha asistido a un servicio ortodoxo, ¡bienvenido! No necesita saber nada de antemano para acompañarnos. Venga tal como es, quédese el tiempo que desee y siéntase libre de simplemente observar y orar.',
+      'Si nunca ha asistido a un servicio ortodoxo, ¡le damos la bienvenida! No necesita saber nada de antemano para acompañarnos. Venga tal como es, quédese el tiempo que desee y siéntase libre de simplemente observar y orar.',
       `La Divina Liturgia es el servicio principal de la Iglesia Ortodoxa. En la ${NAME} se celebra cada domingo de 10:00 a 11:50 a.m., en rumano e inglés, en 590 S Vella Rd, Palm Springs. A continuación encontrará respuestas a las preguntas más frecuentes de los visitantes.`,
     ],
     faqHeading: 'Preguntas Frecuentes',
@@ -204,7 +204,7 @@ export const es: Dict = {
       {
         id: 'dress',
         q: '¿Cómo debo vestirme?',
-        a: ['Lo apropiado es una vestimenta modesta y respetuosa, como la que usaría para cualquier ocasión especial. Muchos hombres usan pantalón largo y muchas mujeres usan falda o vestido; algunas mujeres se cubren la cabeza, como es tradicional en las parroquias rumanas. Sobre todo, venga tal como es: será bienvenido.'],
+        a: ['Lo apropiado es una vestimenta modesta y respetuosa, como la que usaría para cualquier ocasión especial. Muchos hombres usan pantalón largo y muchas mujeres usan falda o vestido; algunas mujeres se cubren la cabeza, como es tradicional en las parroquias rumanas. Sobre todo, venga tal como es: le recibiremos con alegría.'],
       },
       {
         id: 'arrival',
@@ -336,8 +336,8 @@ export const es: Dict = {
   },
 
   hero: {
-    patronFeast:  'Sínaxis de los Santos Arcángeles — 8 de noviembre',
-    welcome:      'Bienvenido a su hogar espiritual en el Valle de Coachella.',
+    announcement: 'Sínaxis de los Santos Arcángeles — 8 de noviembre',
+    welcome:      'Bienvenidos a su hogar espiritual en el Valle de Coachella.',
   },
 
   home: {
@@ -359,14 +359,14 @@ export const es: Dict = {
   },
 
   welcome: {
-    heading: 'Bienvenido a Nuestra Parroquia',
+    heading: 'Bienvenidos a Nuestra Parroquia',
     body1:
       `La ${NAME} da la bienvenida a todos los que buscan adoración, comunidad y un hogar espiritual. Ya sea que sea ortodoxo de nacimiento, esté explorando la fe o simplemente tenga curiosidad, nuestras puertas están abiertas para usted.`,
     body2:
       'Servimos a la comunidad ortodoxa rumana en todo el Valle de Coachella y el Inland Empire — Palm Springs, Palm Desert, Rancho Mirage, Cathedral City, Indio, La Quinta, Desert Hot Springs, Hemet, Rancho Cucamonga, Redlands, Banning, Beaumont y las comunidades circundantes.',
     body3:
       'Para muchos de nuestros fieles, esta parroquia es más que un lugar de culto — es un hogar cultural, donde el idioma rumano, las tradiciones y la forma de vida se mantienen vivos lejos del hogar.',
-    calendarNote: 'Ver Calendario Ortodoxo',
+    calendarNote: 'Ver Calendario Ortodoxo (en inglés)',
   },
 
   liturgies: {
@@ -384,7 +384,7 @@ export const es: Dict = {
   clergy: {
     heading:    'Nuestro Clero',
     subhead:    'Sacerdote Parroquial',
-    name:       'Rev. Fr. Florin Iftode',
+    name:       'P. Florin Iftode',
     phoneLabel: 'Teléfono',
     emailLabel: 'Correo electrónico',
     note:       'Los fieles ortodoxos siempre son bienvenidos a contactar directamente al Padre para orientación espiritual, necesidades sacramentales o consultas parroquiales.',
