@@ -1,0 +1,46 @@
+---
+// GitHub Pages serves a single /404.html for every missing URL, so this page
+// shows all three languages. Visitors under /es/ or /ro/ see their language first.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import { locales, t, pageUrl } from '../i18n';
+---
+
+<BaseLayout lang="en" page="home" notFound>
+  <Section>
+    <div id="not-found" class="mx-auto flex max-w-2xl flex-col gap-10 text-center">
+      {locales.map((l) => {
+        const d = t(l);
+        return (
+          <div lang={l} data-lang-block={l}>
+            {l === 'en' ? (
+              <h1 class="font-display text-3xl font-bold text-brand">{d.notFound.heading}</h1>
+            ) : (
+              <h2 class="font-display text-3xl font-bold text-brand">{d.notFound.heading}</h2>
+            )}
+            <p class="mt-4 text-lg text-ink/80">{d.notFound.body}</p>
+            <a
+              href={pageUrl('home', l)}
+              class="mt-6 inline-flex items-center justify-center rounded-(--radius) bg-brand px-6 py-3 font-semibold text-surface transition-colors hover:bg-royal"
+            >
+              {d.notFound.home}
+            </a>
+          </div>
+        );
+      })}
+    </div>
+  </Section>
+</BaseLayout>
+
+<script>
+  // Put the visitor's language first: URL prefix, then remembered choice.
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  const path = location.pathname.slice(base.length);
+  let lang = /^\/(es|ro)(\/|$)/.exec(path)?.[1];
+  if (!lang) { try { lang = localStorage.getItem('locale') ?? undefined; } catch {} }
+  const block = lang && lang !== 'en' ? document.querySelector(`[data-lang-block="${lang}"]`) : null;
+  if (block) {
+    block.parentElement?.prepend(block);
+    document.documentElement.lang = lang!;
+  }
+</script>

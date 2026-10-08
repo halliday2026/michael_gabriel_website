@@ -1,8 +1,11 @@
 ---
+import { Picture, Image } from 'astro:assets';
 import Section from '../Section.astro';
 import HeroCards from '../HeroCards.astro';
 import { site } from '../../data/site';
 import { t, type Locale } from '../../i18n';
+import churchFront from '../../assets/images/church_front.jpg';
+import seal from '../../assets/images/roc_logo.png';
 
 interface Props {
   lang: Locale;
@@ -11,7 +14,6 @@ interface Props {
 const { lang } = Astro.props;
 const dict = t(lang);
 const { hero } = dict;
-const base = import.meta.env.BASE_URL;
 
 // Configurable announcement line (site.announcement). Evaluated at build time and
 // again in the browser, so a date range stays accurate between deploys.
@@ -29,7 +31,7 @@ const inRange = (!start || today >= start) && (!end || today <= end);
         <p
           id="hero-announcement"
           class:list={[
-            'mb-3 text-sm font-semibold uppercase tracking-widest text-accent lg:whitespace-nowrap lg:tracking-wide xl:tracking-widest',
+            'mb-3 text-sm font-semibold uppercase tracking-widest text-accent-deep lg:whitespace-nowrap lg:tracking-wide xl:tracking-widest',
             !inRange && 'hidden',
           ]}
           data-start={start || undefined}
@@ -58,18 +60,26 @@ const inRange = (!start || today >= start) && (!end || today <= end);
     <!-- Church photo with church seal badge -->
     <div class="relative pb-48 lg:col-start-2 lg:row-start-1 lg:pb-24">
       <div class="mx-auto w-3/4 overflow-hidden rounded-(--radius) shadow-xl lg:w-4/5">
-        <img
-          src={`${base}church_front.jpg`}
+        <!-- Above the fold: load eagerly with high priority (LCP image) -->
+        <Picture
+          src={churchFront}
           alt={dict.images.churchFrontAlt}
+          formats={['avif', 'webp']}
+          widths={[320, 480, 640, 800]}
+          sizes="(min-width: 1280px) 330px, (min-width: 1024px) 26vw, 75vw"
+          loading="eager"
+          fetchpriority="high"
           class="block h-auto w-full"
         />
       </div>
       <!-- Church seal badge — centered below photo -->
-      <img
-        src={`${base}roc_logo.png`}
+      <Image
+        src={seal}
         alt={dict.images.sealAlt}
-        width="267"
-        height="266"
+        width={192}
+        height={192}
+        densities={[1, 2]}
+        format="webp"
         class="absolute bottom-0 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-surface shadow-xl ring-4 ring-accent/60"
       />
     </div>

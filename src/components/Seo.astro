@@ -1,83 +1,228 @@
 ---
+// <head> SEO: title/description, canonical, robots, hreflang, Open Graph/Twitter,
+// and one JSON-LD @graph per page (translated to the page language):
+//   Church (+ Organization) · Person (parish priest) · WebSite · WebPage
+//   + BreadcrumbList (interior pages) · FAQPage (What to Expect) · Event (Sunday Liturgy)
+import { getImage } from 'astro:assets';
 import { site } from '../data/site';
-import { t, locales, defaultLocale, ogLocale, pageUrl, type Locale, type PageKey } from '../i18n';
+import { t, dictionaries, locales, defaultLocale, ogLocale, pageUrl, trail, type Locale, type PageKey } from '../i18n';
+import churchFront from '../assets/images/church_front.jpg';
 
 interface Props {
   lang: Locale;
   page: PageKey;
-  image?: string;
+  /** 404 page: no canonical / hreflang / structured data. */
+  notFound?: boolean;
 }
 
-const { lang, page, image } = Astro.props;
+const { lang, page, notFound = false } = Astro.props;
 const dict = t(lang);
-const { title, description } = dict.meta[page];
+const { title, description } = notFound
+  ? { title: `${dict.notFound.title} | ${dict.church.name}`, description: dict.church.summary }
+  : dict.meta[page];
 
 const abs = (path: string) => new URL(path, Astro.site).href;
 const canonicalURL = abs(pageUrl(page, lang));
-const resolvedImage = abs(`${import.meta.env.BASE_URL}${image ?? 'church_front.jpg'}`);
+const homeURL = abs(pageUrl('home', lang));
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': ['Church', 'LocalBusiness'],
-  name: site.name,
-  description: t('en').meta.home.description,
-  url: site.url,
-  telephone: site.contact.phone,
+// Social share image: optimized 1200px-wide JPEG of the church front
+const ogImg = await getImage({ src: churchFront, width: 1200, format: 'jpg' });
+const ogImage = abs(ogImg.src);
+const logoURL = `${site.url}/roc_logo.png`;
+
+// ---- Structured data ---------------------------------------------------------
+const churchId  = `${site.url}/#church`;
+const priestId  = `${site.url}/#priest`;
+const websiteId = `${site.url}/#website`;
+const pageId    = `${canonicalURL}#webpage`;
+
+const alternateName = [
+  ...locales.map((l) => dictionaries[l].church.name),
+  'Holy Archangels Michael and Gabriel Romanian Orthodox Church',
+  'Sts Michael and Gabriel Orthodox Church',
+].filter((n, i, all) => n !== dict.church.name && all.indexOf(n) === i);
+
+const address = {
+  '@type': 'PostalAddress',
+  streetAddress:   site.contact.streetAddress,
+  addressLocality: site.contact.addressLocality,
+  addressRegion:   site.contact.addressRegion,
+  postalCode:      site.contact.postalCode,
+  addressCountry:  'US',
+};
+
+const church = {
+  '@type': ['Church', 'Organization'],
+  '@id': churchId,
+  name: dict.church.name,
+  alternateName,
+  description: dict.church.summary,
+  url: homeURL,
+  logo: { '@type': 'ImageObject', url: logoURL, width: 267, height: 266 },
+  image: ogImage,
+  telephone: site.phoneIntl,
   email: site.contact.emailGeneral,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress:   site.contact.streetAddress,
-    addressLocality: site.contact.addressLocality,
-    addressRegion:   site.contact.addressRegion,
-    postalCode:      site.contact.postalCode,
-    addressCountry:  'US',
-  },
-  openingHoursSpecification: {
+  address,
+  geo: { '@type': 'GeoCoordinates', ...site.geo },
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.contact.address)}`,
+  areaServed: site.areaServed.map((city) => ({ '@type': 'City', name: `${city}, CA` })),
+  knowsLanguage: ['ro', 'en'],
+  openingHoursSpecification: [{
     '@type': 'OpeningHoursSpecification',
-    dayOfWeek: 'Sunday',
-    opens:  '10:00',
+    dayOfWeek: 'https://schema.org/Sunday',
+    opens: '10:00',
     closes: '11:50',
-    description: 'Divine Liturgy in Romanian and English',
+  }],
+  parentOrganization: { '@type': 'Organization', name: site.parentOrganization.name },
+  employee: { '@id': priestId },
+  ...(site.sameAs.length ? { sameAs: site.sameAs } : {}),
+};
+
+const priest = {
+  '@type': 'Person',
+  '@id': priestId,
+  name: `${site.priest.givenName} ${site.priest.familyName}`,
+  givenName: site.priest.givenName,
+  familyName: site.priest.familyName,
+  honorificPrefix: { en: 'Rev. Fr.', es: 'P.', ro: 'Pr.' }[lang],
+  jobTitle: dict.schema.priestJobTitle,
+  telephone: site.phoneIntl,
+  email: site.contact.email,
+  worksFor: { '@id': churchId },
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': websiteId,
+  url: `${site.url}/`,
+  name: dict.church.name,
+  inLanguage: [...locales],
+  publisher: { '@id': churchId },
+};
+
+const isFaq = page === 'whatToExpect';
+const hasBreadcrumb = page !== 'home';
+
+const webpage = {
+  '@type': isFaq ? ['WebPage', 'FAQPage'] : 'WebPage',
+  '@id': pageId,
+  url: canonicalURL,
+  name: title,
+  description,
+  inLanguage: lang,
+  isPartOf: { '@id': websiteId },
+  about: { '@id': churchId },
+  primaryImageOfPage: ogImage,
+  ...(hasBreadcrumb ? { breadcrumb: { '@id': `${canonicalURL}#breadcrumb` } } : {}),
+  ...(isFaq
+    ? {
+        mainEntity: dict.whatToExpect.faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: { '@type': 'Answer', text: item.a.join(' ') },
+        })),
+      }
+    : {}),
+};
+
+const breadcrumb = hasBreadcrumb && {
+  '@type': 'BreadcrumbList',
+  '@id': `${canonicalURL}#breadcrumb`,
+  itemListElement: trail(page).map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: dict.menu[p],
+    item: abs(pageUrl(p, lang)),
+  })),
+};
+
+// Recurring Sunday Divine Liturgy. startDate = the next Sunday after the build.
+function nextSunday(): { start: string; end: string } {
+  const tz = 'America/Los_Angeles';
+  const now = new Date();
+  const ymd = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now);
+  const d = new Date(`${ymd}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + ((7 - d.getUTCDay()) % 7 || 7));
+  const date = d.toISOString().slice(0, 10);
+  const offset = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'longOffset' })
+    .formatToParts(new Date(`${date}T17:00:00Z`))
+    .find((p) => p.type === 'timeZoneName')!.value.replace('GMT', '');
+  return { start: `${date}T10:00:00${offset}`, end: `${date}T11:50:00${offset}` };
+}
+const showEvent = page === 'home' || page === 'worship' || page === 'whatToExpect';
+const sunday = nextSunday();
+const event = showEvent && {
+  '@type': 'Event',
+  '@id': `${site.url}/#sunday-liturgy-${lang}`,
+  name: dict.schema.liturgyName,
+  description: dict.schema.liturgyDescription,
+  url: abs(pageUrl('worship', lang, 'liturgy')),
+  image: ogImage,
+  startDate: sunday.start,
+  endDate: sunday.end,
+  eventSchedule: {
+    '@type': 'Schedule',
+    repeatFrequency: 'P1W',
+    byDay: 'https://schema.org/Sunday',
+    startTime: '10:00:00',
+    endTime: '11:50:00',
+    scheduleTimezone: 'America/Los_Angeles',
   },
-  employee: {
-    '@type': 'Person',
-    name:      'Rev. Fr. Florin Iftode',
-    jobTitle:  'Parish Priest',
-    telephone: site.contact.phone,
-    email:     site.contact.email,
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  inLanguage: ['ro', 'en'],
+  isAccessibleForFree: true,
+  location: { '@type': 'Place', name: dict.church.name, address, geo: { '@type': 'GeoCoordinates', ...site.geo } },
+  organizer: { '@id': churchId },
+  performer: { '@id': priestId },
+  offers: {
+    '@type': 'Offer',
+    price: 0,
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: abs(pageUrl('worship', lang, 'liturgy')),
+    validFrom: sunday.start.slice(0, 10),
   },
-  areaServed: 'Coachella Valley and Inland Empire',
-  image: `${site.url}/church_front.jpg`,
-  logo:  `${site.url}/roc_logo.png`,
+};
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [church, priest, website, webpage, breadcrumb, event].filter(Boolean),
 };
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonicalURL} />
-<meta name="robots" content="index, follow, max-image-preview:large" />
-
-<!-- Language alternates -->
-{locales.map((l) => <link rel="alternate" hreflang={l} href={abs(pageUrl(page, l))} />)}
-<link rel="alternate" hreflang="x-default" href={abs(pageUrl(page, defaultLocale))} />
+{!notFound && (
+  <>
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <!-- Language alternates -->
+    {locales.map((l) => <link rel="alternate" hreflang={l} href={abs(pageUrl(page, l))} />)}
+    <link rel="alternate" hreflang="x-default" href={abs(pageUrl(page, defaultLocale))} />
+  </>
+)}
+{site.googleSiteVerification && <meta name="google-site-verification" content={site.googleSiteVerification} />}
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={canonicalURL} />
+{!notFound && <meta property="og:url" content={canonicalURL} />}
 <meta property="og:site_name" content={dict.church.name} />
 <meta property="og:locale" content={ogLocale[lang]} />
 {locales.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={ogLocale[l]} />)}
-<meta property="og:image" content={resolvedImage} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content={String(ogImg.attributes.width ?? 1200)} />
+<meta property="og:image:height" content={String(ogImg.attributes.height ?? 1600)} />
 <meta property="og:image:alt" content={dict.images.churchFrontAlt} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={resolvedImage} />
+<meta name="twitter:image" content={ogImage} />
 <meta name="twitter:image:alt" content={dict.images.churchFrontAlt} />
 
 <!-- JSON-LD structured data -->
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+{!notFound && <script type="application/ld+json" is:inline set:html={JSON.stringify(graph)} />}

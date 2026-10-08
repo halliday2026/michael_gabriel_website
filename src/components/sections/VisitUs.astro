@@ -25,7 +25,7 @@ const mapsDirectionsUrl = `https://maps.google.com/?q=${encodedAddress}&hl=${lan
   <div class="mt-8 grid gap-8 lg:grid-cols-2">
     <!-- Address card -->
     <div>
-      <p class="text-xs font-semibold uppercase tracking-widest text-accent">
+      <p class="text-xs font-semibold uppercase tracking-widest text-accent-deep">
         {visit.addressLabel}
       </p>
       <address class="mt-3 not-italic">
@@ -35,7 +35,7 @@ const mapsDirectionsUrl = `https://maps.google.com/?q=${encodedAddress}&hl=${lan
         href={mapsDirectionsUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
+        class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent-deep hover:underline"
       >
         {visit.directions}
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

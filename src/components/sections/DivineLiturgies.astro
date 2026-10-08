@@ -4,10 +4,12 @@ import { t, pageUrl, type Locale } from '../../i18n';
 interface Props {
   lang: Locale;
   id?: string;
+  heading?: string;
 }
 
 const { lang, id = 'services' } = Astro.props;
 const { liturgies, worshipPage } = t(lang);
+const heading = Astro.props.heading ?? liturgies.heading;
 const calendarHref = pageUrl('newsEvents', lang, 'calendar');
 
 // `tba` rows link their "To be announced" schedule to the parish calendar
@@ -23,7 +25,7 @@ const rows = [
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
     <h2 class="font-display text-3xl font-bold text-accent sm:text-4xl">
-      {liturgies.heading}
+      {heading}
     </h2>
 
     <!-- Services table -->

@@ -22,7 +22,7 @@ const formatDate = (iso: string) =>
     {sorted.map((item) => (
       <li>
         <article class="rounded-(--radius) border border-muted bg-surface p-6 shadow-sm">
-          <time datetime={item.date} class="text-xs font-semibold uppercase tracking-widest text-accent">
+          <time datetime={item.date} class="text-xs font-semibold uppercase tracking-widest text-accent-deep">
             {formatDate(item.date)}
           </time>
           <h3 class="mt-2 font-display text-xl font-bold text-brand">{item.title[lang]}</h3>

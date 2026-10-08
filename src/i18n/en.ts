@@ -10,6 +10,22 @@ export const en = {
     // The one place the church's English name is defined.
     name:    NAME,
     tagline: 'Romanian Orthodox Parish — Palm Springs, California',
+    // Canonical one-sentence summary — reused word for word on the site, in llms.txt and on the Google Business Profile.
+    summary: `${SHORT_NAME} is a Romanian Orthodox parish at 590 S Vella Rd in Palm Springs, California, celebrating the Divine Liturgy every Sunday from 10:00 to 11:50 a.m. in Romanian and English.`,
+  },
+
+  // Structured data (JSON-LD) strings
+  schema: {
+    priestJobTitle:     'Parish Priest',
+    liturgyName:        'Sunday Divine Liturgy',
+    liturgyDescription: 'The Divine Liturgy, celebrated every Sunday from 10:00 to 11:50 a.m. in Romanian and English. Everyone is welcome.',
+  },
+
+  notFound: {
+    title:   'Page not found',
+    heading: 'Page not found',
+    body:    'Sorry — we couldn’t find that page. It may have moved when the website was updated.',
+    home:    'Go to the home page',
   },
 
   ui: {
@@ -79,14 +95,14 @@ export const en = {
   meta: {
     home: {
       title:       `${NAME}`,
-      description: 'Romanian Orthodox parish serving the faithful across the Coachella Valley and Inland Empire. Divine Liturgy every Sunday, 10:00–11:50 a.m., in Romanian and English.',
+      description: `Romanian Orthodox parish serving the Coachella Valley and Inland Empire. Divine Liturgy every Sunday, 10:00–11:50 a.m., in Romanian and English.`,
     },
     ourParish: {
       title:       'Our Parish | Romanian Orthodox Church, Palm Springs',
-      description: `Learn about ${NAME} in Palm Springs, California: our parish, our clergy, our history and our Romanian Orthodox tradition.`,
+      description: `About ${NAME} in Palm Springs, California: our parish, clergy, history and Romanian Orthodox tradition.`,
     },
     worship: {
-      title:       'Worship & Divine Liturgy Schedule | Palm Springs',
+      title:       `Worship & Divine Liturgy Schedule | Palm Springs, CA`,
       description: `Divine Liturgy every Sunday, 10:00–11:50 a.m., in Romanian and English at ${NAME}, 590 S Vella Rd, Palm Springs.`,
     },
     whatToExpect: {
@@ -98,7 +114,7 @@ export const en = {
       description: `Ask the parish of ${SHORT_NAME} in Palm Springs to pray for you and your loved ones, living and departed, and learn about prayer for healing.`,
     },
     community: {
-      title:       'Parish Community & Culture | Coachella Valley',
+      title:       `Parish Community & Romanian Culture | Coachella Valley`,
       description: `Parish life at ${NAME}: Romanian feasts, colinde, agape meals and friendship across the Coachella Valley.`,
     },
     gallery: {
@@ -114,11 +130,11 @@ export const en = {
       description: `Parish calendar, announcements and news from ${NAME}, serving the Coachella Valley and Inland Empire.`,
     },
     visit: {
-      title:       'Visit Us | 590 S Vella Rd, Palm Springs, CA',
-      description: `Visit ${NAME} at 590 S Vella Rd, Palm Springs, CA 92264. Divine Liturgy Sundays 10:00–11:50 a.m. Map and contact form.`,
+      title:       `Visit Us | Orthodox Church at 590 S Vella Rd, Palm Springs`,
+      description: `Visit ${NAME}, 590 S Vella Rd, Palm Springs, CA 92264. Divine Liturgy Sundays 10:00–11:50 a.m. Map and contact.`,
     },
     donate: {
-      title:       'Donate | Support Our Palm Springs Orthodox Parish',
+      title:       `Donate | Support Our Romanian Orthodox Parish, Palm Springs`,
       description: `Support ${NAME} in Palm Springs. Your gift sustains worship and ministry across the Coachella Valley. Give via Zelle.`,
     },
   },
@@ -127,7 +143,7 @@ export const en = {
   pages: {
     ourParish: {
       heading: 'Our Parish',
-      intro:   `${SHORT_NAME} is a Romanian Orthodox parish in Palm Springs, California, serving the faithful of the Coachella Valley and Inland Empire.`,
+      intro:   `${SHORT_NAME} is a Romanian Orthodox parish at 590 S Vella Rd in Palm Springs, California, celebrating the Divine Liturgy every Sunday from 10:00 to 11:50 a.m. in Romanian and English.`,
     },
     worship: {
       heading: 'Worship',
@@ -135,27 +151,27 @@ export const en = {
     },
     whatToExpect: {
       heading: 'What to Expect',
-      intro:   'A welcoming guide for anyone visiting an Orthodox Divine Liturgy for the first time.',
+      intro:   `New to Orthodoxy? At ${SHORT_NAME} in Palm Springs, the Sunday Divine Liturgy runs from 10:00 to 11:50 a.m. in Romanian and English, and visitors are always welcome. Here is what to expect.`,
     },
     prayer: {
       heading: 'Prayer',
-      intro:   'The parish prays for the living and the departed. You may ask us to pray for you and for those you love.',
+      intro:   `${SHORT_NAME} prays for the living and the departed at every Divine Liturgy. You can send a prayer request or names for prayer (a pomelnic) directly to the parish priest, Fr. Florin Iftode.`,
     },
     community: {
       heading: 'Community',
-      intro:   'Our parish family gathers throughout the year for worship, Romanian feasts, colinde and fellowship across the Coachella Valley and Inland Empire.',
+      intro:   `${SHORT_NAME} is a living center of Romanian Orthodox faith and culture in the Coachella Valley, gathering throughout the year for worship, Romanian feasts, colinde and fellowship.`,
     },
     gallery: {
       heading: 'Photo Gallery',
-      intro:   'Photos of our church and parish life.',
+      intro:   `Photos of ${NAME} in Palm Springs, California: the church building, the Divine Liturgy and parish life.`,
     },
     learn: {
       heading: 'Learn',
-      intro:   'An introduction to the Orthodox Christian faith and to the Romanian Orthodox tradition.',
+      intro:   `An introduction to the Orthodox Christian faith and the Romanian Orthodox tradition from ${SHORT_NAME}, a Romanian Orthodox parish in Palm Springs, California.`,
     },
     newsEvents: {
       heading: 'News & Events',
-      intro:   `The parish calendar, announcements and news from ${NAME}.`,
+      intro:   `The parish calendar, announcements and news from ${NAME} in Palm Springs, California.`,
     },
     visit: {
       heading: 'Visit Us',
@@ -163,7 +179,7 @@ export const en = {
     },
     donate: {
       heading: 'Donate',
-      intro:   'Your gifts sustain the worship and ministry of our parish.',
+      intro:   `${SHORT_NAME} in Palm Springs is sustained by the gifts of its faithful. You can give securely by Zelle — details below.`,
     },
   },
 
@@ -187,6 +203,7 @@ export const en = {
       'Confession is available upon request. Please speak with Fr. Florin after the Liturgy or contact him to arrange a time.',
     ],
     tbaCalendar: 'see the parish calendar',
+    scheduleHeading: 'What time is Sunday Liturgy?',
   },
 
   whatToExpect: {
@@ -409,7 +426,7 @@ export const en = {
     heading:      'Visit Us',
     addressLabel: 'Address',
     directions:   'Get Directions',
-    mapHeading:   'Map & Directions',
+    mapHeading:   'Where is the church?',
     mapTitle:     'Map of 590 S Vella Rd, Palm Springs, CA 92264',
   },
 

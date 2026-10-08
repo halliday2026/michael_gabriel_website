@@ -9,11 +9,14 @@ import { t, type Locale, type PageKey } from '../i18n';
 interface Props {
   lang: Locale;
   page: PageKey;
-  image?: string;
+  /** 404 page: no canonical / hreflang / structured data. */
+  notFound?: boolean;
 }
 
-const { lang, page, image } = Astro.props;
+const { lang, page, notFound = false } = Astro.props;
 const dict = t(lang);
+const fontsHref =
+  'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap';
 ---
 
 <!doctype html>
@@ -22,7 +25,13 @@ const dict = t(lang);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-    <Seo lang={lang} page={page} image={image} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Google Fonts loaded without blocking first paint (text shows in Georgia, then swaps) -->
+    <link rel="preload" as="style" href={fontsHref} />
+    <link rel="stylesheet" href={fontsHref} media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href={fontsHref} /></noscript>
+    <Seo lang={lang} page={page} notFound={notFound} />
     <Analytics />
   </head>
   <body class="font-sans">

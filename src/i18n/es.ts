@@ -8,6 +8,20 @@ export const es: Dict = {
   church: {
     name:    NAME,
     tagline: 'Parroquia Ortodoxa Rumana — Palm Springs, California',
+    summary: 'Los Santos Arcángeles Miguel y Gabriel es una parroquia ortodoxa rumana en 590 S Vella Rd, Palm Springs, California, que celebra la Divina Liturgia cada domingo de 10:00 a 11:50 a.m. en rumano e inglés.',
+  },
+
+  schema: {
+    priestJobTitle:     'Sacerdote parroquial',
+    liturgyName:        'Divina Liturgia dominical',
+    liturgyDescription: 'La Divina Liturgia, celebrada cada domingo de 10:00 a 11:50 a.m. en rumano e inglés. Todos son bienvenidos.',
+  },
+
+  notFound: {
+    title:   'Página no encontrada',
+    heading: 'Página no encontrada',
+    body:    'Lo sentimos, no encontramos esa página. Es posible que haya cambiado de lugar al actualizarse el sitio web.',
+    home:    'Ir a la página de inicio',
   },
 
   ui: {
@@ -76,7 +90,7 @@ export const es: Dict = {
   meta: {
     home: {
       title:       'Iglesia Ortodoxa Rumana en Palm Springs, California',
-      description: 'Parroquia ortodoxa rumana al servicio de los fieles del Valle de Coachella y el Inland Empire. Divina Liturgia cada domingo, 10:00–11:50 a.m., en rumano e inglés.',
+      description: `Parroquia ortodoxa rumana del Valle de Coachella y el Inland Empire. Divina Liturgia cada domingo, 10:00–11:50 a.m., en rumano e inglés. ¡Bienvenidos!`,
     },
     ourParish: {
       title:       'Nuestra Parroquia | Iglesia Ortodoxa Rumana, Palm Springs',
@@ -92,7 +106,7 @@ export const es: Dict = {
     },
     prayer: {
       title:       'Solicite una Oración | Iglesia Ortodoxa Palm Springs',
-      description: 'Pida a la parroquia de los Santos Arcángeles Miguel y Gabriel en Palm Springs que ore por usted y sus seres queridos, vivos y difuntos.',
+      description: `Pida a la parroquia de los Santos Arcángeles Miguel y Gabriel en Palm Springs que ore por usted y sus seres queridos, vivos y difuntos. Envíe su pomelnic.`,
     },
     community: {
       title:       'Comunidad y Cultura Parroquial | Valle de Coachella',
@@ -111,11 +125,11 @@ export const es: Dict = {
       description: 'Calendario parroquial, anuncios y noticias de la Iglesia Ortodoxa Rumana de los Santos Arcángeles, al servicio del Valle de Coachella y el Inland Empire.',
     },
     visit: {
-      title:       'Visítenos | 590 S Vella Rd, Palm Springs, CA',
+      title:       `Visítenos | Iglesia Ortodoxa, 590 S Vella Rd, Palm Springs`,
       description: 'Visite la Iglesia Ortodoxa Rumana de los Santos Arcángeles en 590 S Vella Rd, Palm Springs, CA 92264. Divina Liturgia los domingos, 10:00–11:50 a.m.',
     },
     donate: {
-      title:       'Donar | Apoye a Nuestra Parroquia en Palm Springs',
+      title:       `Donar | Apoye a Nuestra Parroquia Ortodoxa en Palm Springs`,
       description: 'Apoye a la Iglesia Ortodoxa Rumana de los Santos Arcángeles en Palm Springs. Su donativo sostiene el culto y el ministerio en el Valle de Coachella.',
     },
   },
@@ -123,7 +137,7 @@ export const es: Dict = {
   pages: {
     ourParish: {
       heading: 'Nuestra Parroquia',
-      intro:   'Los Santos Arcángeles Miguel y Gabriel es una parroquia ortodoxa rumana en Palm Springs, California, al servicio de los fieles del Valle de Coachella y el Inland Empire.',
+      intro:   `Los Santos Arcángeles Miguel y Gabriel es una parroquia ortodoxa rumana en 590 S Vella Rd, Palm Springs, California, que celebra la Divina Liturgia cada domingo de 10:00 a 11:50 a.m. en rumano e inglés.`,
     },
     worship: {
       heading: 'Culto',
@@ -131,27 +145,27 @@ export const es: Dict = {
     },
     whatToExpect: {
       heading: 'Qué Esperar',
-      intro:   'Una guía de bienvenida para quienes visitan por primera vez una Divina Liturgia ortodoxa.',
+      intro:   `¿Es nuevo en la Ortodoxia? En los Santos Arcángeles Miguel y Gabriel, en Palm Springs, la Divina Liturgia dominical es de 10:00 a 11:50 a.m., en rumano e inglés, y los visitantes siempre son bienvenidos. Esto es lo que puede esperar.`,
     },
     prayer: {
       heading: 'Oración',
-      intro:   'La parroquia ora por los vivos y por los difuntos. Puede pedirnos que oremos por usted y por sus seres queridos.',
+      intro:   `La parroquia de los Santos Arcángeles Miguel y Gabriel ora por los vivos y por los difuntos en cada Divina Liturgia. Puede enviar una solicitud de oración o nombres para la oración (pomelnic) directamente al sacerdote parroquial, el P. Florin Iftode.`,
     },
     community: {
       heading: 'Comunidad',
-      intro:   'Nuestra familia parroquial se reúne durante todo el año para el culto, las fiestas rumanas, los colinde y la convivencia en el Valle de Coachella y el Inland Empire.',
+      intro:   `Los Santos Arcángeles Miguel y Gabriel es un centro vivo de fe ortodoxa y cultura rumana en el Valle de Coachella, que se reúne durante todo el año para el culto, las fiestas rumanas, los colinde y la convivencia.`,
     },
     gallery: {
       heading: 'Galería de Fotos',
-      intro:   'Fotos de nuestra iglesia y de la vida parroquial.',
+      intro:   `Fotos de la ${NAME} en Palm Springs, California: el templo, la Divina Liturgia y la vida parroquial.`,
     },
     learn: {
       heading: 'Aprender',
-      intro:   'Una introducción a la fe cristiana ortodoxa y a la tradición ortodoxa rumana.',
+      intro:   `Una introducción a la fe cristiana ortodoxa y a la tradición ortodoxa rumana, de los Santos Arcángeles Miguel y Gabriel, parroquia ortodoxa rumana en Palm Springs, California.`,
     },
     newsEvents: {
       heading: 'Noticias y Eventos',
-      intro:   `El calendario parroquial, los anuncios y las noticias de la ${NAME}.`,
+      intro:   `El calendario parroquial, los anuncios y las noticias de la ${NAME} en Palm Springs, California.`,
     },
     visit: {
       heading: 'Visítenos',
@@ -159,7 +173,7 @@ export const es: Dict = {
     },
     donate: {
       heading: 'Donar',
-      intro:   'Sus donativos sostienen el culto y el ministerio de nuestra parroquia.',
+      intro:   `La parroquia de los Santos Arcángeles Miguel y Gabriel en Palm Springs se sostiene gracias a los donativos de sus fieles. Puede donar de forma segura por Zelle; encontrará los detalles a continuación.`,
     },
   },
 
@@ -182,6 +196,7 @@ export const es: Dict = {
       'La Confesión está disponible a petición. Hable con el P. Florin después de la Liturgia o comuníquese con él para acordar un horario.',
     ],
     tbaCalendar: 'consulte el calendario parroquial',
+    scheduleHeading: '¿A qué hora es la Divina Liturgia del domingo?',
   },
 
   whatToExpect: {
@@ -404,7 +419,7 @@ export const es: Dict = {
     heading:      'Visítenos',
     addressLabel: 'Dirección',
     directions:   'Cómo Llegar',
-    mapHeading:   'Mapa y Cómo Llegar',
+    mapHeading:   '¿Dónde está la iglesia?',
     mapTitle:     'Mapa de 590 S Vella Rd, Palm Springs, CA 92264',
   },
 

@@ -20,6 +20,38 @@ export const site = {
     postalCode:     '92264',
   },
 
+  // Phone in international format for structured data (same number as contact.phone)
+  phoneIntl: '+1-760-325-5388',
+
+  priest: {
+    givenName:  'Florin',
+    familyName: 'Iftode',
+  },
+
+  // TODO(config): approximate — OpenStreetMap matched Vella Road, not the house
+  // number. Replace with the exact pin from the Google Business Profile / Google Maps.
+  geo: { latitude: 33.8104, longitude: -116.4974 },
+
+  // Cities named in the Welcome paragraph (schema areaServed)
+  areaServed: [
+    'Palm Springs', 'Palm Desert', 'Rancho Mirage', 'Cathedral City', 'Indio', 'La Quinta',
+    'Desert Hot Springs', 'Hemet', 'Rancho Cucamonga', 'Redlands', 'Banning', 'Beaumont',
+  ],
+
+  // TODO(decision): confirm the diocese the parish belongs to.
+  parentOrganization: {
+    name: 'Romanian Orthodox Archdiocese of the Americas',
+  },
+
+  // TODO(config): add the Google Business Profile URL and any Facebook / YouTube /
+  // Instagram pages once confirmed — they become schema `sameAs`.
+  sameAs: [] as string[],
+
+  // Google Search Console HTML-tag verification. The site is already verified with
+  // public/googlef2ae0ced62d19fdc.html; this meta tag is optional.
+  // TODO(config): paste the content="…" token if you switch to meta-tag verification.
+  googleSiteVerification: import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION || '',
+
   // CI can pass an empty string '', which `??` would let through — `||` is
   // required so the placeholder fallback is used whenever the env var is unset.
   formspreeEndpoint:

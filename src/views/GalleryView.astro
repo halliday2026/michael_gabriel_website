@@ -15,7 +15,7 @@ const photos = await Promise.all(
   gallery.map(async (g) => {
     const src = galleryImage(g.file);
     const large = await getImage({ src, width: Math.min(src.width, 1800), format: 'webp' });
-    return { src, alt: g.alt[lang], position: g.position, large: large.src };
+    return { src, alt: g.alt[lang], position: g.position, large: large.src, w: large.attributes.width, h: large.attributes.height };
   })
 );
 ---
@@ -31,6 +31,8 @@ const photos = await Promise.all(
           class="group block w-full overflow-hidden rounded-(--radius) shadow-sm ring-1 ring-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent"
           data-lightbox-index={i}
           data-full={p.large}
+          data-w={p.w}
+          data-h={p.h}
           data-alt={p.alt}
         >
           <span class="sr-only">{dict.galleryUi.open}: </span>
@@ -62,7 +64,7 @@ const photos = await Promise.all(
 >
   <div id="lightbox-stage" class="flex h-dvh w-screen flex-col items-center justify-center gap-3 p-4 sm:p-8">
     <figure class="flex max-h-full min-h-0 flex-col items-center">
-      <img id="lightbox-img" src="" alt="" class="max-h-[80dvh] w-auto max-w-full rounded-(--radius) object-contain shadow-2xl" />
+      <img id="lightbox-img" alt="" width={photos[0]?.w} height={photos[0]?.h} class="h-auto max-h-[80dvh] w-auto max-w-full rounded-(--radius) object-contain shadow-2xl" />
       <figcaption id="lightbox-caption" class="mt-3 text-center text-surface"></figcaption>
     </figure>
 
@@ -92,6 +94,8 @@ const photos = await Promise.all(
     const t = triggers[current];
     img.src = t.dataset.full ?? '';
     img.alt = t.dataset.alt ?? '';
+    if (t.dataset.w) img.width = Number(t.dataset.w);
+    if (t.dataset.h) img.height = Number(t.dataset.h);
     caption.textContent = t.dataset.alt ?? '';
   }
 

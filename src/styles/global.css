@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap");
+/* Google Fonts (Playfair Display + Lora) are linked from BaseLayout <head> with preconnect. */
 @import "tailwindcss";
 
 @theme {
@@ -10,6 +10,8 @@
   --color-ink:       #1C1C1C;   /* near-black body text */
   --color-surface:   #FAF8F4;   /* warm cream — page background */
   --color-muted:     #F0ECE3;   /* deeper cream — section tint */
+  --color-accent-deep: #806010; /* deeper gold for small gold text on cream — WCAG AA */
+  --color-highlight-deep: #A54B2C; /* deeper terracotta for error text on cream — WCAG AA */
   --color-zelle:     #6D1ED4;   /* Zelle brand purple — Zelle icon only */
 
   --font-sans:    "Lora", Georgia, serif;

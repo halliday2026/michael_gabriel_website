@@ -10,6 +10,20 @@ export const ro: Dict = {
   church: {
     name:    NAME,
     tagline: 'Parohie Ortodoxă Română — Palm Springs, California',
+    summary: 'Sfinții Arhangheli Mihail și Gavriil este o parohie ortodoxă română de la 590 S Vella Rd, Palm Springs, California, unde Sfânta Liturghie se săvârșește în fiecare duminică, între orele 10:00 și 11:50, în română și engleză.',
+  },
+
+  schema: {
+    priestJobTitle:     'Preot paroh',
+    liturgyName:        'Sfânta Liturghie de duminică',
+    liturgyDescription: 'Sfânta Liturghie, săvârșită în fiecare duminică între orele 10:00 și 11:50, în română și engleză. Toți sunt bineveniți.',
+  },
+
+  notFound: {
+    title:   'Pagina nu a fost găsită',
+    heading: 'Pagina nu a fost găsită',
+    body:    'Ne pare rău — nu am găsit această pagină. Este posibil să fi fost mutată la actualizarea site-ului.',
+    home:    'Mergeți la pagina principală',
   },
 
   ui: {
@@ -113,7 +127,7 @@ export const ro: Dict = {
       description: 'Calendarul parohiei, anunțuri și știri de la Biserica Ortodoxă Română a Sfinților Arhangheli, care slujește Valea Coachella și Inland Empire.',
     },
     visit: {
-      title:       'Vizitați-ne | 590 S Vella Rd, Palm Springs, CA',
+      title:       `Vizitați-ne | Biserica Ortodoxă Română din Palm Springs, CA`,
       description: 'Vizitați Biserica Ortodoxă Română a Sfinților Arhangheli la 590 S Vella Rd, Palm Springs, CA 92264. Sfânta Liturghie duminica, 10:00–11:50. Hartă și contact.',
     },
     donate: {
@@ -125,7 +139,7 @@ export const ro: Dict = {
   pages: {
     ourParish: {
       heading: 'Parohia Noastră',
-      intro:   'Sfinții Arhangheli Mihail și Gavriil este o parohie ortodoxă română din Palm Springs, California, care slujește credincioșii din Valea Coachella și Inland Empire.',
+      intro:   `Sfinții Arhangheli Mihail și Gavriil este o parohie ortodoxă română de la 590 S Vella Rd, Palm Springs, California, unde Sfânta Liturghie se săvârșește în fiecare duminică, între orele 10:00 și 11:50, în română și engleză.`,
     },
     worship: {
       heading: 'Slujbe',
@@ -133,27 +147,27 @@ export const ro: Dict = {
     },
     whatToExpect: {
       heading: 'Ce să Așteptați',
-      intro:   'Un ghid primitor pentru cei care vin pentru prima dată la Sfânta Liturghie ortodoxă.',
+      intro:   `Sunteți nou în Ortodoxie? La parohia Sfinții Arhangheli Mihail și Gavriil din Palm Springs, Sfânta Liturghie de duminică se săvârșește între orele 10:00 și 11:50, în română și engleză, iar vizitatorii sunt întotdeauna bineveniți. Iată la ce să vă așteptați.`,
     },
     prayer: {
       heading: 'Rugăciune',
-      intro:   'Parohia se roagă pentru cei vii și pentru cei adormiți. Ne puteți cere să ne rugăm pentru dumneavoastră și pentru cei dragi.',
+      intro:   `Parohia Sfinții Arhangheli Mihail și Gavriil se roagă pentru cei vii și pentru cei adormiți la fiecare Sfântă Liturghie. Puteți trimite o cerere de rugăciune sau un pomelnic direct preotului paroh, Pr. Florin Iftode.`,
     },
     community: {
       heading: 'Comunitate',
-      intro:   'Familia noastră parohială se adună de-a lungul anului la slujbe, la praznice românești, la colinde și la agapă, în Valea Coachella și Inland Empire.',
+      intro:   `Parohia Sfinții Arhangheli Mihail și Gavriil este un centru viu al credinței ortodoxe și al culturii românești în Valea Coachella, unde credincioșii se adună de-a lungul anului la slujbe, praznice, colinde și agape.`,
     },
     gallery: {
       heading: 'Galerie Foto',
-      intro:   'Fotografii cu biserica noastră și cu viața parohiei.',
+      intro:   `Fotografii de la Biserica Ortodoxă Română a Sfinților Arhangheli Mihail și Gavriil din Palm Springs, California: biserica, Sfânta Liturghie și viața parohiei.`,
     },
     learn: {
       heading: 'Învățătură',
-      intro:   'O introducere în credința creștin-ortodoxă și în tradiția ortodoxă română.',
+      intro:   `O introducere în credința creștin-ortodoxă și în tradiția ortodoxă română, de la parohia Sfinții Arhangheli Mihail și Gavriil, parohie ortodoxă română din Palm Springs, California.`,
     },
     newsEvents: {
       heading: 'Știri și Evenimente',
-      intro:   'Calendarul parohiei, anunțurile și știrile Bisericii Ortodoxe Române a Sfinților Arhangheli Mihail și Gavriil.',
+      intro:   `Calendarul parohiei, anunțurile și știrile Bisericii Ortodoxe Române a Sfinților Arhangheli Mihail și Gavriil din Palm Springs, California.`,
     },
     visit: {
       heading: 'Vizitați-ne',
@@ -161,7 +175,7 @@ export const ro: Dict = {
     },
     donate: {
       heading: 'Donați',
-      intro:   'Darurile dumneavoastră susțin slujbele și lucrarea parohiei noastre.',
+      intro:   `Parohia Sfinții Arhangheli Mihail și Gavriil din Palm Springs este susținută prin darurile credincioșilor ei. Puteți dona în siguranță prin Zelle — detaliile se află mai jos.`,
     },
   },
 
@@ -184,6 +198,7 @@ export const ro: Dict = {
       'Spovedania se face la cerere. Vă rugăm să vorbiți cu Părintele Florin după Sfânta Liturghie sau să îl contactați pentru a stabili o întâlnire.',
     ],
     tbaCalendar: 'consultați calendarul parohiei',
+    scheduleHeading: 'La ce oră este Sfânta Liturghie duminica?',
   },
 
   whatToExpect: {
@@ -406,7 +421,7 @@ export const ro: Dict = {
     heading:      'Vizitați-ne',
     addressLabel: 'Adresă',
     directions:   'Cum Ajungeți',
-    mapHeading:   'Hartă și Indicații',
+    mapHeading:   'Unde se află biserica?',
     mapTitle:     'Harta pentru 590 S Vella Rd, Palm Springs, CA 92264',
   },
 
