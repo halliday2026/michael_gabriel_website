@@ -9,7 +9,7 @@
 
 ## Project overview
 
-Single-page brochure site for a Romanian Orthodox parish in Palm Springs, CA. Static output deployed to GitHub Pages; production domain is `psorthodoxro.org`.
+Multi-page brochure site for a Romanian Orthodox parish in Palm Springs, CA, pre-rendered in English (`/`), Spanish (`/es/`) and Romanian (`/ro/`). Static output deployed to GitHub Pages; production domain is `psorthodoxro.org`.
 
 **Tech stack:** Astro 5 + TypeScript + Tailwind CSS v4 (CSS-first `@theme` via `@tailwindcss/vite`). No framework components — plain `.astro` files only.
 
@@ -17,22 +17,31 @@ Single-page brochure site for a Romanian Orthodox parish in Palm Springs, CA. St
 
 | Concern | Location |
 |---|---|
-| All site copy + config | `src/data/site.ts` |
+| Site config (contact details, Formspree endpoint) | `src/data/site.ts` |
+| All copy, one file per language | `src/i18n/en.ts` (defines the `Dict` type), `es.ts`, `ro.ts` |
+| Church name (one constant per language) | `church.name` in each `src/i18n/*.ts` |
+| Pages, localized slugs, breadcrumb parents, main menu | `src/i18n/routes.ts` |
+| Route generation (all pages × all languages) | `src/pages/[...path].astro` |
+| Page bodies | `src/views/*View.astro` (each takes `lang`) |
+| Reusable sections | `src/components/sections/*.astro` (each takes `lang`, optional `id`) |
 | All visual tokens (colors, fonts, radius) | `src/styles/global.css` `@theme` block |
-| Section order | `src/pages/index.astro` |
-| Trilingual content | `content` export in `site.ts` — `en`/`es`/`ro` keys |
-| i18n switching | Client-side vanilla JS in `src/layouts/BaseLayout.astro` |
-| SEO meta + JSON-LD | `src/components/Seo.astro` |
+| SEO meta, hreflang, OG + JSON-LD | `src/components/Seo.astro` |
+| Sitemap (with hreflang alternates) | `src/pages/sitemap.xml.ts` |
 | Analytics (GA4, Clarity, Plausible) | `src/components/Analytics.astro` |
 | Public assets | `public/` — use `${import.meta.env.BASE_URL}filename` in templates |
 
 ### i18n pattern
 
-- Content JSON is embedded via `<script type="application/json" id="i18n-data">` in BaseLayout.
-- Elements that need translation carry `data-i18n="section.key"` (for `textContent`) or `data-i18n-placeholder="section.key"` (for `placeholder` attr).
-- Language toggle buttons carry `data-lang="en|es|ro"`.
-- The inline IIFE script in BaseLayout wires it all together and persists the locale in `localStorage`.
+- Every page is pre-rendered per language with its full text in the HTML — no client-side text swapping.
+- `es.ts` / `ro.ts` are typed as `Dict`, so a missing or extra key fails `astro check` / the build.
+- Build links with `pageUrl(pageKey, lang, hash?)` from `src/i18n` — never hand-write paths. Section anchors (`#liturgy`, `#clergy`, …) are shared across languages; slugs are localized.
+- The EN / ES / RO toggle links to the same page in the other language. The choice is stored in `localStorage` (try/catch) as a convenience only — never auto-redirect.
+- To add a page: add a key + slugs in `routes.ts`, `meta` + `pages` entries in all three dictionaries, a view in `src/views/`, and register it in `[...path].astro`.
 - ES and RO translations are **DRAFT — NEEDS NATIVE REVIEW** before launch.
+
+### Placeholders
+
+Unknown parish-specific content uses `<PlaceholderSection>` / `<Placeholder>` (visible "[Content coming soon — to be provided by the parish]") plus an HTML `<!-- TODO(content): … -->` comment at the call site. `npm run check` lists them. Never invent parish facts.
 
 ### Asset URL pattern
 
@@ -55,9 +64,9 @@ Always prefix public asset paths with `import.meta.env.BASE_URL`:
 
 Fonts: **Playfair Display** (display/headings) · **Lora** (body serif)
 
-## Sections (in page order)
+## Pages
 
-`Hero` → `Welcome` (#welcome) → `DivineLiturgies` (#services) → `Clergy` (#clergy) → `Community` (#community) → `VisitUs` (#visit) → `Donate` (#donate) → `Contact` (#contact)
+Home `/` · Our Parish · Worship (+ What to Expect) · Prayer · Community (+ Photo Gallery) · Learn · News & Events · Visit Us (map + contact form) · Donate. Slugs per language are in `src/i18n/routes.ts`. Desktop menu (≥1280px) uses disclosure dropdowns; below that, an accordion.
 
 ## Key public assets
 
@@ -85,7 +94,7 @@ Fonts: **Playfair Display** (display/headings) · **Lora** (body serif)
 
 ### Structured data source fields
 
-All JSON-LD values come from `site` in `src/data/site.ts`. The `contact` object includes both a display `address` string and structured subfields (`streetAddress`, `addressLocality`, `addressRegion`, `postalCode`) used by the schema — keep these in sync if the address ever changes.
+All JSON-LD values come from `site` in `src/data/site.ts` (name from `src/i18n/en.ts`). The `contact` object includes both a display `address` string and structured subfields (`streetAddress`, `addressLocality`, `addressRegion`, `postalCode`) used by the schema — keep these in sync if the address ever changes.
 
 ## Analytics
 

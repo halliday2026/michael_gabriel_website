@@ -33,4 +33,9 @@
     background-color: var(--color-surface);
     color: var(--color-ink);
   }
+
+  /* Keep anchored sections clear of the sticky header */
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
 }

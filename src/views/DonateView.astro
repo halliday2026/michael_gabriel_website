@@ -1,0 +1,11 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import Donate from '../components/sections/Donate.astro';
+import type { Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+---
+
+<PageHeader lang={lang} page="donate" />
+<Donate lang={lang} id="give" />

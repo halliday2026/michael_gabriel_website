@@ -1,0 +1,23 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderSection from '../components/PlaceholderSection.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+---
+
+<PageHeader lang={lang} page="newsEvents" />
+
+<PlaceholderSection lang={lang} id="calendar" heading={dict.menu.calendar}>
+  <!-- TODO(config): Google Calendar embed — Phase 4. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="announcements" heading={dict.menu.announcements} tone="muted">
+  <!-- TODO(content): Announcements list (content file) — Phase 4. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="news" heading={dict.menu.news}>
+  <!-- TODO(content): Parish News list (content file) — Phase 4. -->
+</PlaceholderSection>

@@ -1,0 +1,54 @@
+---
+// Pre-renders every page in every language from the route table in src/i18n/routes.ts.
+// English at /, Spanish at /es/…, Romanian at /ro/… — all content is in the HTML.
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { locales, pageKeys, routeParam, type Locale, type PageKey } from '../i18n';
+
+import HomeView from '../views/HomeView.astro';
+import OurParishView from '../views/OurParishView.astro';
+import WorshipView from '../views/WorshipView.astro';
+import WhatToExpectView from '../views/WhatToExpectView.astro';
+import PrayerView from '../views/PrayerView.astro';
+import CommunityView from '../views/CommunityView.astro';
+import GalleryView from '../views/GalleryView.astro';
+import LearnView from '../views/LearnView.astro';
+import NewsEventsView from '../views/NewsEventsView.astro';
+import VisitView from '../views/VisitView.astro';
+import DonateView from '../views/DonateView.astro';
+
+export const getStaticPaths = (() =>
+  locales.flatMap((lang) =>
+    pageKeys.map((page) => ({
+      params: { path: routeParam(page, lang) },
+      props: { lang, page },
+    }))
+  )) satisfies GetStaticPaths;
+
+interface Props {
+  lang: Locale;
+  page: PageKey;
+}
+
+const { lang, page } = Astro.props;
+
+const views = {
+  home:         HomeView,
+  ourParish:    OurParishView,
+  worship:      WorshipView,
+  whatToExpect: WhatToExpectView,
+  prayer:       PrayerView,
+  community:    CommunityView,
+  gallery:      GalleryView,
+  learn:        LearnView,
+  newsEvents:   NewsEventsView,
+  visit:        VisitView,
+  donate:       DonateView,
+} satisfies Record<PageKey, unknown>;
+
+const View = views[page];
+---
+
+<BaseLayout lang={lang} page={page}>
+  <View lang={lang} />
+</BaseLayout>

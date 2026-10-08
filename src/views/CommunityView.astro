@@ -1,0 +1,30 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderSection from '../components/PlaceholderSection.astro';
+import Section from '../components/Section.astro';
+import LinkCard from '../components/LinkCard.astro';
+import Community from '../components/sections/Community.astro';
+import { t, pageUrl, type Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+---
+
+<PageHeader lang={lang} page="community" />
+<Community lang={lang} id="parish-life" />
+
+<PlaceholderSection lang={lang} id="ministries" heading={dict.menu.ministries} photo>
+  <!-- TODO(content): Ministry names, descriptions and contacts — from the parish. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="youth" heading={dict.menu.youth} tone="muted" photo>
+  <!-- TODO(content): Children & youth programs (church school, etc.) — from the parish. -->
+</PlaceholderSection>
+
+<Section>
+  <div class="grid gap-6 sm:grid-cols-2">
+    <LinkCard href={pageUrl('newsEvents', lang, 'calendar')} title={dict.menu.events} text={dict.pages.newsEvents.intro} cta={dict.ui.learnMore} />
+    <LinkCard href={pageUrl('gallery', lang)} title={dict.menu.gallery} text={dict.pages.gallery.intro} cta={dict.ui.learnMore} />
+  </div>
+</Section>

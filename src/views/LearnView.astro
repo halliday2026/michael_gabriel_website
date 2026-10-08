@@ -1,0 +1,27 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderSection from '../components/PlaceholderSection.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+---
+
+<PageHeader lang={lang} page="learn" />
+
+<PlaceholderSection lang={lang} id="beliefs" heading={dict.menu.beliefs}>
+  <!-- TODO(content): What We Believe — Phase 4 draft for Fr. Florin's review. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="orthodox-faith" heading={dict.menu.orthodoxFaith} tone="muted">
+  <!-- TODO(content): Orthodox Faith overview — Phase 4 draft for Fr. Florin's review. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="sermons" heading={dict.menu.sermons}>
+  <!-- TODO(content): Sermon archive / teachings — from the parish. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="catechism" heading={dict.menu.catechism} tone="muted">
+  <!-- TODO(content): Catechism / inquirer classes — schedule and details from the parish. -->
+</PlaceholderSection>

@@ -1,0 +1,27 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderSection from '../components/PlaceholderSection.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+---
+
+<PageHeader lang={lang} page="prayer" />
+
+<PlaceholderSection lang={lang} id="request" heading={dict.menu.request}>
+  <!-- TODO(content): Prayer request form (living / departed names) — built in Phase 4. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="candle" heading={dict.menu.candle} tone="muted">
+  <!-- TODO(content): Light a Candle explanation — Phase 4. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="names" heading={dict.menu.names}>
+  <!-- TODO(content): Submit Names (pomelnic) — shares the Phase 4 prayer form. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="healing" heading={dict.menu.healing} tone="muted">
+  <!-- TODO(content): Prayer for the sick and Holy Unction (Sfântul Maslu) — Phase 4; schedule from the parish. -->
+</PlaceholderSection>

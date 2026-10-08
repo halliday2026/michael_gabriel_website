@@ -1,25 +1,31 @@
 ---
 import Section from '../Section.astro';
-import { site, content } from '../../data/site';
+import { site } from '../../data/site';
+import { t, type Locale } from '../../i18n';
 
-const { visit } = content.en;
+interface Props {
+  lang: Locale;
+  id?: string;
+  heading?: string;
+}
+
+const { lang, id = 'visit' } = Astro.props;
+const { visit } = t(lang);
+const heading = Astro.props.heading ?? visit.heading;
 const encodedAddress = encodeURIComponent(site.contact.address);
-const mapsEmbedUrl = `https://maps.google.com/maps?q=${encodedAddress}&hl=en&z=15&output=embed`;
-const mapsDirectionsUrl = `https://maps.google.com/?q=${encodedAddress}`;
+const mapsEmbedUrl = `https://maps.google.com/maps?q=${encodedAddress}&hl=${lang}&z=15&output=embed`;
+const mapsDirectionsUrl = `https://maps.google.com/?q=${encodedAddress}&hl=${lang}`;
 ---
 
-<Section id="visit" tone="default">
-  <h2
-    class="font-display text-3xl font-bold text-brand sm:text-4xl"
-    data-i18n="visit.heading"
-  >
-    {visit.heading}
+<Section id={id} tone="default">
+  <h2 class="font-display text-3xl font-bold text-brand sm:text-4xl">
+    {heading}
   </h2>
 
   <div class="mt-8 grid gap-8 lg:grid-cols-2">
     <!-- Address card -->
     <div>
-      <p class="text-xs font-semibold uppercase tracking-widest text-accent" data-i18n="visit.addressLabel">
+      <p class="text-xs font-semibold uppercase tracking-widest text-accent">
         {visit.addressLabel}
       </p>
       <address class="mt-3 not-italic">
@@ -31,7 +37,7 @@ const mapsDirectionsUrl = `https://maps.google.com/?q=${encodedAddress}`;
         rel="noopener noreferrer"
         class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
       >
-        Get Directions
+        {visit.directions}
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
         </svg>
@@ -49,7 +55,7 @@ const mapsDirectionsUrl = `https://maps.google.com/?q=${encodedAddress}`;
         allowfullscreen
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        title="590 S Vella Rd, Palm Springs, CA 92264"
+        title={visit.mapTitle}
       ></iframe>
     </div>
   </div>

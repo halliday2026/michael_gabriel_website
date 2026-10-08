@@ -1,0 +1,25 @@
+---
+// Card-style link used to point from one page to another (e.g. Worship → What to Expect).
+interface Props {
+  href: string;
+  title: string;
+  text?: string;
+  cta: string;
+}
+
+const { href, title, text, cta } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group block rounded-(--radius) border border-muted bg-surface p-6 shadow-sm transition hover:border-accent hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+>
+  <p class="font-display text-xl font-bold text-brand">{title}</p>
+  {text && <p class="mt-2 text-ink/80">{text}</p>}
+  <p class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-royal group-hover:text-accent">
+    {cta}
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </p>
+</a>

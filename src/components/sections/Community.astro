@@ -1,43 +1,45 @@
 ---
 import Section from '../Section.astro';
-import { content } from '../../data/site';
+import { t, type Locale } from '../../i18n';
 
-const { community } = content.en;
+interface Props {
+  lang: Locale;
+  id?: string;
+}
+
+const { lang, id = 'community' } = Astro.props;
+const dict = t(lang);
+const { community } = dict;
+const alts = dict.images.carousel;
 
 const base = import.meta.env.BASE_URL;
 const carouselImages = [
-  { src: `${base}carousel/front.jpg`,   alt: 'Church front' },
-  { src: `${base}carousel/kids.jpg`,    alt: 'Children at church' },
-  { src: `${base}carousel/night.jpg`,   alt: 'Evening gathering' },
-  { src: `${base}carousel/picnic.jpg`,  alt: 'Parish picnic' },
-  { src: `${base}carousel/service.jpg`, alt: 'Divine Liturgy' },
-  { src: `${base}carousel/side.jpg`,    alt: 'Church exterior', position: 'center 80%' },
+  { src: `${base}carousel/front.jpg`,   alt: alts.front },
+  { src: `${base}carousel/kids.jpg`,    alt: alts.kids },
+  { src: `${base}carousel/night.jpg`,   alt: alts.night },
+  { src: `${base}carousel/picnic.jpg`,  alt: alts.picnic },
+  { src: `${base}carousel/service.jpg`, alt: alts.service },
+  { src: `${base}carousel/side.jpg`,    alt: alts.side, position: 'center 80%' },
 ];
 ---
 
-<Section id="community" tone="muted">
-  <h2
-    class="font-display text-3xl font-bold text-brand sm:text-4xl"
-    data-i18n="community.heading"
-  >
+<Section id={id} tone="muted">
+  <h2 class="font-display text-3xl font-bold text-brand sm:text-4xl">
     {community.heading}
   </h2>
 
   <img
     src={`${base}community.jpg`}
-    alt="Parish community gathering"
+    alt={dict.images.communityAlt}
     class="mt-6 w-full max-w-3xl rounded-(--radius) object-cover shadow-md"
   />
 
-  <p
-    class="mt-6 max-w-3xl text-lg leading-relaxed text-ink/80"
-    data-i18n="community.body"
-  >
+  <p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink/80">
     {community.body}
   </p>
 
   <!-- Image carousel -->
-  <div class="relative mt-10 w-full overflow-hidden rounded-(--radius) shadow-lg" id="community-carousel">
+  <div class="relative mt-10 w-full overflow-hidden rounded-(--radius) shadow-lg" id="community-carousel" role="region" aria-roledescription="carousel" aria-label={community.carouselLabel}>
     <!-- Track -->
     <div
       class="flex transition-transform duration-500 ease-in-out"
@@ -57,7 +59,8 @@ const carouselImages = [
     <!-- Prev button -->
     <button
       id="carousel-prev"
-      aria-label="Previous image"
+      type="button"
+      aria-label={community.prevImage}
       class="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-brand/70 text-surface backdrop-blur-sm transition hover:bg-brand"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><polyline points="15 18 9 12 15 6"/></svg>
@@ -66,7 +69,8 @@ const carouselImages = [
     <!-- Next button -->
     <button
       id="carousel-next"
-      aria-label="Next image"
+      type="button"
+      aria-label={community.nextImage}
       class="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-brand/70 text-surface backdrop-blur-sm transition hover:bg-brand"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><polyline points="9 18 15 12 9 6"/></svg>
@@ -76,7 +80,8 @@ const carouselImages = [
     <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2" id="carousel-dots">
       {carouselImages.map((_, i) => (
         <button
-          aria-label={`Go to image ${i + 1}`}
+          type="button"
+          aria-label={`${community.goToImage} ${i + 1}`}
           class={`h-2 w-2 rounded-full transition-all ${i === 0 ? 'bg-surface w-4' : 'bg-surface/50'}`}
           data-index={i}
         />

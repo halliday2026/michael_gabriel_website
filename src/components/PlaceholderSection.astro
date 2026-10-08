@@ -1,0 +1,29 @@
+---
+// A titled page section whose body the parish still has to supply.
+// Put a `<!-- TODO(content): … -->` comment in the default slot at the call site;
+// anything else in the slot (e.g. a sub-section) renders after the placeholder.
+import Section from './Section.astro';
+import Placeholder from './Placeholder.astro';
+import type { Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+  id: string;
+  heading: string;
+  tone?: 'default' | 'muted';
+  photo?: boolean;
+}
+
+const { lang, id, heading, tone = 'default', photo = false } = Astro.props;
+---
+
+<Section id={id} tone={tone}>
+  <div class="max-w-3xl">
+    <h2 class="font-display text-3xl font-bold text-brand sm:text-4xl">{heading}</h2>
+    <div class="mt-6 space-y-6">
+      <Placeholder lang={lang} />
+      {photo && <Placeholder lang={lang} kind="photo" />}
+      <slot />
+    </div>
+  </div>
+</Section>

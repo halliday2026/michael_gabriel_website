@@ -1,18 +1,22 @@
 ---
-import Section from '../Section.astro';
-import { content } from '../../data/site';
+import { t, type Locale } from '../../i18n';
 
-const { liturgies } = content.en;
+interface Props {
+  lang: Locale;
+  id?: string;
+}
+
+const { lang, id = 'services' } = Astro.props;
+const { liturgies } = t(lang);
+
+const rows = [liturgies.vespers, liturgies.confession, liturgies.feastDays];
 ---
 
 <!-- Dark navy section — override Section tone with a wrapper -->
-<section id="services" class="bg-brand py-16 sm:py-24">
+<section id={id} class="bg-brand py-16 sm:py-24">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
-    <h2
-      class="font-display text-3xl font-bold text-accent sm:text-4xl"
-      data-i18n="liturgies.heading"
-    >
+    <h2 class="font-display text-3xl font-bold text-accent sm:text-4xl">
       {liturgies.heading}
     </h2>
 
@@ -21,78 +25,32 @@ const { liturgies } = content.en;
       <table class="w-full text-left text-sm">
         <thead>
           <tr class="border-b border-surface/10 bg-surface/5">
-            <th class="px-4 py-3 font-semibold text-accent" data-i18n="liturgies.colService">
-              {liturgies.colService}
-            </th>
-            <th class="px-4 py-3 font-semibold text-accent" data-i18n="liturgies.colSchedule">
-              {liturgies.colSchedule}
-            </th>
-            <th class="px-4 py-3 font-semibold text-accent" data-i18n="liturgies.colLanguage">
-              {liturgies.colLanguage}
-            </th>
+            <th scope="col" class="px-4 py-3 font-semibold text-accent">{liturgies.colService}</th>
+            <th scope="col" class="px-4 py-3 font-semibold text-accent">{liturgies.colSchedule}</th>
+            <th scope="col" class="px-4 py-3 font-semibold text-accent">{liturgies.colLanguage}</th>
           </tr>
         </thead>
         <tbody>
           <!-- Sunday Divine Liturgy — highlighted row -->
           <tr class="border-b border-surface/10 bg-accent/10">
-            <td class="px-4 py-4 font-semibold text-surface" data-i18n="liturgies.sunday.name">
-              {liturgies.sunday.name}
-            </td>
-            <td class="px-4 py-4 text-surface/90" data-i18n="liturgies.sunday.schedule">
-              {liturgies.sunday.schedule}
-            </td>
-            <td class="px-4 py-4 text-surface/90" data-i18n="liturgies.sunday.language">
-              {liturgies.sunday.language}
-            </td>
+            <th scope="row" class="px-4 py-4 font-semibold text-surface">{liturgies.sunday.name}</th>
+            <td class="px-4 py-4 text-surface/90">{liturgies.sunday.schedule}</td>
+            <td class="px-4 py-4 text-surface/90">{liturgies.sunday.language}</td>
           </tr>
 
-          <!-- Vespers -->
-          <tr class="border-b border-surface/10 hover:bg-surface/5">
-            <td class="px-4 py-4 text-surface/80" data-i18n="liturgies.vespers.name">
-              {liturgies.vespers.name}
-            </td>
-            <td class="px-4 py-4 italic text-surface/40">
-              {liturgies.vespers.schedule}
-            </td>
-            <td class="px-4 py-4 italic text-surface/40">
-              {liturgies.vespers.language}
-            </td>
-          </tr>
-
-          <!-- Confession -->
-          <tr class="border-b border-surface/10 hover:bg-surface/5">
-            <td class="px-4 py-4 text-surface/80" data-i18n="liturgies.confession.name">
-              {liturgies.confession.name}
-            </td>
-            <td class="px-4 py-4 italic text-surface/40">
-              {liturgies.confession.schedule}
-            </td>
-            <td class="px-4 py-4 italic text-surface/40">
-              {liturgies.confession.language}
-            </td>
-          </tr>
-
-          <!-- Feast Days -->
-          <tr class="hover:bg-surface/5">
-            <td class="px-4 py-4 text-surface/80" data-i18n="liturgies.feastDays.name">
-              {liturgies.feastDays.name}
-            </td>
-            <td class="px-4 py-4 italic text-surface/40">
-              {liturgies.feastDays.schedule}
-            </td>
-            <td class="px-4 py-4 italic text-surface/40">
-              {liturgies.feastDays.language}
-            </td>
-          </tr>
+          {rows.map((row, i) => (
+            <tr class:list={['hover:bg-surface/5', i < rows.length - 1 && 'border-b border-surface/10']}>
+              <th scope="row" class="px-4 py-4 font-normal text-surface/80">{row.name}</th>
+              <td class="px-4 py-4 italic text-surface/70">{row.schedule}</td>
+              <td class="px-4 py-4 italic text-surface/70">{row.language}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
 
     <!-- Note about private services -->
-    <p
-      class="mt-6 text-sm text-surface/60"
-      data-i18n="liturgies.note"
-    >
+    <p class="mt-6 text-sm text-surface/70">
       {liturgies.note}
     </p>
   </div>

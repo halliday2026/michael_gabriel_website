@@ -1,0 +1,14 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import VisitUs from '../components/sections/VisitUs.astro';
+import Contact from '../components/sections/Contact.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+---
+
+<PageHeader lang={lang} page="visit" />
+<VisitUs lang={lang} id="directions" heading={dict.visit.mapHeading} />
+<Contact lang={lang} />

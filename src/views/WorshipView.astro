@@ -1,0 +1,43 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderSection from '../components/PlaceholderSection.astro';
+import Placeholder from '../components/Placeholder.astro';
+import Section from '../components/Section.astro';
+import LinkCard from '../components/LinkCard.astro';
+import DivineLiturgies from '../components/sections/DivineLiturgies.astro';
+import { t, pageUrl, type Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+---
+
+<PageHeader lang={lang} page="worship" />
+
+<PlaceholderSection lang={lang} id="liturgy" heading={dict.menu.liturgy}>
+  <!-- TODO(content): Divine Liturgy description (Phase 4 drafts; for Fr. Florin's review). -->
+</PlaceholderSection>
+
+<DivineLiturgies lang={lang} id="schedule" />
+
+<PlaceholderSection lang={lang} id="sacraments" heading={dict.menu.sacraments} tone="muted">
+  <!-- TODO(content): Sacraments overview (Phase 4 drafts; for Fr. Florin's review). -->
+  <div id="confession" class="pt-4">
+    <h3 class="font-display text-2xl font-bold text-brand">{dict.menu.confession}</h3>
+    <div class="mt-4">
+      <!-- TODO(content): Confession — how and when to arrange it (schedule from the parish). -->
+      <Placeholder lang={lang} />
+    </div>
+  </div>
+</PlaceholderSection>
+
+<Section>
+  <div class="max-w-xl">
+    <LinkCard
+      href={pageUrl('whatToExpect', lang)}
+      title={dict.menu.whatToExpect}
+      text={dict.pages.whatToExpect.intro}
+      cta={dict.ui.learnMore}
+    />
+  </div>
+</Section>

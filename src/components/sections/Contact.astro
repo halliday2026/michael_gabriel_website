@@ -1,78 +1,58 @@
 ---
 import Section from '../Section.astro';
-import { site, content } from '../../data/site';
+import { site } from '../../data/site';
+import { t, type Locale } from '../../i18n';
 
+interface Props {
+  lang: Locale;
+  id?: string;
+}
+
+const { lang, id = 'contact' } = Astro.props;
 const { formspreeEndpoint } = site;
-const { contact } = content.en;
+const { contact } = t(lang);
 
-// --- Supabase swap -------------------------------------------------------
-// To send submissions to Supabase instead of Formspree:
-//   1. Remove the `action`/`method` attributes below and instead handle
-//      `submit` client-side (or via an Astro endpoint at src/pages/api/contact.ts).
-//   2. POST the form fields to `supabase.from('messages').insert({ ... })`
-//      using the Supabase JS client and your project's anon key.
-//   3. Show a success/error state in place of the redirect Formspree performs.
-// --------------------------------------------------------------------------
+const inputClass =
+  'mt-2 block w-full rounded-(--radius) border border-ink/20 bg-surface px-4 py-2 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
 ---
 
-<Section id="contact" tone="muted">
-  <h2 class="font-display text-3xl font-bold text-brand" data-i18n="contact.heading">
+<Section id={id} tone="muted">
+  <h2 class="font-display text-3xl font-bold text-brand sm:text-4xl">
     {contact.heading}
   </h2>
-  <p class="mt-4 max-w-prose text-lg text-ink/80" data-i18n="contact.body">
+  <p class="mt-4 max-w-prose text-lg text-ink/80">
     {contact.body}
   </p>
 
-  <div id="contact-thankyou" class="mt-8 hidden max-w-xl rounded-(--radius) bg-accent/10 px-6 py-8 text-center ring-1 ring-accent/30">
-    <p class="font-display text-2xl font-bold text-brand">Thank you!</p>
-    <p class="mt-2 text-ink/80">Your message has been received. Fr. Florin will be in touch with you soon.</p>
+  <div id="contact-thankyou" class="mt-8 hidden max-w-xl rounded-(--radius) bg-accent/10 px-6 py-8 text-center ring-1 ring-accent/30" role="status" tabindex="-1">
+    <p class="font-display text-2xl font-bold text-brand">{contact.thanksHeading}</p>
+    <p class="mt-2 text-ink/80">{contact.thanksBody}</p>
   </div>
 
+  <!-- Formspree AJAX submit: success swaps the form for the thank-you panel; failure shows #contact-error -->
   <form
     id="contact-form"
     method="POST"
     action={formspreeEndpoint}
     class="mt-8 grid max-w-xl gap-6"
+    data-sending={contact.sending}
+    data-submit={contact.submit}
   >
+    <input type="hidden" name="language" value={lang} />
+
     <div>
-      <label for="name" class="block font-medium text-ink" data-i18n="contact.namePlaceholder">Name</label>
-      <input
-        id="name"
-        name="name"
-        type="text"
-        autocomplete="name"
-        required
-        placeholder={contact.namePlaceholder}
-        data-i18n-placeholder="contact.namePlaceholder"
-        class="mt-2 block w-full rounded-(--radius) border border-ink/20 bg-surface px-4 py-2 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      />
+      <label for="contact-name" class="block font-medium text-ink">{contact.nameLabel}</label>
+      <input id="contact-name" name="name" type="text" autocomplete="name" required placeholder={contact.namePlaceholder} class={inputClass} />
     </div>
 
     <div>
-      <label for="email" class="block font-medium text-ink" data-i18n="contact.emailPlaceholder">Email</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        autocomplete="email"
-        required
-        placeholder={contact.emailPlaceholder}
-        data-i18n-placeholder="contact.emailPlaceholder"
-        class="mt-2 block w-full rounded-(--radius) border border-ink/20 bg-surface px-4 py-2 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      />
+      <label for="contact-email" class="block font-medium text-ink">{contact.emailLabel}</label>
+      <input id="contact-email" name="email" type="email" autocomplete="email" required placeholder={contact.emailPlaceholder} class={inputClass} />
     </div>
 
     <div>
-      <label for="message" class="block font-medium text-ink" data-i18n="contact.messagePlaceholder">Message</label>
-      <textarea
-        id="message"
-        name="message"
-        rows="5"
-        required
-        placeholder={contact.messagePlaceholder}
-        data-i18n-placeholder="contact.messagePlaceholder"
-        class="mt-2 block w-full rounded-(--radius) border border-ink/20 bg-surface px-4 py-2 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      ></textarea>
+      <label for="contact-message" class="block font-medium text-ink">{contact.messageLabel}</label>
+      <textarea id="contact-message" name="message" rows="5" required placeholder={contact.messagePlaceholder} class={inputClass}></textarea>
     </div>
 
     <div class="flex flex-col gap-3">
@@ -80,25 +60,25 @@ const { contact } = content.en;
         type="submit"
         id="contact-submit"
         class="inline-flex w-fit items-center justify-center rounded-(--radius) bg-brand px-6 py-3 font-semibold text-surface transition-colors hover:bg-royal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
-        data-i18n="contact.submit"
       >
         {contact.submit}
       </button>
-      <p id="contact-error" class="hidden text-sm text-highlight">Something went wrong — please try again or email us directly.</p>
+      <p id="contact-error" class="hidden text-sm text-highlight" role="alert">{contact.error}</p>
     </div>
   </form>
 </Section>
 
 <script>
-  const form   = document.getElementById('contact-form') as HTMLFormElement;
-  const thanks = document.getElementById('contact-thankyou') as HTMLElement;
-  const btn    = document.getElementById('contact-submit') as HTMLButtonElement;
-  const error  = document.getElementById('contact-error') as HTMLElement;
+  const form   = document.getElementById('contact-form') as HTMLFormElement | null;
+  const thanks = document.getElementById('contact-thankyou') as HTMLElement | null;
+  const btn    = document.getElementById('contact-submit') as HTMLButtonElement | null;
+  const error  = document.getElementById('contact-error') as HTMLElement | null;
 
-  form.addEventListener('submit', async (e) => {
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!btn || !thanks || !error) return;
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    btn.textContent = form.dataset.sending ?? '';
     error.classList.add('hidden');
 
     try {
@@ -108,16 +88,14 @@ const { contact } = content.en;
         body: new FormData(form),
       });
 
-      if (res.ok) {
-        form.classList.add('hidden');
-        thanks.classList.remove('hidden');
-      } else {
-        throw new Error('non-ok response');
-      }
+      if (!res.ok) throw new Error('non-ok response');
+      form.classList.add('hidden');
+      thanks.classList.remove('hidden');
+      thanks.focus();
     } catch {
       error.classList.remove('hidden');
       btn.disabled = false;
-      btn.textContent = 'Send Message';
+      btn.textContent = form.dataset.submit ?? '';
     }
   });
 </script>

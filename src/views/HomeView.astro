@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+// Home page. Phase 3 replaces the hero CTAs and adds section teasers.
 import Hero from '../components/sections/Hero.astro';
 import Welcome from '../components/sections/Welcome.astro';
 import DivineLiturgies from '../components/sections/DivineLiturgies.astro';
@@ -7,17 +7,16 @@ import Clergy from '../components/sections/Clergy.astro';
 import Community from '../components/sections/Community.astro';
 import VisitUs from '../components/sections/VisitUs.astro';
 import Donate from '../components/sections/Donate.astro';
-import Contact from '../components/sections/Contact.astro';
-import { site, content } from '../data/site';
+import type { Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
 ---
 
-<BaseLayout title={content.en.hero.headline} description={site.description}>
-  <Hero />
-  <Welcome />
-  <DivineLiturgies />
-  <Clergy />
-  <Community />
-  <VisitUs />
-  <Donate />
-  <Contact />
-</BaseLayout>
+<Hero lang={lang} />
+<Welcome lang={lang} />
+<DivineLiturgies lang={lang} />
+<Clergy lang={lang} />
+<Community lang={lang} />
+<VisitUs lang={lang} />
+<Donate lang={lang} />

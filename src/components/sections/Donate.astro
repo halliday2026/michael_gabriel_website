@@ -1,26 +1,26 @@
 ---
-import Button from '../Button.astro';
-import { content, site } from '../../data/site';
+import { site } from '../../data/site';
+import { t, type Locale } from '../../i18n';
 
-const { donate } = content.en;
+interface Props {
+  lang: Locale;
+  id?: string;
+}
+
+const { lang, id = 'donate' } = Astro.props;
+const { donate } = t(lang);
 const zelleEmail = site.contact.emailGeneral;
 ---
 
 <!-- Dark navy section — full bleed -->
-<section id="donate" class="bg-brand py-16 sm:py-24">
+<section id={id} class="bg-brand py-16 sm:py-24">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
-      <h2
-        class="font-display text-3xl font-bold text-accent sm:text-4xl"
-        data-i18n="donate.heading"
-      >
+      <h2 class="font-display text-3xl font-bold text-accent sm:text-4xl">
         {donate.heading}
       </h2>
 
-      <p
-        class="mt-6 text-lg leading-relaxed text-surface/80"
-        data-i18n="donate.body"
-      >
+      <p class="mt-6 text-lg leading-relaxed text-surface/80">
         {donate.body}
       </p>
 
@@ -40,12 +40,11 @@ const zelleEmail = site.contact.emailGeneral;
             data-label={donate.zelleLabel}
             data-copied={donate.zelleCopied}
             class="ml-1 rounded px-3 py-1 text-sm font-semibold bg-accent text-brand hover:bg-accent/80 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            data-i18n="donate.zelleLabel"
           >
             {donate.zelleLabel}
           </button>
         </div>
-        <p class="text-sm text-surface/50" data-i18n="donate.zelleHint">
+        <p class="text-sm text-surface/70">
           {donate.zelleHint}
         </p>
       </div>

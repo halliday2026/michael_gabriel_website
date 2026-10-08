@@ -1,0 +1,23 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderSection from '../components/PlaceholderSection.astro';
+import Welcome from '../components/sections/Welcome.astro';
+import Clergy from '../components/sections/Clergy.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+---
+
+<PageHeader lang={lang} page="ourParish" />
+<Welcome lang={lang} id="about" />
+<Clergy lang={lang} />
+
+<PlaceholderSection lang={lang} id="history" heading={dict.menu.history} tone="muted" photo>
+  <!-- TODO(content): Parish history — founding date, founders, milestones, church building. Must come from the parish; do not invent. -->
+</PlaceholderSection>
+
+<PlaceholderSection lang={lang} id="tradition" heading={dict.menu.tradition}>
+  <!-- TODO(content): Romanian Orthodox tradition overview (Phase 4 drafts general text; parish-specific customs from the parish). -->
+</PlaceholderSection>

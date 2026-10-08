@@ -1,0 +1,15 @@
+---
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderSection from '../components/PlaceholderSection.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+---
+
+<PageHeader lang={lang} page="whatToExpect" />
+
+<PlaceholderSection lang={lang} id="faq" heading={dict.menu.whatToExpect}>
+  <!-- TODO(content): What to Expect FAQ — built in Phase 4. -->
+</PlaceholderSection>

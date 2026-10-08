@@ -1,44 +1,57 @@
 ---
-import { site, content, SHOW_HALLIDAY_CREDIT } from '../data/site';
+import { site, telHref, SHOW_HALLIDAY_CREDIT } from '../data/site';
+import { t, type Locale } from '../i18n';
 
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const dict = t(lang);
+const { footer } = dict;
 const year = new Date().getFullYear();
-const { footer } = content.en;
+
+const emails = [
+  { label: footer.emailGeneral,   address: site.contact.emailGeneral },
+  { label: footer.emailPresident, address: site.contact.emailPresident },
+  { label: footer.emailPriest,    address: site.contact.email },
+];
 ---
 
 <footer class="border-t border-muted bg-brand text-surface/80">
   <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
     <div class="grid gap-8 sm:grid-cols-2">
       <div>
-        <p class="font-display text-lg font-bold text-surface">{site.name}</p>
-        <p class="mt-2 max-w-prose text-sm text-surface/70" data-i18n="footer.tagline">
-          {footer.tagline}
-        </p>
+        <p class="font-display text-lg font-bold text-surface">{dict.church.name}</p>
+        <p class="mt-2 max-w-prose text-sm text-surface/70">{dict.church.tagline}</p>
       </div>
 
       <address class="text-sm not-italic text-surface/70 sm:text-right">
-        <p>
-          <a class="hover:text-accent" href={`mailto:${site.contact.emailGeneral}`}>{site.contact.emailGeneral}</a>
-        </p>
-        <p>
-          <a class="hover:text-accent" href={`mailto:${site.contact.emailPresident}`}>{site.contact.emailPresident}</a>
-        </p>
-        <p>
-          <a class="hover:text-accent" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-        </p>
-        <p>
-          <a class="hover:text-accent" href={`tel:${site.contact.phone.replace(/[^+\d]/g, '')}`}>{site.contact.phone}</a>
-        </p>
-        <p>{site.contact.address}</p>
+        <p class="font-display text-base font-bold text-accent">{footer.contactHeading}</p>
+        <dl class="mt-3 space-y-2">
+          <div>
+            <dt class="sr-only">{footer.addressLabel}</dt>
+            <dd>{site.contact.address}</dd>
+          </div>
+          <div>
+            <dt class="inline font-semibold text-surface/90">{footer.phoneLabel}:</dt>
+            <dd class="inline"><a class="hover:text-accent" href={telHref(site.contact.phone)}>{site.contact.phone}</a></dd>
+          </div>
+          {emails.map(({ label, address }) => (
+            <div>
+              <dt class="inline font-semibold text-surface/90">{label}:</dt>
+              <dd class="inline"><a class="hover:text-accent" href={`mailto:${address}`}>{address}</a></dd>
+            </div>
+          ))}
+        </dl>
       </address>
     </div>
 
-    <div class="mt-8 flex flex-col gap-2 border-t border-surface/10 pt-6 text-sm text-surface/40 sm:flex-row sm:items-center sm:justify-between">
-      <p>
-        &copy; {year} {site.name}. <span data-i18n="footer.rights">{footer.rights}</span>
-      </p>
+    <div class="mt-8 flex flex-col gap-2 border-t border-surface/10 pt-6 text-sm text-surface/60 sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; {year} {dict.church.name}. {footer.rights}</p>
       {SHOW_HALLIDAY_CREDIT && (
         <p>
-          Website by <a class="font-medium hover:text-accent" href="https://hallidayinc.com?utm_source=michael-gabriel-church&utm_medium=referral&utm_campaign=footer" rel="noopener">Halliday</a>
+          {footer.websiteBy} <a class="font-medium hover:text-accent" href="https://hallidayinc.com?utm_source=michael-gabriel-church&utm_medium=referral&utm_campaign=footer" rel="noopener">Halliday</a>
         </p>
       )}
     </div>
