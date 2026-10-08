@@ -1,7 +1,7 @@
 ---
 import Section from '../Section.astro';
-import Button from '../Button.astro';
-import { t, pageUrl, type Locale } from '../../i18n';
+import HeroCards from '../HeroCards.astro';
+import { t, type Locale } from '../../i18n';
 
 interface Props {
   lang: Locale;
@@ -14,8 +14,9 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <Section tone="default" class="pt-10 sm:pt-14">
-  <div class="grid items-center gap-10 lg:grid-cols-2">
-    <div>
+  <!-- DOM order = mobile order: text → cards → photo. Desktop: text | photo, cards full-width below. -->
+  <div class="grid gap-10 lg:grid-cols-[3fr_2fr] lg:items-center lg:gap-x-12">
+    <div class="lg:col-start-1 lg:row-start-1">
       <!-- Patron feast line -->
       <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
         {hero.patronFeast}
@@ -27,33 +28,23 @@ const base = import.meta.env.BASE_URL;
       </h1>
 
       <!-- Welcome tagline -->
-      <p class="mt-4 max-w-prose text-lg text-ink/75">
+      <p class="mt-4 max-w-prose text-lg text-ink/75 sm:text-xl">
         {hero.welcome}
       </p>
+    </div>
 
-      <!-- Liturgy time badge -->
-      <div class="mt-6 inline-flex items-center gap-2 rounded-(--radius) bg-brand px-4 py-2 text-sm font-semibold text-accent">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span>{hero.liturgyBadge}</span>
-      </div>
-
-      <!-- CTAs -->
-      <div class="mt-8 flex flex-wrap gap-3">
-        <Button href={pageUrl('visit', lang)} variant="solid">{dict.menu.visit}</Button>
-        <Button href={pageUrl('donate', lang)} variant="gold">{dict.menu.donate}</Button>
-        <Button href={pageUrl('visit', lang, 'contact')} variant="outline">{dict.footer.contactHeading}</Button>
-      </div>
+    <!-- Fr. Florin's three primary actions -->
+    <div class="lg:col-span-2 lg:row-start-2">
+      <HeroCards lang={lang} />
     </div>
 
     <!-- Church photo with church seal badge -->
-    <div class="relative pb-48 lg:pb-24">
-      <div class="overflow-hidden rounded-(--radius) shadow-xl w-3/4 mx-auto">
+    <div class="relative pb-48 lg:col-start-2 lg:row-start-1 lg:pb-24">
+      <div class="mx-auto w-3/4 overflow-hidden rounded-(--radius) shadow-xl lg:w-4/5">
         <img
           src={`${base}church_front.jpg`}
           alt={dict.images.churchFrontAlt}
-          class="w-full h-auto block"
+          class="block h-auto w-full"
         />
       </div>
       <!-- Church seal badge — centered below photo -->
@@ -62,7 +53,7 @@ const base = import.meta.env.BASE_URL;
         alt={dict.images.sealAlt}
         width="267"
         height="266"
-        class="absolute bottom-0 left-1/2 -translate-x-1/2 h-48 w-48 rounded-full shadow-xl ring-4 ring-accent/60 bg-surface"
+        class="absolute bottom-0 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-surface shadow-xl ring-4 ring-accent/60"
       />
     </div>
   </div>

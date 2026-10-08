@@ -173,7 +173,24 @@ export const ro: Dict = {
   hero: {
     patronFeast:  'Soborul Sfinților Arhangheli Mihail și Gavriil — 8 noiembrie',
     welcome:      'Bine ați venit la casa voastră spirituală în Valea Coachella.',
-    liturgyBadge: 'Sfânta Liturghie: În fiecare duminică, 10:00–11:50 a.m.',
+  },
+
+  home: {
+    cards: {
+      liturgy:  { title: 'Veniți la Sfânta Liturghie', subtitle: 'În fiecare duminică • ora 10:00' },
+      prayer:   { title: 'Cereți o Rugăciune',         subtitle: 'Ne rugăm pentru dumneavoastră și cei dragi' },
+      newcomer: { title: 'Sunt Nou în Ortodoxie',      subtitle: 'Aflați ce vă așteaptă la prima vizită' },
+    },
+    more: {
+      ourParish:    'Mai multe despre parohia noastră',
+      clergy:       'Cunoașteți clerul nostru',
+      worship:      'Slujbe și Sfintele Taine',
+      whatToExpect: 'Ce să așteptați la prima vizită',
+      community:    'Descoperiți viața parohiei',
+      gallery:      'Vedeți galeria foto',
+      visit:        'Indicații și formular de contact',
+      donate:       'Alte moduri de a sprijini parohia',
+    },
   },
 
   welcome: {

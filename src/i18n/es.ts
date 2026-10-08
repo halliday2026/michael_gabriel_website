@@ -171,7 +171,24 @@ export const es: Dict = {
   hero: {
     patronFeast:  'Sínaxis de los Santos Arcángeles — 8 de noviembre',
     welcome:      'Bienvenido a su hogar espiritual en el Valle de Coachella.',
-    liturgyBadge: 'Divina Liturgia: Domingos, 10:00–11:50 a.m.',
+  },
+
+  home: {
+    cards: {
+      liturgy:  { title: 'Acompáñenos en la Divina Liturgia', subtitle: 'Todos los domingos • 10:00 a.m.' },
+      prayer:   { title: 'Solicite una Oración',              subtitle: 'Oraremos por usted y sus seres queridos' },
+      newcomer: { title: 'Soy Nuevo en la Ortodoxia',         subtitle: 'Descubra qué esperar en su visita' },
+    },
+    more: {
+      ourParish:    'Más sobre nuestra parroquia',
+      clergy:       'Conozca a nuestro clero',
+      worship:      'Culto y sacramentos',
+      whatToExpect: 'Qué esperar en su primera visita',
+      community:    'Descubra la vida parroquial',
+      gallery:      'Ver la galería de fotos',
+      visit:        'Cómo llegar y formulario de contacto',
+      donate:       'Más formas de apoyar a la parroquia',
+    },
   },
 
   welcome: {

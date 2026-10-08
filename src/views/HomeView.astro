@@ -1,22 +1,69 @@
 ---
-// Home page. Phase 3 replaces the hero CTAs and adds section teasers.
+// Home page: hero with Fr. Florin's three primary actions, then a short teaser
+// for each main section (reusing the existing sections) linking to its full page.
 import Hero from '../components/sections/Hero.astro';
 import Welcome from '../components/sections/Welcome.astro';
 import DivineLiturgies from '../components/sections/DivineLiturgies.astro';
-import Clergy from '../components/sections/Clergy.astro';
 import Community from '../components/sections/Community.astro';
 import VisitUs from '../components/sections/VisitUs.astro';
 import Donate from '../components/sections/Donate.astro';
-import type { Locale } from '../i18n';
+import Section from '../components/Section.astro';
+import LinkCard from '../components/LinkCard.astro';
+import MoreLink from '../components/MoreLink.astro';
+import { t, pageUrl, type Locale } from '../i18n';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
+const dict = t(lang);
+const more = dict.home.more;
 ---
 
 <Hero lang={lang} />
-<Welcome lang={lang} />
-<DivineLiturgies lang={lang} />
-<Clergy lang={lang} />
-<Community lang={lang} />
-<VisitUs lang={lang} />
-<Donate lang={lang} />
+
+<!-- Our Parish -->
+<Welcome lang={lang}>
+  <MoreLink href={pageUrl('ourParish', lang)}>{more.ourParish}</MoreLink>
+  <MoreLink href={pageUrl('ourParish', lang, 'clergy')}>{more.clergy}</MoreLink>
+</Welcome>
+
+<!-- Worship -->
+<DivineLiturgies lang={lang}>
+  <MoreLink href={pageUrl('worship', lang)} tone="dark">{more.worship}</MoreLink>
+  <MoreLink href={pageUrl('whatToExpect', lang)} tone="dark">{more.whatToExpect}</MoreLink>
+</DivineLiturgies>
+
+<!-- Prayer + News & Events -->
+<Section>
+  <div class="grid gap-6 md:grid-cols-2">
+    <LinkCard
+      as="h2"
+      href={pageUrl('prayer', lang, 'request')}
+      title={dict.menu.prayer}
+      text={dict.pages.prayer.intro}
+      cta={dict.menu.request}
+    />
+    <LinkCard
+      as="h2"
+      href={pageUrl('newsEvents', lang, 'calendar')}
+      title={dict.menu.newsEvents}
+      text={dict.pages.newsEvents.intro}
+      cta={dict.menu.calendar}
+    />
+  </div>
+</Section>
+
+<!-- Community -->
+<Community lang={lang}>
+  <MoreLink href={pageUrl('community', lang)}>{more.community}</MoreLink>
+  <MoreLink href={pageUrl('gallery', lang)}>{more.gallery}</MoreLink>
+</Community>
+
+<!-- Visit Us -->
+<VisitUs lang={lang}>
+  <MoreLink href={pageUrl('visit', lang)}>{more.visit}</MoreLink>
+</VisitUs>
+
+<!-- Donate -->
+<Donate lang={lang}>
+  <MoreLink href={pageUrl('donate', lang)} tone="dark">{more.donate}</MoreLink>
+</Donate>

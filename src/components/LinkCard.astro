@@ -5,16 +5,18 @@ interface Props {
   title: string;
   text?: string;
   cta: string;
+  /** Element for the title — use h2/h3 when the card stands in for a page section. */
+  as?: 'p' | 'h2' | 'h3';
 }
 
-const { href, title, text, cta } = Astro.props;
+const { href, title, text, cta, as: Title = 'p' } = Astro.props;
 ---
 
 <a
   href={href}
   class="group block rounded-(--radius) border border-muted bg-surface p-6 shadow-sm transition hover:border-accent hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
 >
-  <p class="font-display text-xl font-bold text-brand">{title}</p>
+  <Title class="font-display text-xl font-bold text-brand sm:text-2xl">{title}</Title>
   {text && <p class="mt-2 text-ink/80">{text}</p>}
   <p class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-royal group-hover:text-accent">
     {cta}

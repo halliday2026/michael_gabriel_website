@@ -174,7 +174,24 @@ export const en = {
   hero: {
     patronFeast:  'Synaxis of the Holy Archangels — November 8',
     welcome:      'Welcome to your spiritual home in the Coachella Valley.',
-    liturgyBadge: 'Divine Liturgy: Every Sunday, 10:00–11:50 a.m.',
+  },
+
+  home: {
+    cards: {
+      liturgy:  { title: 'Join Us for Liturgy',     subtitle: 'Every Sunday • 10:00 AM' },
+      prayer:   { title: 'Request a Prayer',        subtitle: 'We will pray for you and your loved ones' },
+      newcomer: { title: 'I’m New to Orthodoxy',    subtitle: 'Learn what to expect when you visit' },
+    },
+    more: {
+      ourParish:    'More about our parish',
+      clergy:       'Meet our clergy',
+      worship:      'Worship & sacraments',
+      whatToExpect: 'What to expect on your first visit',
+      community:    'Explore parish life',
+      gallery:      'View the photo gallery',
+      visit:        'Directions & contact form',
+      donate:       'More ways to support the parish',
+    },
   },
 
   welcome: {

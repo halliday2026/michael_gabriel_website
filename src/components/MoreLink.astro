@@ -1,0 +1,22 @@
+---
+// "Read more" link from a homepage teaser into its full section page.
+interface Props {
+  href: string;
+  tone?: 'light' | 'dark';
+}
+
+const { href, tone = 'light' } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    'group inline-flex items-center gap-1.5 font-semibold underline-offset-4 hover:underline',
+    tone === 'dark' ? 'text-accent hover:text-surface' : 'text-royal hover:text-brand',
+  ]}
+>
+  <slot />
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+  </svg>
+</a>

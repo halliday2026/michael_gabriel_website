@@ -59,4 +59,8 @@ const mapsDirectionsUrl = `https://maps.google.com/?q=${encodedAddress}&hl=${lan
       ></iframe>
     </div>
   </div>
+
+  {Astro.slots.has('default') && (
+    <div class="mt-8 flex flex-wrap gap-x-8 gap-y-3"><slot /></div>
+  )}
 </Section>
