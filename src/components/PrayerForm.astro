@@ -1,0 +1,102 @@
+---
+// Prayer request + pomelnic (names for the living / departed) — one form,
+// submitted to Formspree via src/scripts/ajax-form.ts.
+// Option values are sent in English so every request reads the same in the inbox.
+import { site } from '../data/site';
+import { t, type Locale } from '../i18n';
+import { en } from '../i18n/en';
+import { inputClass, submitClass } from './forms';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const { form, types } = t(lang).prayerPage;
+const typeKeys = Object.keys(types) as (keyof typeof types)[];
+const labelClass = 'block font-medium text-ink';
+---
+
+<div id="prayer-thankyou" class="hidden max-w-2xl rounded-(--radius) bg-accent/10 px-6 py-8 text-center ring-1 ring-accent/30" role="status" tabindex="-1">
+  <p class="font-display text-2xl font-bold text-brand">{form.thanksHeading}</p>
+  <p class="mt-2 text-ink/80">{form.thanksBody}</p>
+</div>
+
+<form
+  id="prayer-form"
+  method="POST"
+  action={site.prayerFormEndpoint}
+  class="grid max-w-2xl gap-6"
+  data-ajax-form
+  data-success="prayer-thankyou"
+  data-sending={form.sending}
+  data-submit={form.submit}
+>
+  <input type="hidden" name="_subject" value="Prayer request (website)" />
+  <input type="hidden" name="form" value="prayer" />
+  <input type="hidden" name="language" value={lang} />
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    <div>
+      <label for="prayer-name" class={labelClass}>{form.name}</label>
+      <input id="prayer-name" name="name" type="text" autocomplete="name" required class={inputClass} />
+    </div>
+    <div>
+      <label for="prayer-email" class={labelClass}>{form.email}</label>
+      <input id="prayer-email" name="email" type="email" autocomplete="email" required class={inputClass} />
+    </div>
+    <div>
+      <label for="prayer-phone" class={labelClass}>{form.phone}</label>
+      <input id="prayer-phone" name="phone" type="tel" autocomplete="tel" class={inputClass} />
+    </div>
+    <div>
+      <label for="prayer-type" class={labelClass}>{form.type}</label>
+      <select id="prayer-type" name="request_type" required class={inputClass}>
+        <option value="" disabled selected>{form.typePrompt}</option>
+        {typeKeys.map((key) => <option value={en.prayerPage.types[key]}>{types[key]}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <!-- Pomelnic: the living and the departed are listed separately (Romanian Orthodox tradition) -->
+  <fieldset id="names" class="rounded-(--radius) border border-accent/40 bg-surface p-5 sm:p-6">
+    <legend class="px-2 font-display text-xl font-bold text-brand">{form.namesLegend}</legend>
+    <p class="text-ink/80">{form.namesIntro}</p>
+    <div class="mt-4 grid gap-6 sm:grid-cols-2">
+      <div>
+        <label for="prayer-living" class={labelClass}>{form.living}</label>
+        <textarea id="prayer-living" name="names_living" rows="6" class={inputClass}></textarea>
+      </div>
+      <div>
+        <label for="prayer-departed" class={labelClass}>{form.departed}</label>
+        <textarea id="prayer-departed" name="names_departed" rows="6" class={inputClass}></textarea>
+      </div>
+    </div>
+  </fieldset>
+
+  <div>
+    <label for="prayer-message" class={labelClass}>{form.message}</label>
+    <textarea id="prayer-message" name="message" rows="4" class={inputClass}></textarea>
+  </div>
+
+  <div class="flex items-start gap-3">
+    <input
+      id="prayer-private"
+      name="private_to_priest"
+      type="checkbox"
+      value="Yes — keep private to the priest"
+      class="mt-1 h-5 w-5 shrink-0 rounded border-ink/30 accent-brand"
+    />
+    <label for="prayer-private" class="text-ink">{form.private}</label>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <button type="submit" class={submitClass}>{form.submit}</button>
+    <p class="hidden text-sm text-highlight" role="alert" data-form-error>{form.error}</p>
+  </div>
+</form>
+
+<script>
+  import '../scripts/ajax-form';
+</script>

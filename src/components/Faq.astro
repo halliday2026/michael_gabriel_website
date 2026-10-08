@@ -1,0 +1,42 @@
+---
+// What to Expect FAQ. Questions are real headings (h3) so answers are visible,
+// crawlable and quotable; Phase 6 adds FAQPage structured data from the same entries.
+// REVIEW(Fr. Florin): the Holy Communion / anafura answer (id "communion") needs the priest's approval before launch.
+import Placeholder from './Placeholder.astro';
+import { site, telHref } from '../data/site';
+import { t, pageUrl, type Locale } from '../i18n';
+import MoreLink from './MoreLink.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const { whatToExpect: w } = t(lang);
+---
+
+<div class="divide-y divide-ink/10 border-y border-ink/10">
+  {w.faq.map((item) => (
+    <section id={`faq-${item.id}`} class="py-8">
+      <h3 class="font-display text-2xl font-bold text-brand">{item.q}</h3>
+      <div class="mt-4 space-y-4 text-lg leading-relaxed text-ink/80">
+        {item.a.map((p) => <p>{p}</p>)}
+      </div>
+
+      {item.id === 'arrival' && (
+        <div class="mt-4">
+          {/* TODO(content): Parking details (where to park, accessible parking, entrance) — from the parish. */}
+          <Placeholder lang={lang} />
+        </div>
+      )}
+
+      {item.id === 'priest' && (
+        <div class="mt-5 flex flex-wrap gap-x-8 gap-y-3">
+          <MoreLink href={telHref(site.contact.phone)}>{w.callPriest}: {site.contact.phone}</MoreLink>
+          <MoreLink href={`mailto:${site.contact.email}`}>{w.emailPriest}</MoreLink>
+          <MoreLink href={pageUrl('learn', lang, 'catechism')}>{w.catechismLink}</MoreLink>
+        </div>
+      )}
+    </section>
+  ))}
+</div>

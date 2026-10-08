@@ -29,6 +29,8 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
           BASE_PATH: ${{ vars.BASE_PATH }}
           PUBLIC_FORMSPREE_ENDPOINT: ${{ vars.PUBLIC_FORMSPREE_ENDPOINT }}
+          PUBLIC_FORMSPREE_PRAYER_ENDPOINT: ${{ vars.PUBLIC_FORMSPREE_PRAYER_ENDPOINT }}
+          PUBLIC_GOOGLE_CALENDAR_ID: ${{ vars.PUBLIC_GOOGLE_CALENDAR_ID }}
           PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
           PUBLIC_CLARITY_ID: ${{ vars.PUBLIC_CLARITY_ID }}
 
@@ -51,6 +53,8 @@ jobs:
 #   SITE_URL                   e.g. https://USERNAME.github.io or a custom domain
 #   BASE_PATH                  e.g. /REPO-NAME/  (or "/" for a custom domain)
 #   PUBLIC_FORMSPREE_ENDPOINT  the live Formspree form endpoint
+#   PUBLIC_FORMSPREE_PRAYER_ENDPOINT  optional separate prayer-request form
+#   PUBLIC_GOOGLE_CALENDAR_ID  public Google Calendar ID for News & Events
 #   PUBLIC_GA4_ID / PUBLIC_CLARITY_ID   optional analytics IDs
 #
 # Repo Variables are appropriate here because none of these values are

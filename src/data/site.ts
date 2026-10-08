@@ -24,6 +24,21 @@ export const site = {
   // required so the placeholder fallback is used whenever the env var is unset.
   formspreeEndpoint:
     import.meta.env.PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xbdvekna',
+
+  // Prayer requests (Prayer page). Formspree delivers to the address configured
+  // for the form in the Formspree dashboard — not something the code can set.
+  // TODO(config): confirm form xbdvekna delivers to frfloriniftode@gmail.com, or
+  // create a dedicated prayer form and set PUBLIC_FORMSPREE_PRAYER_ENDPOINT.
+  prayerFormEndpoint:
+    import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT ||
+    import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ||
+    'https://formspree.io/f/xbdvekna',
+
+  // Google Calendar shown on News & Events. Empty → a visible placeholder is shown.
+  // TODO(config): set to the parish's public Google Calendar ID
+  // (Google Calendar → Settings → the calendar → "Integrate calendar" → Calendar ID),
+  // and make the calendar public ("Make available to public").
+  googleCalendarId: import.meta.env.PUBLIC_GOOGLE_CALENDAR_ID || '',
 };
 
 /** tel: href for a display-formatted US phone number. */

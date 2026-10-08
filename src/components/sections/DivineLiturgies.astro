@@ -1,5 +1,5 @@
 ---
-import { t, type Locale } from '../../i18n';
+import { t, pageUrl, type Locale } from '../../i18n';
 
 interface Props {
   lang: Locale;
@@ -7,9 +7,15 @@ interface Props {
 }
 
 const { lang, id = 'services' } = Astro.props;
-const { liturgies } = t(lang);
+const { liturgies, worshipPage } = t(lang);
+const calendarHref = pageUrl('newsEvents', lang, 'calendar');
 
-const rows = [liturgies.vespers, liturgies.confession, liturgies.feastDays];
+// `tba` rows link their "To be announced" schedule to the parish calendar
+const rows = [
+  { ...liturgies.vespers,    tba: true },
+  { ...liturgies.confession, tba: false },
+  { ...liturgies.feastDays,  tba: true },
+];
 ---
 
 <!-- Dark navy section — override Section tone with a wrapper -->
@@ -41,7 +47,13 @@ const rows = [liturgies.vespers, liturgies.confession, liturgies.feastDays];
           {rows.map((row, i) => (
             <tr class:list={['hover:bg-surface/5', i < rows.length - 1 && 'border-b border-surface/10']}>
               <th scope="row" class="px-4 py-4 font-normal text-surface/80">{row.name}</th>
-              <td class="px-4 py-4 italic text-surface/70">{row.schedule}</td>
+              <td class="px-4 py-4 italic text-surface/70">
+                {row.tba ? (
+                  <a href={calendarHref} class="underline decoration-accent/60 underline-offset-4 hover:text-accent">
+                    {row.schedule}<span class="sr-only"> — {worshipPage.tbaCalendar}</span>
+                  </a>
+                ) : row.schedule}
+              </td>
               <td class="px-4 py-4 italic text-surface/70">{row.language}</td>
             </tr>
           ))}

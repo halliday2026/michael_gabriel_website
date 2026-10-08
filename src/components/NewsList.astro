@@ -1,0 +1,36 @@
+---
+import { sortByDateDesc, type NewsItem } from '../data/news';
+import type { Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+  items: NewsItem[];
+  empty: string;
+}
+
+const { lang, items, empty } = Astro.props;
+const sorted = sortByDateDesc(items);
+const intlLocale = { en: 'en-US', es: 'es-US', ro: 'ro-RO' }[lang];
+const formatDate = (iso: string) =>
+  new Intl.DateTimeFormat(intlLocale, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T00:00:00Z`));
+---
+
+{sorted.length === 0 ? (
+  <p class="text-lg italic text-ink/70">{empty}</p>
+) : (
+  <ul class="space-y-6">
+    {sorted.map((item) => (
+      <li>
+        <article class="rounded-(--radius) border border-muted bg-surface p-6 shadow-sm">
+          <time datetime={item.date} class="text-xs font-semibold uppercase tracking-widest text-accent">
+            {formatDate(item.date)}
+          </time>
+          <h3 class="mt-2 font-display text-xl font-bold text-brand">{item.title[lang]}</h3>
+          <div class="mt-3 space-y-3 text-ink/80">
+            {item.body[lang].split(/\n\s*\n/).map((p) => <p>{p}</p>)}
+          </div>
+        </article>
+      </li>
+    ))}
+  </ul>
+)}

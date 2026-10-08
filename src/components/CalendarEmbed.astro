@@ -1,0 +1,50 @@
+---
+// Responsive Google Calendar embed. The parish edits events in Google Calendar —
+// no developer needed. Until `site.googleCalendarId` is set, a placeholder shows.
+import Placeholder from './Placeholder.astro';
+import { site } from '../data/site';
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const dict = t(lang);
+const id = site.googleCalendarId;
+
+const params = (mode: 'MONTH' | 'AGENDA') =>
+  new URLSearchParams({
+    src: id,
+    ctz: 'America/Los_Angeles',
+    hl: lang,
+    mode,
+    showTitle: '0',
+    showPrint: '0',
+    showTabs: '1',
+    showCalendars: '0',
+  }).toString();
+---
+
+{id ? (
+  <div class="overflow-hidden rounded-(--radius) bg-surface shadow-sm ring-1 ring-muted">
+    <!-- Month view on larger screens, agenda list on phones -->
+    <iframe
+      src={`https://calendar.google.com/calendar/embed?${params('MONTH')}`}
+      title={dict.newsPage.calendarTitle}
+      class="hidden h-[640px] w-full border-0 sm:block"
+      loading="lazy"
+    ></iframe>
+    <iframe
+      src={`https://calendar.google.com/calendar/embed?${params('AGENDA')}`}
+      title={dict.newsPage.calendarTitle}
+      class="block h-[520px] w-full border-0 sm:hidden"
+      loading="lazy"
+    ></iframe>
+  </div>
+) : (
+  <div>
+    {/* TODO(config): Google Calendar ID — set PUBLIC_GOOGLE_CALENDAR_ID (see src/data/site.ts) */}
+    <Placeholder lang={lang} />
+  </div>
+)}

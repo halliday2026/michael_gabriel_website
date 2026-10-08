@@ -1,15 +1,41 @@
 ---
+// The most important new page (homepage button 3). REVIEW(Fr. Florin): whole page,
+// especially the Holy Communion answer.
 import PageHeader from '../components/PageHeader.astro';
-import PlaceholderSection from '../components/PlaceholderSection.astro';
-import { t, type Locale } from '../i18n';
+import Section from '../components/Section.astro';
+import Prose from '../components/Prose.astro';
+import Placeholder from '../components/Placeholder.astro';
+import Faq from '../components/Faq.astro';
+import MoreLink from '../components/MoreLink.astro';
+import { t, pageUrl, type Locale } from '../i18n';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const dict = t(lang);
+const w = dict.whatToExpect;
 ---
 
 <PageHeader lang={lang} page="whatToExpect" />
 
-<PlaceholderSection lang={lang} id="faq" heading={dict.menu.whatToExpect}>
-  <!-- TODO(content): What to Expect FAQ — built in Phase 4. -->
-</PlaceholderSection>
+<Section id="welcome">
+  <div class="grid gap-10 lg:grid-cols-[3fr_2fr] lg:items-start">
+    <Prose paragraphs={w.welcome} />
+    <div>
+      <!-- TODO(content): Photo of the church interior / iconostasis during the Liturgy — from Fr. Florin. -->
+      <Placeholder lang={lang} kind="photo" />
+    </div>
+  </div>
+</Section>
+
+<Section id="faq" tone="muted">
+  <div class="max-w-3xl">
+    <h2 class="font-display text-3xl font-bold text-brand sm:text-4xl">{w.faqHeading}</h2>
+    <div class="mt-6">
+      <Faq lang={lang} />
+    </div>
+    <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3">
+      <MoreLink href={pageUrl('worship', lang, 'schedule')}>{dict.menu.schedule}</MoreLink>
+      <MoreLink href={pageUrl('visit', lang)}>{dict.visit.mapHeading}</MoreLink>
+    </div>
+  </div>
+</Section>

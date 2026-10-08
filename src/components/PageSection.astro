@@ -1,0 +1,22 @@
+---
+// A titled section on an interior page (h2 + body in a readable column).
+import Section from './Section.astro';
+
+interface Props {
+  id: string;
+  heading: string;
+  tone?: 'default' | 'muted';
+  wide?: boolean;
+}
+
+const { id, heading, tone = 'default', wide = false } = Astro.props;
+---
+
+<Section id={id} tone={tone}>
+  <div class={wide ? '' : 'max-w-3xl'}>
+    <h2 class="font-display text-3xl font-bold text-brand sm:text-4xl">{heading}</h2>
+    <div class="mt-6 space-y-6">
+      <slot />
+    </div>
+  </div>
+</Section>

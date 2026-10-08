@@ -1,27 +1,35 @@
 ---
 import PageHeader from '../components/PageHeader.astro';
-import PlaceholderSection from '../components/PlaceholderSection.astro';
+import PageSection from '../components/PageSection.astro';
+import Prose from '../components/Prose.astro';
+import Placeholder from '../components/Placeholder.astro';
+import PrayerForm from '../components/PrayerForm.astro';
 import { t, type Locale } from '../i18n';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const dict = t(lang);
+const p = dict.prayerPage;
 ---
 
 <PageHeader lang={lang} page="prayer" />
 
-<PlaceholderSection lang={lang} id="request" heading={dict.menu.request}>
-  <!-- TODO(content): Prayer request form (living / departed names) — built in Phase 4. -->
-</PlaceholderSection>
+<!-- Request a Prayer + Submit Names (#names is the pomelnic fieldset inside the form) -->
+<PageSection id="request" heading={dict.menu.request}>
+  <p class="text-lg leading-relaxed text-ink/80">{p.formIntro}</p>
+  <PrayerForm lang={lang} />
+</PageSection>
 
-<PlaceholderSection lang={lang} id="candle" heading={dict.menu.candle} tone="muted">
-  <!-- TODO(content): Light a Candle explanation — Phase 4. -->
-</PlaceholderSection>
+<PageSection id="candle" heading={dict.menu.candle} tone="muted">
+  <!-- REVIEW(Fr. Florin): candle tradition text. -->
+  <!-- TODO(decision): Is "Light a Candle" a symbolic online candle tied to a prayer request, or tied to a Zelle donation? For now it is a prayer-request option. -->
+  <Prose paragraphs={p.candle} />
+  <p class="rounded-(--radius) border-l-4 border-accent bg-surface px-4 py-3 text-ink/80">{p.candleFormNote}</p>
+</PageSection>
 
-<PlaceholderSection lang={lang} id="names" heading={dict.menu.names}>
-  <!-- TODO(content): Submit Names (pomelnic) — shares the Phase 4 prayer form. -->
-</PlaceholderSection>
-
-<PlaceholderSection lang={lang} id="healing" heading={dict.menu.healing} tone="muted">
-  <!-- TODO(content): Prayer for the sick and Holy Unction (Sfântul Maslu) — Phase 4; schedule from the parish. -->
-</PlaceholderSection>
+<PageSection id="healing" heading={dict.menu.healing}>
+  <!-- REVIEW(Fr. Florin): prayer for the sick / Holy Unction (Sfântul Maslu) text. -->
+  <Prose paragraphs={p.healing} />
+  <!-- TODO(content): Holy Unction (Sfântul Maslu) schedule, e.g. during Great Lent — from the parish. -->
+  <Placeholder lang={lang} />
+</PageSection>

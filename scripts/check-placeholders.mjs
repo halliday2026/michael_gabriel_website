@@ -1,7 +1,7 @@
 // Cross-platform placeholder scanner — no shell, no git.
 //
 // Recursively scans `src/` for tokens that signal unfinished per-client work
-// (REPLACE_ME, TODO, LOREM, {{, PLACEHOLDER) and prints each hit with its
+// (REPLACE_ME, TODO, REVIEW(, LOREM, {{, PLACEHOLDER) and prints each hit with its
 // file and line number.
 //
 // Default (warn) mode always exits 0 so it never fails staging builds.
@@ -14,9 +14,9 @@ import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SCAN_DIR = join(ROOT, 'src');
 
-const TOKENS = ['REPLACE_ME', 'TODO', 'LOREM', '{{', 'PLACEHOLDER'];
+const TOKENS = ['REPLACE_ME', 'TODO', 'REVIEW(', 'LOREM', '{{', 'PLACEHOLDER'];
 const TOKEN_PATTERN = new RegExp(
-  TOKENS.map((token) => token.replace(/[{}]/g, '\\$&')).join('|'),
+  TOKENS.map((token) => token.replace(/[{}()]/g, '\\$&')).join('|'),
   'g'
 );
 

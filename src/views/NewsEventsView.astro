@@ -1,23 +1,29 @@
 ---
 import PageHeader from '../components/PageHeader.astro';
-import PlaceholderSection from '../components/PlaceholderSection.astro';
+import PageSection from '../components/PageSection.astro';
+import CalendarEmbed from '../components/CalendarEmbed.astro';
+import NewsList from '../components/NewsList.astro';
+import { announcements, parishNews } from '../data/news';
 import { t, type Locale } from '../i18n';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const dict = t(lang);
+const n = dict.newsPage;
 ---
 
 <PageHeader lang={lang} page="newsEvents" />
 
-<PlaceholderSection lang={lang} id="calendar" heading={dict.menu.calendar}>
-  <!-- TODO(config): Google Calendar embed — Phase 4. -->
-</PlaceholderSection>
+<PageSection id="calendar" heading={dict.menu.calendar} wide>
+  <p class="max-w-3xl text-lg leading-relaxed text-ink/80">{n.calendarIntro}</p>
+  <CalendarEmbed lang={lang} />
+</PageSection>
 
-<PlaceholderSection lang={lang} id="announcements" heading={dict.menu.announcements} tone="muted">
-  <!-- TODO(content): Announcements list (content file) — Phase 4. -->
-</PlaceholderSection>
+<!-- Announcements and Parish News are edited in src/data/news.ts -->
+<PageSection id="announcements" heading={dict.menu.announcements} tone="muted">
+  <NewsList lang={lang} items={announcements} empty={n.noAnnouncements} />
+</PageSection>
 
-<PlaceholderSection lang={lang} id="news" heading={dict.menu.news}>
-  <!-- TODO(content): Parish News list (content file) — Phase 4. -->
-</PlaceholderSection>
+<PageSection id="news" heading={dict.menu.news}>
+  <NewsList lang={lang} items={parishNews} empty={n.noNews} />
+</PageSection>

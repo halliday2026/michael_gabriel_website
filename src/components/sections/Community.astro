@@ -1,5 +1,7 @@
 ---
+import { Picture } from 'astro:assets';
 import Section from '../Section.astro';
+import { gallery, galleryImage } from '../../data/gallery';
 import { t, type Locale } from '../../i18n';
 
 interface Props {
@@ -10,17 +12,11 @@ interface Props {
 const { lang, id = 'community' } = Astro.props;
 const dict = t(lang);
 const { community } = dict;
-const alts = dict.images.carousel;
 
 const base = import.meta.env.BASE_URL;
-const carouselImages = [
-  { src: `${base}carousel/front.jpg`,   alt: alts.front },
-  { src: `${base}carousel/kids.jpg`,    alt: alts.kids },
-  { src: `${base}carousel/night.jpg`,   alt: alts.night },
-  { src: `${base}carousel/picnic.jpg`,  alt: alts.picnic },
-  { src: `${base}carousel/service.jpg`, alt: alts.service },
-  { src: `${base}carousel/side.jpg`,    alt: alts.side, position: 'center 80%' },
-];
+const carouselImages = gallery
+  .filter((g) => g.carousel)
+  .map((g) => ({ src: galleryImage(g.file), alt: g.alt[lang], position: g.position }));
 ---
 
 <Section id={id} tone="muted">
@@ -46,11 +42,15 @@ const carouselImages = [
       id="carousel-track"
     >
       {carouselImages.map((img) => (
-        <img
+        <Picture
           src={img.src}
           alt={img.alt}
-          class="w-full shrink-0 object-cover aspect-video"
+          formats={['avif', 'webp']}
+          widths={[640, 1024, 1600]}
+          sizes="(min-width: 1152px) 1088px, 100vw"
+          class="aspect-video h-full w-full object-cover"
           style={img.position ? `object-position: ${img.position}` : undefined}
+          pictureAttributes={{ class: 'w-full shrink-0' }}
           loading="lazy"
         />
       ))}

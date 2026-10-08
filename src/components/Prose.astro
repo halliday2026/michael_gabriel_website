@@ -1,0 +1,13 @@
+---
+// Renders an array of plain-text paragraphs from the dictionary.
+interface Props {
+  paragraphs: readonly string[];
+  class?: string;
+}
+
+const { paragraphs, class: className = '' } = Astro.props;
+---
+
+<div class:list={['space-y-4 text-lg leading-relaxed text-ink/80', className]}>
+  {paragraphs.map((p) => <p>{p}</p>)}
+</div>

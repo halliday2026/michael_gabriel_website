@@ -1,27 +1,120 @@
 ---
-// Phase 4 replaces this simple grid with a data-driven gallery + lightbox.
+// Photo Gallery: data-driven grid (src/data/gallery.ts) + accessible lightbox.
+import { Picture, getImage } from 'astro:assets';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { gallery, galleryImage } from '../data/gallery';
 import { t, type Locale } from '../i18n';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
-const alts = t(lang).images.carousel;
-const base = import.meta.env.BASE_URL;
-const photos = (['front', 'kids', 'night', 'picnic', 'service', 'side'] as const).map((key) => ({
-  src: `${base}carousel/${key}.jpg`,
-  alt: alts[key],
-}));
+const dict = t(lang);
+
+const photos = await Promise.all(
+  gallery.map(async (g) => {
+    const src = galleryImage(g.file);
+    const large = await getImage({ src, width: Math.min(src.width, 1800), format: 'webp' });
+    return { src, alt: g.alt[lang], position: g.position, large: large.src };
+  })
+);
 ---
 
 <PageHeader lang={lang} page="gallery" />
 
 <Section>
   <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {photos.map((p) => (
-      <li class="overflow-hidden rounded-(--radius) shadow-sm ring-1 ring-muted">
-        <img src={p.src} alt={p.alt} loading="lazy" class="aspect-[4/3] w-full object-cover" />
+    {photos.map((p, i) => (
+      <li>
+        <button
+          type="button"
+          class="group block w-full overflow-hidden rounded-(--radius) shadow-sm ring-1 ring-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          data-lightbox-index={i}
+          data-full={p.large}
+          data-alt={p.alt}
+        >
+          <span class="sr-only">{dict.galleryUi.open}: </span>
+          <Picture
+            src={p.src}
+            alt={p.alt}
+            formats={['avif', 'webp']}
+            widths={[400, 800]}
+            sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
+            class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            style={p.position ? `object-position: ${p.position}` : undefined}
+            loading={i < 3 ? 'eager' : 'lazy'}
+          />
+        </button>
       </li>
     ))}
   </ul>
+
+  <div class="mt-10 max-w-3xl">
+    <!-- TODO(content): More photos from Fr. Florin — add files to src/assets/gallery/ and entries to src/data/gallery.ts. -->
+    <Placeholder lang={lang} kind="photo" />
+  </div>
 </Section>
+
+<dialog
+  id="lightbox"
+  class="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-ink/90"
+  aria-label={dict.menu.gallery}
+>
+  <div id="lightbox-stage" class="flex h-dvh w-screen flex-col items-center justify-center gap-3 p-4 sm:p-8">
+    <figure class="flex max-h-full min-h-0 flex-col items-center">
+      <img id="lightbox-img" src="" alt="" class="max-h-[80dvh] w-auto max-w-full rounded-(--radius) object-contain shadow-2xl" />
+      <figcaption id="lightbox-caption" class="mt-3 text-center text-surface"></figcaption>
+    </figure>
+
+    <button id="lightbox-close" type="button" class="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-surface/15 text-surface hover:bg-surface/30" aria-label={dict.galleryUi.close}>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <button id="lightbox-prev" type="button" class="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/15 text-surface hover:bg-surface/30" aria-label={dict.community.prevImage}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
+    </button>
+    <button id="lightbox-next" type="button" class="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/15 text-surface hover:bg-surface/30" aria-label={dict.community.nextImage}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+    </button>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement | null;
+  const img = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const caption = document.getElementById('lightbox-caption');
+  const triggers = [...document.querySelectorAll<HTMLButtonElement>('[data-lightbox-index]')];
+  let current = 0;
+  let opener: HTMLButtonElement | null = null;
+
+  function show(index: number) {
+    if (!img || !caption) return;
+    current = (index + triggers.length) % triggers.length;
+    const t = triggers[current];
+    img.src = t.dataset.full ?? '';
+    img.alt = t.dataset.alt ?? '';
+    caption.textContent = t.dataset.alt ?? '';
+  }
+
+  triggers.forEach((btn, i) =>
+    btn.addEventListener('click', () => {
+      opener = btn;
+      show(i);
+      dialog?.showModal();
+    })
+  );
+
+  document.getElementById('lightbox-prev')?.addEventListener('click', () => show(current - 1));
+  document.getElementById('lightbox-next')?.addEventListener('click', () => show(current + 1));
+  document.getElementById('lightbox-close')?.addEventListener('click', () => dialog?.close());
+
+  dialog?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+  // Click on the backdrop (outside the image and controls) closes the lightbox
+  dialog?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target === dialog || target.id === 'lightbox-stage') dialog.close();
+  });
+  dialog?.addEventListener('close', () => opener?.focus());
+</script>

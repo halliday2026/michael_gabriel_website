@@ -28,6 +28,9 @@ Multi-page brochure site for a Romanian Orthodox parish in Palm Springs, CA, pre
 | SEO meta, hreflang, OG + JSON-LD | `src/components/Seo.astro` |
 | Sitemap (with hreflang alternates) | `src/pages/sitemap.xml.ts` |
 | Analytics (GA4, Clarity, Plausible) | `src/components/Analytics.astro` |
+| Photo gallery + Community carousel | images in `src/assets/gallery/`, entries (alt text ×3) in `src/data/gallery.ts` |
+| Announcements / Parish News | `src/data/news.ts` (date + title/body ×3) |
+| Contact + prayer forms | `src/components/sections/Contact.astro`, `src/components/PrayerForm.astro`, shared submit in `src/scripts/ajax-form.ts` |
 | Public assets | `public/` — use `${import.meta.env.BASE_URL}filename` in templates |
 
 ### i18n pattern
@@ -41,7 +44,13 @@ Multi-page brochure site for a Romanian Orthodox parish in Palm Springs, CA, pre
 
 ### Placeholders
 
-Unknown parish-specific content uses `<PlaceholderSection>` / `<Placeholder>` (visible "[Content coming soon — to be provided by the parish]") plus an HTML `<!-- TODO(content): … -->` comment at the call site. `npm run check` lists them. Never invent parish facts.
+Unknown parish-specific content uses `<PlaceholderSection>` / `<Placeholder>` (visible "[Content coming soon — to be provided by the parish]") plus an HTML `<!-- TODO(content): … -->` comment at the call site. Markers: `TODO(content)`, `TODO(decision)`, `TODO(config)`, and `REVIEW(Fr. Florin)` for doctrinal/liturgical drafts awaiting the priest's approval. `npm run check` lists them all. Never invent parish facts.
+
+Inside `{…}` expressions use `{/* TODO… */}` comments — `<Fragment set:html="<!-- … -->">` there renders as visible text.
+
+### Church name
+
+Each dictionary defines `const NAME` (EN also `SHORT_NAME`) once at the top; strings reference `${NAME}`. Romanian inflected forms (e.g. "Bisericii Ortodoxe Române a…") cannot use the constant and are written out.
 
 ### Asset URL pattern
 
@@ -76,7 +85,6 @@ Home `/` · Our Parish · Worship (+ What to Expect) · Prayer · Community (+ P
 | `header_logo.png` | Wide icon crop — used in nav |
 | `church_front.jpg` | Front exterior photo — used as hero image and default `og:image` |
 | `community.jpg` | Community gathering photo — used in Community section header |
-| `carousel/` | Six photos (front, kids, night, picnic, service, side) — Community image carousel |
 | `favicon.svg` | Orthodox 3-bar cross, gold on navy |
 | `googlef2ae0ced62d19fdc.html` | Google Search Console ownership verification |
 
@@ -106,9 +114,9 @@ GA4 and Clarity load only when their ID is set. Plausible is hardcoded (no env v
 | Google Analytics 4 | `PUBLIC_GA4_ID` Actions Variable — optional |
 | Microsoft Clarity | `PUBLIC_CLARITY_ID` Actions Variable — optional |
 
-## Contact form
+## Contact & prayer forms
 
-Submits via `fetch` to Formspree (AJAX mode — no page redirect). On success the form is hidden and a thank-you message shown in its place. On failure an inline error is displayed. Endpoint: `https://formspree.io/f/xbdvekna` (hardcoded fallback; can be overridden via `PUBLIC_FORMSPREE_ENDPOINT`).
+Both forms submit via `fetch` to Formspree (shared script `src/scripts/ajax-form.ts`; `_gotcha` honeypot). The prayer form sends `request_type`, `names_living`, `names_departed`, `private_to_priest`. The contact form submits via `fetch` to Formspree (AJAX mode — no page redirect). On success the form is hidden and a thank-you message shown in its place. On failure an inline error is displayed. Endpoint: `https://formspree.io/f/xbdvekna` (hardcoded fallback; can be overridden via `PUBLIC_FORMSPREE_ENDPOINT`).
 
 ## REPLACE_ME items still pending parish input
 
@@ -137,6 +145,8 @@ All have sensible fallbacks — none required for local dev.
 | `SITE_URL` | Canonical URL | `https://psorthodoxro.org` |
 | `BASE_PATH` | URL base path | `/` |
 | `PUBLIC_FORMSPREE_ENDPOINT` | Contact form endpoint | `https://formspree.io/f/xbdvekna` |
+| `PUBLIC_FORMSPREE_PRAYER_ENDPOINT` | Prayer request form endpoint | falls back to the contact endpoint |
+| `PUBLIC_GOOGLE_CALENDAR_ID` | Public Google Calendar on News & Events | unset (placeholder shown) |
 | `PUBLIC_GA4_ID` | Google Analytics (optional) | unset |
 | `PUBLIC_CLARITY_ID` | Microsoft Clarity (optional) | unset |
 

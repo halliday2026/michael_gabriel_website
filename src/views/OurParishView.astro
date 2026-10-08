@@ -1,6 +1,9 @@
 ---
 import PageHeader from '../components/PageHeader.astro';
+import PageSection from '../components/PageSection.astro';
 import PlaceholderSection from '../components/PlaceholderSection.astro';
+import Placeholder from '../components/Placeholder.astro';
+import Prose from '../components/Prose.astro';
 import Welcome from '../components/sections/Welcome.astro';
 import Clergy from '../components/sections/Clergy.astro';
 import { t, type Locale } from '../i18n';
@@ -18,6 +21,10 @@ const dict = t(lang);
   <!-- TODO(content): Parish history — founding date, founders, milestones, church building. Must come from the parish; do not invent. -->
 </PlaceholderSection>
 
-<PlaceholderSection lang={lang} id="tradition" heading={dict.menu.tradition}>
-  <!-- TODO(content): Romanian Orthodox tradition overview (Phase 4 drafts general text; parish-specific customs from the parish). -->
-</PlaceholderSection>
+<PageSection id="tradition" heading={dict.menu.tradition}>
+  <!-- REVIEW(Fr. Florin): general overview of the Romanian Orthodox tradition. -->
+  <Prose paragraphs={dict.tradition} />
+  <!-- TODO(content): Parish-specific customs (e.g. how the hram is celebrated here) and photos — from the parish. -->
+  <!-- TODO(decision): Calendar style used by the parish (New / Old) — confirm before adding parish-specific calendar text. -->
+  <Placeholder lang={lang} kind="photo" />
+</PageSection>

@@ -1,7 +1,7 @@
 ---
 import PageHeader from '../components/PageHeader.astro';
-import PlaceholderSection from '../components/PlaceholderSection.astro';
-import Placeholder from '../components/Placeholder.astro';
+import PageSection from '../components/PageSection.astro';
+import Prose from '../components/Prose.astro';
 import Section from '../components/Section.astro';
 import LinkCard from '../components/LinkCard.astro';
 import DivineLiturgies from '../components/sections/DivineLiturgies.astro';
@@ -10,26 +10,28 @@ import { t, pageUrl, type Locale } from '../i18n';
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const dict = t(lang);
+const w = dict.worshipPage;
 ---
 
 <PageHeader lang={lang} page="worship" />
 
-<PlaceholderSection lang={lang} id="liturgy" heading={dict.menu.liturgy}>
-  <!-- TODO(content): Divine Liturgy description (Phase 4 drafts; for Fr. Florin's review). -->
-</PlaceholderSection>
+<PageSection id="liturgy" heading={dict.menu.liturgy}>
+  <!-- REVIEW(Fr. Florin): Divine Liturgy description. -->
+  <Prose paragraphs={w.liturgy} />
+</PageSection>
 
 <DivineLiturgies lang={lang} id="schedule" />
 
-<PlaceholderSection lang={lang} id="sacraments" heading={dict.menu.sacraments} tone="muted">
-  <!-- TODO(content): Sacraments overview (Phase 4 drafts; for Fr. Florin's review). -->
+<PageSection id="sacraments" heading={dict.menu.sacraments} tone="muted">
+  <!-- REVIEW(Fr. Florin): sacraments overview. -->
+  <Prose paragraphs={w.sacraments} />
+
   <div id="confession" class="pt-4">
     <h3 class="font-display text-2xl font-bold text-brand">{dict.menu.confession}</h3>
-    <div class="mt-4">
-      <!-- TODO(content): Confession — how and when to arrange it (schedule from the parish). -->
-      <Placeholder lang={lang} />
-    </div>
+    <!-- REVIEW(Fr. Florin): Confession text. -->
+    <Prose paragraphs={w.confession} class="mt-4" />
   </div>
-</PlaceholderSection>
+</PageSection>
 
 <Section>
   <div class="max-w-xl">
