@@ -5,7 +5,7 @@
 - **No git commands.** User commits manually via VS Code Source Control.
 - **PowerShell syntax only.** No `&&` chaining — use `;` or sequential commands. No `??` — use `||` for env var fallbacks (CI passes empty strings that `??` lets through).
 - **No hardcoded hex colors** anywhere outside `src/styles/global.css`. All color references must use Tailwind utility classes that resolve to the `@theme` tokens.
-- **`noindex` is ON by default.** Do not flip it to `false` until the user says the site is ready to launch.
+- **The site is indexable.** Every page emits `<meta name="robots" content="index, follow, max-image-preview:large">` unconditionally — there is no `NOINDEX` switch any more. Do not reintroduce `noindex`.
 
 ## Project overview
 
@@ -75,13 +75,13 @@ Fonts: **Playfair Display** (display/headings) · **Lora** (body serif)
 
 ### What's implemented
 
-- **Meta tags** — title, description, canonical URL, robots (env-driven), Open Graph, Twitter Card
+- **Meta tags** — title, description, canonical URL, robots (`index, follow, max-image-preview:large`), Open Graph, Twitter Card
 - **Default `og:image`** — `church_front.jpg` (renders unconditionally; no prop required)
 - **JSON-LD structured data** — `Church`/`LocalBusiness` schema in `Seo.astro`, sourcing all values from `site.ts`:
   - Address, phone, email, opening hours (Sunday liturgy), clergy as `employee`
   - `logo` → `roc_logo.png`, `image` → `church_front.jpg`
-- **XML sitemap** — `@astrojs/sitemap` generates `/sitemap-index.xml` at build time
-- **`robots.txt`** — references `https://psorthodoxro.org/sitemap-index.xml`
+- **XML sitemap** — `src/pages/sitemap.xml.ts` generates `/sitemap.xml` at build time (hand-rolled for hreflang + lastmod control)
+- **`robots.txt`** — allows all crawlers, explicitly lists AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …), references `https://psorthodoxro.org/sitemap.xml`
 
 ### Structured data source fields
 
@@ -89,7 +89,7 @@ All JSON-LD values come from `site` in `src/data/site.ts`. The `contact` object 
 
 ## Analytics
 
-All analytics are suppressed when `NOINDEX=true` (staging). Plausible is hardcoded (no env var) since its script URL is domain-restricted by Plausible.
+GA4 and Clarity load only when their ID is set. Plausible is hardcoded (no env var) since its script URL is domain-restricted by Plausible.
 
 | Provider | How configured |
 |---|---|
@@ -103,7 +103,7 @@ Submits via `fetch` to Formspree (AJAX mode — no page redirect). On success th
 
 ## REPLACE_ME items still pending parish input
 
-- ~~Clergy name, phone, email~~ (Fr. Florin Iftode, 760-578-2052, frfloriniftode@gmail.com)
+- ~~Clergy name, phone, email~~ (Fr. Florin Iftode, (760) 325-5388, frfloriniftode@gmail.com — the phone in `site.ts` is authoritative)
 - ~~Formspree form ID~~ (xbdvekna — wired up)
 - Calendar style (New / Old)
 - Vespers, Confession, Feast Days schedules
@@ -127,7 +127,6 @@ All have sensible fallbacks — none required for local dev.
 |---|---|---|
 | `SITE_URL` | Canonical URL | `https://psorthodoxro.org` |
 | `BASE_PATH` | URL base path | `/` |
-| `NOINDEX` | Robots noindex + analytics gate | `true` (flip to `false` at launch) |
 | `PUBLIC_FORMSPREE_ENDPOINT` | Contact form endpoint | `https://formspree.io/f/xbdvekna` |
 | `PUBLIC_GA4_ID` | Google Analytics (optional) | unset |
 | `PUBLIC_CLARITY_ID` | Microsoft Clarity (optional) | unset |
@@ -144,6 +143,6 @@ All have sensible fallbacks — none required for local dev.
 - [x] Plausible analytics integrated
 - [ ] Fill remaining `REPLACE_ME` tokens (schedules, donation URL)
 - [ ] Native review of ES and RO translations
-- [ ] Set `NOINDEX=false` in repo Actions Variables
-- [ ] Submit sitemap in Google Search Console after first deploy
+- [x] Remove `noindex` (NOINDEX switch deleted; the `NOINDEX` Actions Variable is now unused and can be deleted)
+- [ ] Submit `sitemap.xml` in Google Search Console after first deploy
 - [ ] `npm run check:strict` must exit clean before go-live

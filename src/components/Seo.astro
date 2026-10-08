@@ -1,5 +1,5 @@
 ---
-import { site, NOINDEX } from '../data/site';
+import { site } from '../data/site';
 
 interface Props {
   title: string;
@@ -8,6 +8,10 @@ interface Props {
 }
 
 const { title, description = site.description, image } = Astro.props;
+
+// Append the site name only when the page title doesn't already contain it
+// (the home page passes the church name itself as its title).
+const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const resolvedImage = new URL(image ?? 'church_front.jpg', Astro.site);
@@ -48,11 +52,10 @@ const schema = {
 };
 ---
 
-<title>{title} | {site.name}</title>
+<title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
-
-{NOINDEX && <meta name="robots" content="noindex, nofollow" />}
+<meta name="robots" content="index, follow, max-image-preview:large" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />

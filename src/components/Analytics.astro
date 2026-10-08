@@ -1,15 +1,11 @@
 ---
-// Renders nothing unless NOINDEX is false —
-// staging deployments should never report to production analytics accounts.
-import { NOINDEX } from '../data/site';
-
+// GA4 and Clarity render only when their IDs are set (repo Actions Variables).
+// Plausible is domain-restricted on Plausible's side, so it always loads.
 const ga4Id = import.meta.env.PUBLIC_GA4_ID;
 const clarityId = import.meta.env.PUBLIC_CLARITY_ID;
-
-const enabled = !NOINDEX && (Boolean(ga4Id) || Boolean(clarityId));
 ---
 
-{enabled && ga4Id && (
+{ga4Id && (
   <>
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
     <script define:vars={{ ga4Id }}>
@@ -21,7 +17,7 @@ const enabled = !NOINDEX && (Boolean(ga4Id) || Boolean(clarityId));
   </>
 )}
 
-{enabled && clarityId && (
+{clarityId && (
   <script define:vars={{ clarityId }}>
     (function (c, l, a, r, i, t, y) {
       c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
